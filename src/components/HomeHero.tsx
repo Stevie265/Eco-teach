@@ -15,25 +15,25 @@ export function HomeCTA() {
 
   if (!p.profile && !started) {
     return (
-      <div className="flex flex-wrap gap-3">
-        <Link href="/start" className="btn btn-primary text-lg">
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <Link href="/start" className="btn btn-primary w-full sm:w-auto">
           Find my starting point <ArrowRight className="h-5 w-5" />
         </Link>
-        <Link href="/learn/history/muscle-to-megawatts" className="btn btn-secondary text-lg">
+        <Link href="/learn/history/muscle-to-megawatts" className="btn btn-secondary w-full sm:w-auto">
           Jump into lesson one
         </Link>
       </div>
     );
   }
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       {next && (
-        <Link href={`/learn/${next.worldId}/${next.lessonId}`} className="btn btn-primary text-lg">
+        <Link href={`/learn/${next.worldId}/${next.lessonId}`} className="btn btn-primary w-full sm:w-auto">
           {started ? "Continue" : "Start"}: {next.title} <ArrowRight className="h-5 w-5" />
         </Link>
       )}
       {!p.profile && (
-        <Link href="/start" className="btn btn-secondary text-lg">
+        <Link href="/start" className="btn btn-secondary w-full sm:w-auto">
           Take the diagnostic
         </Link>
       )}
@@ -71,11 +71,11 @@ export function HomeStats() {
 function Stat({ icon, value, label, color }: { icon: React.ReactNode; value: number; label: string; color: string }) {
   return (
     <div className="rounded-2xl bg-paper py-2">
-      <div className="flex items-center justify-center gap-1 font-display text-2xl" style={{ color }}>
+      <div className="flex items-center justify-center gap-1 font-display text-xl sm:text-2xl" style={{ color }}>
         {icon}
         {value}
       </div>
-      <div className="text-[11px] font-bold uppercase tracking-wider text-ink-soft">{label}</div>
+      <div className="text-[10px] font-bold uppercase tracking-wider text-ink-soft sm:text-[11px]">{label}</div>
     </div>
   );
 }

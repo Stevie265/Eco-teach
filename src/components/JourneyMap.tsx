@@ -109,22 +109,22 @@ export function JourneyMap() {
             </div>
 
             {/* card */}
-            <div className={`absolute top-1/2 w-[58%] -translate-y-1/2 md:w-[44%] ${side ? "right-[2%] md:left-[6%] md:right-auto" : "right-[2%] md:right-[6%]"}`}>
+            <div className={`absolute top-1/2 w-[60%] -translate-y-1/2 md:w-[44%] ${side ? "right-[2%] md:left-[6%] md:right-auto" : "right-[2%] md:right-[6%]"}`}>
               <Reveal delay={0.1}>
                 <Link href={`/worlds/${w.id}`} className="card-chunky group block overflow-hidden rounded-3xl bg-white transition hover:-translate-y-1">
-                  <div className="relative h-24 md:h-28" style={{ background: w.tint }}>
+                  <div className="relative h-20 sm:h-24 md:h-28" style={{ background: w.tint }}>
                     <WorldScene id={w.id} className="absolute inset-0 h-full w-full" />
-                    <span className="absolute left-3 top-3 rounded-lg bg-white/90 px-2 py-0.5 font-mono text-[11px] font-bold" style={{ color: w.color }}>
+                    <span className="absolute left-2 top-2 rounded-md bg-white/90 px-1.5 py-0.5 font-mono text-[10px] font-bold sm:left-3 sm:top-3 sm:text-[11px]" style={{ color: w.color }}>
                       WORLD {String(w.number).padStart(2, "0")}
                     </span>
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-display text-lg leading-tight text-ink md:text-xl">{w.title}</h3>
+                  <div className="p-3 sm:p-4">
+                    <h3 className="font-display text-base leading-tight text-ink sm:text-lg md:text-xl">{w.title}</h3>
                     <p className="mt-0.5 hidden text-sm text-ink-soft sm:block">{w.tagline}</p>
-                    <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-paper-2">
+                    <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-paper-2 sm:mt-3 sm:h-2.5">
                       <div className="h-full rounded-full transition-all" style={{ width: `${hydrated ? Math.max(wp.pct * 100, 0) : 0}%`, background: w.color }} />
                     </div>
-                    <div className="mt-2 flex flex-wrap items-center justify-between gap-1 text-xs font-semibold text-ink-soft">
+                    <div className="mt-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-[11px] font-semibold text-ink-soft sm:text-xs">
                       <span className="flex items-center gap-1">
                         <Clock className="h-3.5 w-3.5" /> {w.lessons.length} lessons · ~{Math.round(totalMinutes(w) / 6) / 10}h
                       </span>

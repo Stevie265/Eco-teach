@@ -70,7 +70,7 @@ export function CompanyExplorer() {
           <article key={c.id} className="rounded-3xl card-chunky bg-white p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <h3 className="font-display text-2xl">{c.name}</h3>
+                <h3 className="font-display text-xl sm:text-2xl">{c.name}</h3>
                 <div className="text-sm text-ink-soft">
                   {c.segment} · {c.hq}
                   {c.founded ? ` · founded ${c.founded}` : ""}

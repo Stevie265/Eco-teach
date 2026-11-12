@@ -23,12 +23,12 @@ const TABS = [
 export function Logo({ className = "", light = false }: { className?: string; light?: boolean }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
-      <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden>
+      <svg viewBox="0 0 32 32" className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden>
         <circle cx="16" cy="16" r="15" fill="#1b8048" />
         <path d="M9 21c0-7 5-12 14-12 0 8-5 13-12 13" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" />
         <path d="m15.5 12.5-3 5.5h4l-2 5" fill="none" stroke="#ffd23f" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
-      <span className={`font-display text-[22px] ${light ? "text-white" : "text-forest-900"}`}>eco·teach</span>
+      <span className={`font-display text-xl sm:text-[22px] ${light ? "text-white" : "text-forest-900"}`}>eco·teach</span>
     </span>
   );
 }
@@ -48,7 +48,7 @@ export function Nav() {
 
   return (
     <header className="no-print sticky top-0 z-40 border-b-2 border-sand/60 bg-paper/80 backdrop-blur-lg">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="mx-auto flex h-14 max-w-6xl sm:h-16 items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" aria-label="Eco-teach home">
           <Logo />
         </Link>
@@ -109,21 +109,21 @@ export function SiteFooter() {
   const { focus } = useFocusMode();
   if (focus) return null;
   return (
-    <footer className="no-print mt-16 bg-forest-900 pb-24 text-sm text-[#b9d3e6] lg:pb-0">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-[1.5fr_1fr_1fr] sm:px-6">
+    <footer className="no-print mt-12 bg-forest-900 pb-24 text-sm text-[#b9d3e6] sm:mt-16 lg:pb-0">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-8 sm:grid-cols-[1.5fr_1fr_1fr] sm:px-6 sm:py-12">
         <div>
           <Logo light />
-          <p className="mt-3 max-w-sm">Understand the world that&apos;s changing our future. Progress is saved in your browser only: no account, no tracking.</p>
+          <p className="mt-3 max-w-sm text-[13px] sm:text-sm">Understand the world that&apos;s changing our future. Progress is saved in your browser only: no account, no tracking.</p>
         </div>
-        <div className="space-y-2">
+        <div className="hidden space-y-2 sm:block">
           <div className="font-bold text-white">Learn</div>
           <Link href="/" className="block hover:text-white">Journey map</Link>
           <Link href="/start" className="block hover:text-white">Starting diagnostic</Link>
           <Link href="/review" className="block hover:text-white">Review session</Link>
           <Link href="/dashboard" className="block hover:text-white">Dashboard</Link>
         </div>
-        <div className="space-y-2">
-          <div className="font-bold text-white">Explore</div>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 sm:block sm:space-y-2">
+          <div className="hidden font-bold text-white sm:block">Explore</div>
           <Link href="/ripple" className="block hover:text-white">Ripple Explorer</Link>
           <Link href="/companies" className="block hover:text-white">Company Explorer</Link>
           <Link href="/capstone" className="block hover:text-white">Capstone challenge</Link>

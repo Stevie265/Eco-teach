@@ -16,7 +16,7 @@ export function Rich({ text }: { text: string }) {
 
 export function Paragraphs({ body, className = "" }: { body: string[]; className?: string }) {
   return (
-    <div className={`prose-eco text-[17px] text-ink ${className}`}>
+    <div className={`prose-eco t-body text-ink ${className}`}>
       {body.map((p, i) => (
         <p key={i}>
           <Rich text={p} />

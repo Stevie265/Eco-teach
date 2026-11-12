@@ -13,16 +13,16 @@ export function WorldLessons({ worldId }: { worldId: string }) {
 
   return (
     <ol className="relative space-y-3">
-      <span className="absolute bottom-6 left-[27px] top-6 w-0.5 bg-sand" aria-hidden />
+      <span className="absolute bottom-6 left-[34px] top-6 w-0.5 bg-sand sm:left-[43px]" aria-hidden />
       {world.lessons.map((l, i) => {
         const status = hydrated ? lessonStatus(world, i, p) : l.available ? (i === world.lessons.findIndex((x) => x.available) ? "available" : "locked") : "coming-soon";
         const m = mastery(p.lessons[`${world.id}/${l.id}`]);
         const icon =
           status === "complete" ? <Check className="h-5 w-5" /> : status === "available" ? <Play className="h-5 w-5" /> : status === "locked" ? <Lock className="h-4 w-4" /> : <Sprout className="h-4 w-4" />;
         const inner = (
-          <div className={`relative flex gap-4 rounded-2xl border p-4 transition ${status === "available" ? "border-transparent bg-white shadow-md hover:shadow-lg" : status === "complete" ? "border-sand bg-white/80 hover:shadow" : "border-dashed border-sand bg-paper/60"}`}>
+          <div className={`relative flex gap-3 rounded-2xl border-2 p-3 transition sm:gap-4 sm:p-4 ${status === "available" ? "border-sand bg-white shadow-[0_4px_0_#e7ddc9] hover:-translate-y-0.5" : status === "complete" ? "border-sand bg-white/80 hover:shadow" : "border-dashed border-sand bg-paper/60"}`}>
             <span
-              className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl"
+              className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl sm:h-14 sm:w-14 sm:rounded-2xl"
               style={{
                 background: status === "complete" || status === "available" ? world.color : "#efe8da",
                 color: status === "complete" || status === "available" ? "white" : "#3f4f46",
@@ -31,7 +31,7 @@ export function WorldLessons({ worldId }: { worldId: string }) {
               {icon}
             </span>
             <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-2 text-xs text-ink-soft">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-ink-soft sm:text-xs">
                 <span className="font-mono">Lesson {i + 1}</span>
                 <span className="flex items-center gap-1">
                   <Clock className="h-3 w-3" /> {l.minutes} min
@@ -41,8 +41,8 @@ export function WorldLessons({ worldId }: { worldId: string }) {
                 {status === "complete" && m === "mastered" && <span className="rounded-full bg-moss-100 px-2 py-0.5 font-semibold text-forest-700">Mastered</span>}
                 {status === "complete" && m === "revise" && <span className="rounded-full bg-[#fdf3dc] px-2 py-0.5 font-semibold text-[#8a6200]">Worth revising</span>}
               </div>
-              <h3 className="font-display mt-1 text-xl text-ink">{l.title}</h3>
-              <p className="text-[15px] text-ink-soft">{l.summary}</p>
+              <h3 className="font-display mt-0.5 text-base leading-snug text-ink sm:mt-1 sm:text-xl">{l.title}</h3>
+              <p className="mt-0.5 text-sm text-ink-soft sm:text-[15px]">{l.summary}</p>
             </div>
           </div>
         );

@@ -123,8 +123,9 @@ export function RippleExplorer() {
   return (
     <div className="grid gap-6 lg:grid-cols-[260px_1fr]">
       {/* trend picker */}
-      <aside className="space-y-2" aria-label="Choose a trend">
-        <div className="text-xs font-bold uppercase tracking-widest text-ink-soft">Choose a trend</div>
+      <aside className="min-w-0" aria-label="Choose a trend">
+        <div className="mb-2 text-[11px] font-bold uppercase tracking-widest text-ink-soft sm:text-xs">Choose a trend</div>
+        <div className="no-scrollbar -mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-2 lg:mx-0 lg:block lg:space-y-2 lg:overflow-visible lg:px-0">
         {trends.map((t) => (
           <button
             key={t.id}
@@ -135,29 +136,30 @@ export function RippleExplorer() {
               setForm((f) => ({ ...f, from: "" }));
             }}
             aria-pressed={trendId === t.id}
-            className={`w-full rounded-2xl border-2 p-3 text-left transition ${trendId === t.id ? "border-forest-700 bg-white shadow-md" : "border-transparent bg-white/60 hover:bg-white"}`}
+            className={`w-[68%] shrink-0 snap-start rounded-2xl border-2 p-3 text-left transition sm:w-[40%] lg:w-full ${trendId === t.id ? "border-forest-800 bg-white shadow-[0_3px_0_#156a3a]" : "border-sand bg-white/70 hover:bg-white"}`}
           >
             <div className="text-[11px] font-semibold uppercase tracking-wider text-moss-500">{t.id === "custom" ? "Blank canvas" : t.lens}</div>
-            <div className="font-semibold leading-snug">{t.title}</div>
+            <div className="text-sm font-bold leading-snug sm:text-base">{t.title}</div>
             {hydrated && (p.ripple.custom[t.id]?.length ?? 0) > 0 && <div className="mt-1 text-xs text-ink-soft">{p.ripple.custom[t.id].length} of your connections</div>}
           </button>
         ))}
+        </div>
       </aside>
 
       <div className="min-w-0 space-y-5">
-        <div className="flex flex-wrap items-start justify-between gap-3 rounded-3xl bg-forest-900 p-5 text-paper">
+        <div className="flex flex-wrap items-start justify-between gap-3 rounded-3xl bg-forest-900 p-4 text-paper sm:p-5">
           <div className="max-w-2xl">
-            <h2 className="font-display text-2xl">{trend.title}</h2>
-            <p className="mt-1 text-moss-300">{trend.summary}</p>
+            <h2 className="font-display text-xl sm:text-2xl">{trend.title}</h2>
+            <p className="mt-1 text-sm text-[#9fd0f0] sm:text-base">{trend.summary}</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex w-full gap-2 sm:w-auto">
             {trend.nodes.length > 0 && (
-              <button onClick={play} className="inline-flex items-center gap-2 rounded-full bg-sprout px-4 py-2 text-sm font-semibold text-forest-900">
-                <Play className="h-4 w-4" /> Play the ripple
+              <button onClick={play} className="btn btn-sun flex-1 py-2 text-sm sm:flex-none">
+                <Play className="h-4 w-4 shrink-0" /> <span className="whitespace-nowrap">Play ripple</span>
               </button>
             )}
-            <button onClick={copyText} className="inline-flex items-center gap-2 rounded-full border border-moss-500 px-4 py-2 text-sm font-semibold">
-              <Copy className="h-4 w-4" /> {copied ? "Copied" : "Copy as text"}
+            <button onClick={copyText} className="btn flex-1 border-2 border-[#2c5a7a] py-2 text-sm text-white sm:flex-none">
+              <Copy className="h-4 w-4 shrink-0" /> <span className="whitespace-nowrap">{copied ? "Copied" : "Copy as text"}</span>
             </button>
           </div>
         </div>
@@ -197,7 +199,7 @@ export function RippleExplorer() {
                           {from && <span className="text-[11px] text-ink-soft">← from #{from.n}</span>}
                           {isCustom && <span className="ml-auto text-[10px] font-bold uppercase tracking-wider" style={{ color: c.text }}>Yours</span>}
                         </div>
-                        <div className="mt-1.5 text-[15px] font-semibold leading-snug">{n.title}</div>
+                        <div className="mt-1.5 text-sm font-semibold leading-snug sm:text-[15px]">{n.title}</div>
                         {"lens" in n && n.lens && <div className="mt-0.5 text-xs text-ink-soft">{n.lens}</div>}
                       </button>
                     );

@@ -82,7 +82,7 @@ export function Capstone() {
       ) : (
         <article className="rounded-3xl card-chunky bg-white p-8 sm:p-12">
           <div className="text-xs font-bold uppercase tracking-widest text-moss-500">Strategic opportunity assessment</div>
-          <h2 className="font-display mt-2 text-4xl text-forest-900">{d.title || "Untitled opportunity"}</h2>
+          <h2 className="font-display t-h1 mt-2 text-forest-900">{d.title || "Untitled opportunity"}</h2>
           <div className="mt-8 space-y-7">
             {FIELDS.map((f) => (
               <section key={f.key}>

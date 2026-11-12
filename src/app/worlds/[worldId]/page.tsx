@@ -28,30 +28,30 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[worldId]
   return (
     <div>
       <section className="relative overflow-hidden" style={{ background: `linear-gradient(180deg, ${world.tint} 0%, ${world.tint} 70%, #fffaf0 100%)` }}>
-        <div className="mx-auto grid max-w-5xl items-center gap-6 px-4 pb-10 pt-8 sm:px-6 md:grid-cols-[1.2fr_1fr] md:pb-14 md:pt-12">
+        <div className="mx-auto grid max-w-5xl items-center gap-4 px-4 pb-6 pt-5 sm:gap-6 sm:px-6 sm:pb-10 sm:pt-8 md:grid-cols-[1.2fr_1fr] md:pb-14 md:pt-12">
           <div>
             <Link href="/" className="btn btn-secondary px-3 py-1.5 text-sm">
               ← Journey
             </Link>
-            <div className="mt-6 flex items-center gap-3">
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: world.color, boxShadow: `0 5px 0 ${shade(world.color)}` }}>
-                <WorldGlyph glyph={world.glyph} color="#fff" className="h-8 w-8" />
+            <div className="mt-5 flex items-center gap-3 sm:mt-6">
+              <span className="flex h-11 w-11 shrink-0 sm:h-14 sm:w-14 items-center justify-center rounded-2xl" style={{ background: world.color, boxShadow: `0 5px 0 ${shade(world.color)}` }}>
+                <WorldGlyph glyph={world.glyph} color="#fff" className="h-6 w-6 sm:h-8 sm:w-8" />
               </span>
-              <span className="font-mono text-sm font-bold" style={{ color: shade(world.color, 0.1) }}>
+              <span className="font-mono text-[11px] font-bold sm:text-sm" style={{ color: shade(world.color, 0.1) }}>
                 WORLD {String(world.number).padStart(2, "0")} · {world.lessons.length} lessons · ~{Math.round(totalMinutes(world) / 6) / 10}h
               </span>
             </div>
-            <h1 className="font-display mt-4 text-5xl leading-[1] text-forest-900 sm:text-6xl">{world.title}</h1>
-            <p className="mt-2 text-xl font-semibold text-ink-soft">{world.tagline}</p>
-            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink">{world.description}</p>
+            <h1 className="font-display t-h1 mt-3 text-forest-900 sm:mt-4">{world.title}</h1>
+            <p className="t-lead mt-1 font-semibold text-ink-soft sm:mt-2">{world.tagline}</p>
+            <p className="t-body mt-3 max-w-xl text-ink sm:mt-5">{world.description}</p>
           </div>
           <Parallax speed={0.25}>
-            <WorldScene id={world.id} className="mx-auto w-full max-w-md drop-shadow-sm" />
+            <WorldScene id={world.id} className="mx-auto w-full max-w-[260px] drop-shadow-sm sm:max-w-md" />
           </Parallax>
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-5xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_280px]">
+      <div className="mx-auto grid max-w-5xl gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-10 lg:grid-cols-[1fr_280px]">
         <WorldLessons worldId={world.id} />
         <aside className="space-y-6">
           {feeds.length > 0 && (

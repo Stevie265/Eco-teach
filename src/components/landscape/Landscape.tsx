@@ -29,8 +29,8 @@ export function Landscape({ children }: { children: ReactNode }) {
         <div className="absolute inset-0 bg-gradient-to-b from-[#5fbdf5]/60 via-transparent to-[#fff6dc]" />
 
         {/* sun */}
-        <motion.div style={{ y: sunY }} className="absolute right-[12%] top-[14%]">
-          <div className="relative h-28 w-28 sm:h-36 sm:w-36">
+        <motion.div style={{ y: sunY }} className="absolute right-[8%] top-[11%] sm:right-[12%] sm:top-[14%]">
+          <div className="relative h-20 w-20 sm:h-36 sm:w-36">
             <div className="absolute inset-[-40%] animate-pulse-soft rounded-full bg-sun/30 blur-2xl" />
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#ffe27a] to-sun shadow-[0_0_80px_rgba(255,194,46,.6)]" />
           </div>
@@ -45,7 +45,7 @@ export function Landscape({ children }: { children: ReactNode }) {
         </motion.div>
 
         {/* text */}
-        <motion.div style={{ y: textY, opacity: textO }} className="relative z-20 mx-auto max-w-6xl px-5 pt-[13vh] sm:px-8 sm:pt-[16vh]">
+        <motion.div style={{ y: textY, opacity: textO }} className="relative z-20 mx-auto max-w-6xl px-5 pt-[calc(4rem+5vh)] sm:px-8 sm:pt-[16vh]">
           {children}
         </motion.div>
 
@@ -107,7 +107,7 @@ export function Landscape({ children }: { children: ReactNode }) {
         </motion.svg>
 
         {/* scroll cue */}
-        <motion.div style={{ opacity: textO }} className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-white drop-shadow">
+        <motion.div style={{ opacity: textO }} className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-white drop-shadow sm:block">
           Scroll to explore
           <div className="mx-auto mt-2 h-8 w-5 rounded-full border-2 border-white/90 p-1">
             <div className="h-2 w-full animate-bounce rounded-full bg-white" />

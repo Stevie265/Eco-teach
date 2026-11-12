@@ -107,7 +107,7 @@ export function GridBalancer() {
           <div className="flex items-end justify-between">
             <div>
               <div className="text-xs uppercase tracking-widest text-ink-soft">System frequency</div>
-              <div className="font-display text-5xl tabular-nums text-forest-800">{freq.toFixed(2)} Hz</div>
+              <div className="font-display text-4xl tabular-nums text-forest-900 sm:text-5xl">{freq.toFixed(2)} Hz</div>
             </div>
             <div className="text-right text-sm">
               <div className="text-ink-soft">Supply − demand</div>

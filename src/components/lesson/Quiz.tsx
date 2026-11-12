@@ -68,7 +68,7 @@ export function Quiz({ questions, onComplete }: { questions: QuizQuestion[]; onC
           ))}
         </span>
       </div>
-      <h4 className="font-display mb-4 text-xl leading-snug text-ink sm:text-2xl">{q.prompt}</h4>
+      <h4 className="font-display mb-4 text-lg leading-snug text-ink sm:text-2xl">{q.prompt}</h4>
       <div className="space-y-2" role="radiogroup" aria-label="Answer options">
         {q.options.map((o) => {
           const chosen = picked === o.id;

@@ -50,9 +50,9 @@ export function Dashboard() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* headline stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         <Stat label="Level" value={String(lv.level)} sub={`${lv.span - lv.into} XP to next`} bar={lv.into / lv.span} />
         <Stat label="Total XP" value={p.xp.toLocaleString()} sub="Earned by learning, not clicking" />
         <Stat label="Day streak" value={String(s)} sub={s ? "Keep the rhythm going" : "Learn today to start a streak"} accent />
@@ -74,7 +74,7 @@ export function Dashboard() {
 
       {/* progress by world */}
       <section>
-        <h2 className="font-display mb-4 text-2xl">Progress by world</h2>
+        <h2 className="font-display t-h2 mb-3 sm:mb-4">Progress by world</h2>
         <div className="grid gap-3 md:grid-cols-2">
           {WORLDS.map((w) => {
             const wp = worldProgress(w, p);
@@ -164,7 +164,7 @@ export function Dashboard() {
 
       {/* achievements */}
       <section>
-        <h2 className="font-display mb-4 text-2xl">Achievements</h2>
+        <h2 className="font-display t-h2 mb-3 sm:mb-4">Achievements</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {ACHIEVEMENTS.map((a) => {
             const got = p.achievements[a.id];
@@ -208,15 +208,15 @@ export function Dashboard() {
 
 function Stat({ label, value, sub, bar, accent }: { label: string; value: string; sub: string; bar?: number; accent?: boolean }) {
   return (
-    <div className={`rounded-3xl p-5 ${accent ? "bg-forest-900 text-paper" : "border border-sand bg-white"}`}>
-      <div className={`text-xs font-semibold uppercase tracking-widest ${accent ? "text-moss-300" : "text-ink-soft"}`}>{label}</div>
-      <div className={`font-display mt-1 text-4xl ${accent ? "text-sprout" : "text-forest-800"}`}>{value}</div>
+    <div className={`rounded-3xl p-4 sm:p-5 ${accent ? "bg-forest-900 text-paper shadow-[0_4px_0_#0b2133]" : "card-chunky bg-white"}`}>
+      <div className={`text-[10px] font-extrabold uppercase tracking-widest sm:text-xs ${accent ? "text-[#9fd0f0]" : "text-ink-soft"}`}>{label}</div>
+      <div className={`font-display mt-1 text-3xl sm:text-4xl ${accent ? "text-sprout" : "text-forest-800"}`}>{value}</div>
       {bar !== undefined && (
         <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-paper-2">
           <div className="h-full rounded-full bg-moss-500" style={{ width: `${bar * 100}%` }} />
         </div>
       )}
-      <div className={`mt-1 text-xs ${accent ? "text-moss-300" : "text-ink-soft"}`}>{sub}</div>
+      <div className={`mt-1 text-[11px] leading-snug sm:text-xs ${accent ? "text-[#9fd0f0]" : "text-ink-soft"}`}>{sub}</div>
     </div>
   );
 }

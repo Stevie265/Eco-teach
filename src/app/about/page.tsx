@@ -5,8 +5,8 @@ export const metadata: Metadata = { title: "About & method" };
 
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-      <h1 className="font-display text-4xl text-forest-900 sm:text-5xl">About Eco-teach</h1>
+    <div className="mx-auto max-w-3xl px-4 py-6 sm:px-6 sm:py-12">
+      <h1 className="font-display t-h1 text-forest-900">About Eco-teach</h1>
       <div className="prose-eco mt-6 text-[17px]">
         <p>
           Eco-teach helps intelligent, curious people without an engineering background become genuinely fluent in the Eco-Tech industry: <strong>what</strong> is happening, <strong>why</strong>, <strong>how</strong> it connects and what it means for businesses and customers.

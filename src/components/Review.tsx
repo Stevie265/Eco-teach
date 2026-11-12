@@ -34,7 +34,7 @@ export function Review() {
   if (set.length === 0) {
     return (
       <div className="rounded-3xl card-chunky bg-white p-8 text-center">
-        <h2 className="font-display text-2xl">Nothing to review yet</h2>
+        <h2 className="font-display text-xl sm:text-2xl">Nothing to review yet</h2>
         <p className="mt-2 text-ink-soft">Complete a lesson and its questions will appear here for spaced review.</p>
         <Link href="/" className="mt-6 inline-block btn btn-primary">
           Go to the map
@@ -47,7 +47,7 @@ export function Review() {
     const wrongCount = set.filter(({ question }) => p.questions[question.id]?.last === "wrong").length;
     return (
       <div className="rounded-3xl card-chunky bg-white p-8">
-        <h2 className="font-display text-2xl">{set.length} questions ready</h2>
+        <h2 className="font-display text-xl sm:text-2xl">{set.length} questions ready</h2>
         <p className="mt-2 text-ink-soft">
           {wrongCount > 0 ? `${wrongCount} you found tricky last time, plus some from lessons you've finished.` : "A quick retrieval workout from lessons you've finished."} Retrieval practice is one of the best-evidenced ways to make learning stick.
         </p>

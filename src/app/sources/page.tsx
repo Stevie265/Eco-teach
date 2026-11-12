@@ -19,14 +19,14 @@ export default function SourcesPage() {
   const groups = ["UK", "US", "Global", "EU"] as const;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
-      <h1 className="font-display text-4xl text-forest-900 sm:text-5xl">Research &amp; sources</h1>
-      <p className="mt-3 max-w-3xl text-lg text-ink-soft">
+    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-10">
+      <h1 className="font-display t-h1 text-forest-900">Research &amp; sources</h1>
+      <p className="t-lead mt-3 max-w-3xl text-ink-soft">
         Eco-teach is grounded in credible, linkable sources: regulators, system operators, government statisticians, intergovernmental bodies, academic research and reputable journalism. Every source shows its publication date and the date we last checked it.
       </p>
 
       <section className="mt-10 rounded-3xl card-chunky bg-white p-6">
-        <h2 className="font-display text-2xl">How to read our evidence labels</h2>
+        <h2 className="font-display text-xl sm:text-2xl">How to read our evidence labels</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {(Object.keys(EVIDENCE_STYLE) as Evidence[]).map((e) => (
             <div key={e} className="flex items-start gap-3">

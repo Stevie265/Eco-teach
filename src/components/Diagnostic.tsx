@@ -20,10 +20,10 @@ export function Diagnostic() {
     return (
       <div className="animate-rise">
         <div className="text-xs font-bold uppercase tracking-widest text-moss-500">Your starting point</div>
-        <h1 className="font-display mt-2 text-4xl text-forest-900">
+        <h1 className="font-display t-h1 mt-2 text-forest-900">
           {result.level === "foundation" ? "Start from the ground up" : result.level === "intermediate" ? "Build on what you know" : "Go straight to the frontier"}
         </h1>
-        <p className="mt-4 text-lg text-ink-soft">{result.reason}</p>
+        <p className="t-lead mt-4 text-ink-soft">{result.reason}</p>
         <p className="mt-2 text-sm text-ink-soft">
           You answered {right} of {knowledge.length} knowledge questions correctly. Your recommendation adapts as you learn: struggle with a concept and you&apos;ll get simpler explanations and review sessions; show mastery and you&apos;ll be nudged towards more advanced material.
         </p>
@@ -32,7 +32,7 @@ export function Diagnostic() {
             <div className="text-xs font-semibold uppercase tracking-wider" style={{ color: w.color }}>
               World {w.number} · {w.title}
             </div>
-            <div className="font-display text-2xl">{lesson.title}</div>
+            <div className="font-display text-xl sm:text-2xl">{lesson.title}</div>
             <div className="text-sm text-ink-soft">{lesson.summary}</div>
           </div>
           <ArrowRight className="h-6 w-6" />
@@ -63,11 +63,11 @@ export function Diagnostic() {
     return (
       <div className="animate-rise">
         <div className="text-xs font-bold uppercase tracking-widest text-moss-500">Two minutes · seven questions</div>
-        <h1 className="font-display mt-2 text-4xl text-forest-900 sm:text-5xl">Let&apos;s find your starting point</h1>
-        <p className="mt-4 text-lg text-ink-soft">
+        <h1 className="font-display t-h1 mt-2 text-forest-900">Let&apos;s find your starting point</h1>
+        <p className="t-lead mt-4 text-ink-soft">
           A few quick questions about what you already know, what you want to learn and the work you do. There are no wrong answers, and &ldquo;not sure&rdquo; is genuinely useful.
         </p>
-        <button onClick={() => setI(0)} className="mt-8 btn btn-primary">
+        <button onClick={() => setI(0)} className="mt-6 btn btn-primary w-full sm:mt-8 sm:w-auto">
           Begin <ArrowRight className="h-4 w-4" />
         </button>
         <p className="mt-4 text-xs text-ink-soft">Your answers stay in this browser.</p>
@@ -105,7 +105,7 @@ export function Diagnostic() {
       <div className="text-xs font-bold uppercase tracking-widest text-ink-soft">
         {q.kind === "knowledge" ? "Quick check" : q.kind === "goals" ? "Your goals" : q.kind === "role" ? "Your work" : "Your background"}
       </div>
-      <h2 className="font-display mt-2 text-3xl text-forest-900">{q.prompt}</h2>
+      <h2 className="font-display t-h2 mt-2 text-forest-900">{q.prompt}</h2>
       <div className="mt-6 space-y-2" role={q.multi ? "group" : "radiogroup"}>
         {q.options.map((o) => {
           const on = selected.includes(o.id);
@@ -115,7 +115,7 @@ export function Diagnostic() {
               role={q.multi ? "checkbox" : "radio"}
               aria-checked={on}
               onClick={() => toggle(o.id)}
-              className={`flex w-full items-center gap-3 rounded-xl border-2 p-4 text-left transition ${on ? "border-forest-700 bg-sprout-soft" : "border-sand bg-white hover:border-moss-400"}`}
+              className={`flex w-full items-center gap-3 rounded-2xl border-2 p-3.5 text-left text-[15px] transition sm:p-4 sm:text-base ${on ? "border-forest-700 bg-sprout-soft" : "border-sand bg-white hover:border-moss-400"}`}
             >
               <span className={`flex h-5 w-5 shrink-0 items-center justify-center ${q.multi ? "rounded-md" : "rounded-full"} border-2 ${on ? "border-forest-700 bg-forest-700 text-white" : "border-ink-soft/40"}`}>
                 {on && <Check className="h-3 w-3" />}
