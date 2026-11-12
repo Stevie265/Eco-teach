@@ -1,26 +1,144 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  Eco-teach visual identity
+  Nature-inspired, technology-led: deep forest greens, warm paper neutrals,
+  a lime "signal" accent and an ember accent for energy and emphasis.
+*/
+@theme {
+  --color-forest-950: #0a1c15;
+  --color-forest-900: #0f271d;
+  --color-forest-800: #153628;
+  --color-forest-700: #1d4d38;
+  --color-forest-600: #286a4c;
+  --color-moss-500: #3d8b5d;
+  --color-moss-400: #5ea779;
+  --color-moss-300: #8fc6a1;
+  --color-moss-100: #dcefe2;
+  --color-sprout: #c6e66a;
+  --color-sprout-soft: #eef7cf;
+  --color-paper: #f6f1e7;
+  --color-paper-2: #efe8da;
+  --color-sand: #e3d8c3;
+  --color-ink: #13201a;
+  --color-ink-soft: #3f4f46;
+  --color-ember: #d9602e;
+  --color-ember-soft: #fbe3d6;
+  --color-sun: #eeb33f;
+  --color-sky: #5aa6c9;
+  --color-sky-soft: #dceef6;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --radius-xl2: 1.25rem;
+  --animate-rise: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
   }
 }
 
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 50, "WONK" 0;
+  letter-spacing: -0.015em;
+}
+
+/* Subtle paper grain for warmth */
+.grain {
+  background-image: radial-gradient(rgba(19, 32, 26, 0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.prose-eco p {
+  line-height: 1.7;
+  margin-bottom: 0.9rem;
+}
+.prose-eco p:last-child {
+  margin-bottom: 0;
+}
+.prose-eco strong {
+  font-weight: 650;
+  color: var(--color-forest-800);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-sun);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Range input styling */
+input[type="range"].eco-range {
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-sand);
+}
+input[type="range"].eco-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-forest-700);
+  border: 3px solid var(--color-sprout);
+  cursor: pointer;
+}
+input[type="range"].eco-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-forest-700);
+  border: 3px solid var(--color-sprout);
+  cursor: pointer;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  html,
+  body {
+    background: white;
+  }
 }
