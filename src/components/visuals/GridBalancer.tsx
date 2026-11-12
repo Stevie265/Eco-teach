@@ -42,8 +42,8 @@ export function GridBalancer() {
     const t = setInterval(() => {
       let next = f.current + (imbalance / inertia) * 0.06 - (f.current - 50) * 0.02;
       // automatic frequency response from batteries if enabled
-      if (autoReserve && next < 49.8) next += 0.03;
-      if (autoReserve && next > 50.2) next -= 0.03;
+      if (autoReserve && next < 49.8) next += 0.004; // limited reserve: not enough for a big loss on its own
+      if (autoReserve && next > 50.2) next -= 0.004;
       next = Math.max(47.5, Math.min(52, next));
       f.current = next;
       setFreq(next);
@@ -99,7 +99,7 @@ export function GridBalancer() {
           </div>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" className="accent-[#1d4d38]" checked={autoReserve} onChange={(e) => setAutoReserve(e.target.checked)} />
-            Automatic fast frequency response (batteries)
+            Automatic frequency response (limited reserve held)
           </label>
         </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 // Typical, illustrative power ratings (kW) while running.
 const APPLIANCES = [
@@ -24,7 +24,7 @@ export function ApplianceCalculator() {
   const dailyKwh = rows.reduce((s, r) => s + r.kwh, 0);
   const yearly = dailyKwh * 365;
   const maxKw = 10;
-  const maxKwh = useMemo(() => Math.max(3, ...rows.map((r) => r.kwh)), [rows]);
+  const maxKwh = Math.max(3, ...rows.map((r) => r.kwh));
 
   return (
     <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
@@ -72,7 +72,7 @@ export function ApplianceCalculator() {
             <div className="text-xs uppercase tracking-widest text-forest-700">Energy per day</div>
             <div className="font-display text-4xl text-forest-800">{dailyKwh.toFixed(2)} kWh</div>
             <div className="mt-3 space-y-1.5">
-              {rows
+              {[...rows]
                 .sort((x, y) => y.kwh - x.kwh)
                 .map((r) => (
                   <div key={r.id} className="flex items-center gap-2 text-xs">
