@@ -41,11 +41,12 @@ export default async function BreakthroughPage({ params }: PageProps<"/breakthro
         </p>
       </header>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.25fr_1fr] lg:items-start">
-        <div className="lg:sticky lg:top-24">
-          <Breakdown b={b} />
-        </div>
+      <div className="mx-auto mt-6 max-w-2xl">
+        <p className="readout mb-2 text-[10px] font-bold text-ink-soft">How it works · one idea at a time, at your pace</p>
+        <Breakdown b={b} />
+      </div>
 
+      <div id="breakthrough" className="mt-10 scroll-mt-24 grid gap-5 lg:grid-cols-2 lg:items-start">
         <div className="space-y-5">
           <Reveal>
             <section className="plate rounded-2xl p-4 sm:p-5">
@@ -57,6 +58,8 @@ export default async function BreakthroughPage({ params }: PageProps<"/breakthro
             </section>
           </Reveal>
 
+        </div>
+        <div className="space-y-5">
           <div className="space-y-3">
             {b.breakthrough.facts.map((f, i) => (
               <Reveal key={i} delay={i * 0.05}>

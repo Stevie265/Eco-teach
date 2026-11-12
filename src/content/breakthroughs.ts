@@ -9,6 +9,15 @@ import type { Fact, SourceRef } from "./types";
 
 export const MATURITY = ["Lab", "Pilot", "First commercial", "Scaling up", "Mainstream"] as const;
 
+export interface Frame {
+  title: string;
+  caption: string;
+  simpler: string;
+  takeaway: string;
+  /** jargon used in this step, explained */
+  terms?: { term: string; meaning: string }[];
+}
+
 export interface Breakthrough {
   id: string;
   name: string;
@@ -16,7 +25,12 @@ export interface Breakthrough {
   oneLiner: string;
   /** the everyday analogy that anchors the explanation */
   analogy: string;
-  frames: { title: string; caption: string }[];
+  /**
+   * Steps written for a complete newcomer. The learner taps "Got it" to move on,
+   * or "Not yet" to see `simpler` (the same idea from a different, everyday angle).
+   * `takeaway` is the one sentence to hold onto.
+   */
+  frames: Frame[];
   breakthrough: { headline: string; body: string; facts: Fact[] };
   maturity: number; // index into MATURITY
   maturityNote: string;
@@ -36,12 +50,41 @@ export const BREAKTHROUGHS: Breakthrough[] = [
     name: "Sodium-ion batteries",
     category: "Storage",
     oneLiner: "A battery that swaps lithium for sodium, the stuff in table salt.",
-    analogy: "Two bookshelves with travellers shuttling between them.",
+    analogy: "Two car parks, with tiny 'cars' driving between them.",
     frames: [
-      { title: "A battery is two shelves", caption: "Charging pushes tiny charged travellers (ions) onto one shelf. Using the battery lets them drift back, and that flow powers your device." },
-      { title: "Lithium is the usual traveller", caption: "Lithium ions are small and light, so they pack a lot of energy. But lithium has to be mined in a few places, and its price can swing." },
-      { title: "Sodium is everywhere, but bigger", caption: "Sodium is abundant and cheap. The catch: its ions are larger, and they jam on the graphite shelves lithium batteries use." },
-      { title: "The fix: a roomier shelf", caption: "A 'hard carbon' shelf has wider, messier gaps that sodium can slip into. Result: a cheap battery that also copes far better in the cold." },
+      {
+        title: "A battery saves electricity for later",
+        caption: "Plug it in and it fills up with energy. Unplug it, and that energy comes back out to run your phone, car or home.",
+        simpler: "It's like filling a water bottle at the tap so you can drink later, away from the tap. Charging is filling the bottle; using the battery is drinking from it.",
+        takeaway: "A battery is a store: fill it now, use it later.",
+      },
+      {
+        title: "Inside, tiny 'cars' drive between two car parks",
+        caption: "A battery has two sides. Charging drives millions of tiny particles into the car park on one side. When you use the battery, they drive back across, and that stream of traffic is the electricity.",
+        simpler: "Picture a hill. Charging carries balls up to the top. Using the battery lets them roll back down, and the rolling is what powers your device. No balls moving, no power.",
+        takeaway: "Electricity comes out when the tiny particles travel from one side to the other.",
+        terms: [{ term: "Ion", meaning: "The tiny particle doing the travelling. In this picture, each ion is a car." }],
+      },
+      {
+        title: "Most batteries today use lithium 'cars'",
+        caption: "The phone in your pocket and most electric cars use lithium. Lithium cars are small and nimble, so lots of them fit in a small space. But lithium is mined in only a few countries, so it's costly and its price jumps around.",
+        simpler: "Lithium is a premium ingredient. It works brilliantly, but only a handful of places supply it, so you pay more and can't be sure what it will cost next year.",
+        takeaway: "Lithium works well, but it's pricey and comes from only a few places.",
+      },
+      {
+        title: "Sodium is cheap, but its 'cars' are vans",
+        caption: "Sodium is in ordinary table salt and seawater, so there's a lot of it everywhere. The catch: sodium particles are bigger. They're vans, and they don't fit the narrow parking spaces built for lithium.",
+        simpler: "Try parking a van in a space built for a Mini. It doesn't go in, however cheap the van was. That's why nobody could just swap lithium for sodium.",
+        takeaway: "Sodium is cheap and plentiful, but too big for a normal battery's parking spaces.",
+        terms: [{ term: "Sodium", meaning: "The 'sodium' in sodium chloride, which is table salt." }],
+      },
+      {
+        title: "The breakthrough: a car park with bigger spaces",
+        caption: "Engineers built one side of the battery from a material with wider, roomier spaces (called hard carbon). Now the sodium vans park easily. The result is a cheaper battery that also works much better in freezing weather.",
+        simpler: "Nothing magic changed. They redesigned the car park so the vans fit. Same idea as any battery, made with a cheaper, more common ingredient.",
+        takeaway: "Bigger parking spaces let cheap sodium do lithium's job.",
+        terms: [{ term: "Hard carbon", meaning: "A carbon material, a bit like charcoal, with uneven, roomy gaps for the vans to park in." }],
+      },
     ],
     breakthrough: {
       headline: "Sodium-ion goes from lab to the car park",
@@ -70,10 +113,10 @@ export const BREAKTHROUGHS: Breakthrough[] = [
     oneLiner: "A second, ultra-thin solar layer on top of silicon that catches light silicon wastes.",
     analogy: "Two nets in a stream, each built for a different size of fish.",
     frames: [
-      { title: "Sunlight is a mix of colours", caption: "Light arrives as a spectrum, from high-energy blue to lower-energy red. A solar cell turns that energy into electricity." },
-      { title: "Silicon is great at red, wasteful with blue", caption: "Standard silicon panels catch the red end well, but much of the extra energy in blue light is lost as heat." },
-      { title: "Add a perovskite layer on top", caption: "Perovskite is a crystal that can be printed in a thin film. It catches the blue light first and lets the red pass through to the silicon below." },
-      { title: "Two catchers beat one", caption: "Together, the stack converts more of each sunbeam into electricity, so more power from the same roof." },
+      { title: "Sunlight is a mix of colours", caption: "Light arrives as a spectrum, from high-energy blue to lower-energy red. A solar cell turns that energy into electricity.", simpler: "Think of a rainbow: sunlight already contains all those colours mixed together. Some colours carry more punch than others.", takeaway: "Sunlight is many colours, and each carries a different amount of energy." },
+      { title: "Silicon is great at red, wasteful with blue", caption: "Standard silicon panels catch the red end well, but much of the extra energy in blue light is lost as heat.", simpler: "Imagine a net built for medium-sized fish. Big fish get caught, but you only keep part of them; the rest is wasted. Blue light is the big fish for silicon.", takeaway: "Normal panels waste a chunk of the energy in blue light." },
+      { title: "Add a perovskite layer on top", caption: "Perovskite is a crystal that can be printed in a thin film. It catches the blue light first and lets the red pass through to the silicon below.", simpler: "Put a second net in front of the first, designed for the big fish. It catches them properly and lets the smaller ones swim through to the net behind.", takeaway: "A thin top layer catches the blue light; silicon still catches the red." },
+      { title: "Two catchers beat one", caption: "Together, the stack converts more of each sunbeam into electricity, so more power from the same roof.", simpler: "Two specialist nets catch more than one all-purpose net, so the same roof makes more electricity.", takeaway: "Two layers turn more of the sunlight into power than one." },
     ],
     breakthrough: {
       headline: "Tandem cells pass a theoretical ceiling",
@@ -102,10 +145,10 @@ export const BREAKTHROUGHS: Breakthrough[] = [
     oneLiner: "A battery that stores energy by rusting iron, then un-rusting it.",
     analogy: "A rusting nail, run forwards and backwards on purpose.",
     frames: [
-      { title: "Rust releases energy", caption: "When iron rusts, it combines with oxygen from the air and gives off a little energy. Usually it's too slow and small to notice." },
-      { title: "Discharge: breathe in, rust", caption: "The battery 'breathes in' air and turns its iron into rust in a controlled way, releasing electricity." },
-      { title: "Charge: breathe out, un-rust", caption: "Feeding electricity back in turns the rust back into iron, and the battery 'breathes out' oxygen." },
-      { title: "Slow, cheap, and very long", caption: "It's too heavy and slow for a car, but it's ideal for storing wind and solar for days rather than hours." },
+      { title: "Rust releases energy", caption: "When iron rusts, it combines with oxygen from the air and gives off a little energy. Usually it's too slow and small to notice.", simpler: "Hand warmers you shake in winter work this way: iron powder rusting inside them gives off heat.", takeaway: "Rusting iron gives off a little energy." },
+      { title: "Discharge: breathe in, rust", caption: "The battery 'breathes in' air and turns its iron into rust in a controlled way, releasing electricity.", simpler: "Like the hand warmer, but controlled: instead of heat, the battery collects the energy as electricity while its iron slowly rusts.", takeaway: "Using the battery = letting its iron rust on purpose." },
+      { title: "Charge: breathe out, un-rust", caption: "Feeding electricity back in turns the rust back into iron, and the battery 'breathes out' oxygen.", simpler: "Run the film backwards: push electricity in and the rust turns back into shiny iron, ready to rust again.", takeaway: "Charging the battery = turning the rust back into iron." },
+      { title: "Slow, cheap, and very long", caption: "It's too heavy and slow for a car, but it's ideal for storing wind and solar for days rather than hours.", simpler: "Think of a slow cooker rather than a microwave: no good for quick bursts, but it keeps going for days, and iron is about as cheap as materials get.", takeaway: "Too heavy for cars, but cheap storage that lasts for days." },
     ],
     breakthrough: {
       headline: "Multi-day storage leaves the lab",
@@ -134,10 +177,10 @@ export const BREAKTHROUGHS: Breakthrough[] = [
     oneLiner: "Making your own underground hot spring anywhere the rock is hot enough.",
     analogy: "A kettle underground: pour cold water down, get hot water back.",
     frames: [
-      { title: "The Earth is hot inside", caption: "A few kilometres down, rock is hot everywhere. Traditional geothermal only works where hot water naturally rises, which is rare." },
-      { title: "Hot, but dry and tight", caption: "Most hot rock has no water and no cracks for water to flow through, so the heat is trapped." },
-      { title: "Borrow tricks from oil and gas", caption: "Drill two wells, turn them sideways, and open fine cracks between them, creating a man-made reservoir." },
-      { title: "A loop that runs 24/7", caption: "Pump cold water down one well, it heats up in the rock, and comes up the other to spin a turbine, day and night, in any weather." },
+      { title: "The Earth is hot inside", caption: "A few kilometres down, rock is hot everywhere. Traditional geothermal only works where hot water naturally rises, which is rare.", simpler: "Dig deep enough anywhere and it gets hot, like the middle of a baked potato. Hot springs are the rare spots where that heat leaks out by itself.", takeaway: "There's heat under our feet everywhere; we just can't usually reach it." },
+      { title: "Hot, but dry and tight", caption: "Most hot rock has no water and no cracks for water to flow through, so the heat is trapped.", simpler: "It's a hot potato with no holes in it: the heat is there, but there's no way for water to get in, warm up and carry it out.", takeaway: "The rock is hot, but water can't flow through it to collect the heat." },
+      { title: "Borrow tricks from oil and gas", caption: "Drill two wells, turn them sideways, and open fine cracks between them, creating a man-made reservoir.", simpler: "The oil industry already knows how to drill sideways and crack rock open. Geothermal companies reuse those exact skills to make paths through the hot rock.", takeaway: "Drilling methods from oil and gas create paths for water through hot rock." },
+      { title: "A loop that runs 24/7", caption: "Pump cold water down one well, it heats up in the rock, and comes up the other to spin a turbine, day and night, in any weather.", simpler: "It's like a kettle hidden underground: cold water goes in one pipe, hot water comes up the other, and the steam drives a generator. The sun and wind don't matter.", takeaway: "Water loops down, heats up, comes back and makes power all day and night." },
     ],
     breakthrough: {
       headline: "First utility-scale enhanced geothermal on the grid",
@@ -164,12 +207,12 @@ export const BREAKTHROUGHS: Breakthrough[] = [
     name: "Solid-state batteries",
     category: "Storage",
     oneLiner: "A lithium battery that replaces the flammable liquid inside with a solid.",
-    analogy: "Replacing a paddling pool between two shelves with a solid glass bridge.",
+    analogy: "Swapping the liquid road between two car parks for a solid bridge.",
     frames: [
-      { title: "Today: a liquid in the middle", caption: "In a normal lithium battery, ions swim through a liquid between the two shelves. The liquid is flammable." },
-      { title: "Swap the liquid for a solid", caption: "A thin solid layer (ceramic or similar) lets ions through, but nothing can leak or catch fire as easily." },
-      { title: "That unlocks a pure-lithium shelf", caption: "With a solid barrier, one shelf can be thin lithium metal, which packs far more energy into the same space." },
-      { title: "The hard part: making millions", caption: "Solid layers can crack as the battery charges and discharges, and they're hard to manufacture at high yield." },
+      { title: "Today: a liquid in the middle", caption: "In a normal lithium battery, the tiny particles travel through a liquid between the two sides. The liquid is flammable.", simpler: "Remember the two car parks? In today's batteries the road between them is a liquid, and that liquid can burn if the battery is damaged.", takeaway: "Normal batteries have a flammable liquid inside." },
+      { title: "Swap the liquid for a solid", caption: "A thin solid layer (ceramic or similar) lets ions through, but nothing can leak or catch fire as easily.", simpler: "Replace the liquid road with a solid bridge. The 'cars' can still cross, but there's nothing to spill or catch fire.", takeaway: "A solid layer replaces the liquid, making the battery safer." },
+      { title: "That unlocks a pure-lithium side", caption: "With a solid barrier, one side can be thin lithium metal, which packs far more energy into the same space.", simpler: "With a solid bridge, one car park can be made of pure lithium, which squeezes far more 'cars' into the same space. More cars, more energy, smaller battery.", takeaway: "Solid batteries could hold much more energy in the same size." },
+      { title: "The hard part: making millions", caption: "Solid layers can crack as the battery charges and discharges, and they're hard to manufacture at high yield.", simpler: "Making one perfect solid layer in a lab is easy-ish. Making millions without tiny cracks, cheaply, is the real challenge.", takeaway: "The idea works; making them cheaply at huge scale is the hurdle." },
     ],
     breakthrough: {
       headline: "From lab promise to pilot lines",
@@ -198,10 +241,10 @@ export const BREAKTHROUGHS: Breakthrough[] = [
     oneLiner: "Your car's battery helps power the grid when it's parked, and you get paid in cheap or free miles.",
     analogy: "Renting out a spare room you're not using, but for energy.",
     frames: [
-      { title: "A big battery on wheels", caption: "An EV carries far more battery than it uses on a typical day, and it's parked most of the time." },
-      { title: "Fill up when power is cheap", caption: "Overnight, when demand is low and wind is often strong, the car charges cheaply." },
-      { title: "Give a little back at peak", caption: "In the early evening rush, a two-way charger sends some energy back to the home or grid." },
-      { title: "You set the rules", caption: "You choose how much charge you need by morning. The supplier's software does the rest, and shares the value with you." },
+      { title: "A big battery on wheels", caption: "An EV carries far more battery than it uses on a typical day, and it's parked most of the time.", simpler: "Most cars spend most of the day parked. A full electric-car battery holds enough to run a typical home for a day or more, and it's just sitting there.", takeaway: "An EV is a big battery that's parked most of the time." },
+      { title: "Fill up when power is cheap", caption: "Overnight, when demand is low and wind is often strong, the car charges cheaply.", simpler: "Like doing the washing on cheap off-peak electricity, but the car does it automatically while you sleep.", takeaway: "Charge the car overnight, when electricity is cheapest." },
+      { title: "Give a little back at peak", caption: "In the early evening rush, a two-way charger sends some energy back to the home or grid.", simpler: "Around 5 to 7pm everyone cooks and switches on lights, so electricity is in high demand. Your car can lend some back, like a neighbour lending sugar.", takeaway: "At busy times, the car sends some power back to your home or the grid." },
+      { title: "You set the rules", caption: "You choose how much charge you need by morning. The supplier's software does the rest, and shares the value with you.", simpler: "You tell the app 'I need 80% by 7am'. The software only borrows what's left over, so you're never stranded, and you get paid or credited for it.", takeaway: "You stay in control; the car only shares spare charge, and you're rewarded for it." },
     ],
     breakthrough: {
       headline: "Two-way charging becomes a product you can buy",
@@ -230,10 +273,10 @@ export const BREAKTHROUGHS: Breakthrough[] = [
     oneLiner: "A fridge run in reverse: it moves heat from outside into your home instead of making it.",
     analogy: "A sponge that soaks up warmth outside and wrings it out indoors.",
     frames: [
-      { title: "Your fridge moves heat", caption: "A fridge doesn't make cold. It pumps heat out of the box and releases it at the back. Feel the warm grille." },
-      { title: "Run it the other way", caption: "A heat pump pulls heat from outside air, even on cold days, because there's still heat energy in air well below freezing." },
-      { title: "Squeeze to get hotter", caption: "A compressor squeezes a special fluid (refrigerant). Squeezing makes it hotter, hot enough to warm radiators and water." },
-      { title: "Move, don't make", caption: "Because it moves heat rather than burning fuel, one unit of electricity can deliver several units of heat (around 3 is a common rule of thumb)." },
+      { title: "Your fridge moves heat", caption: "A fridge doesn't make cold. It pumps heat out of the box and releases it at the back. Feel the warm grille.", simpler: "Put your hand by the back of a fridge: it's warm. That's the heat taken out of your food.", takeaway: "A fridge carries heat out of the box; it doesn't create cold." },
+      { title: "Run it the other way", caption: "A heat pump pulls heat from outside air, even on cold days, because there's still heat energy in air well below freezing.", simpler: "Even a freezing day still has heat in the air (it's far warmer than the coldest possible temperature). A heat pump scoops that heat up and carries it indoors.", takeaway: "A heat pump carries heat from outside air into your home." },
+      { title: "Squeeze to get hotter", caption: "A compressor squeezes a special fluid (refrigerant). Squeezing makes it hotter, hot enough to warm radiators and water.", simpler: "Pump up a bike tyre and feel the pump get warm. Squeezing a gas heats it up. A heat pump does this to a special fluid to make it hot enough for radiators.", takeaway: "Squeezing the fluid turns a little gathered heat into useful hot heat." },
+      { title: "Move, don't make", caption: "Because it moves heat rather than burning fuel, one unit of electricity can deliver several units of heat (around 3 is a common rule of thumb).", simpler: "Carrying heat is cheaper than making it. Like using a bucket to move water rather than making water from scratch.", takeaway: "Moving heat takes far less energy than making it, so bills can fall." },
     ],
     breakthrough: {
       headline: "Not one breakthrough, but a tipping point",

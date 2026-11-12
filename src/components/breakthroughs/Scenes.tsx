@@ -57,79 +57,174 @@ function Traveller({ from, to, r = 5, color, delay = 0, dur = 2.2, label }: { fr
 }
 
 /* ================= SODIUM-ION ================= */
-function Shelves({ leftGaps = 6, leftColor = "#e7ddc9", irregular = false }: { leftGaps?: number; leftColor?: string; irregular?: boolean }) {
+/* Story: a battery is two car parks; ions are cars; sodium ions are vans. */
+function Vehicle({ x, y, kind, color, label }: { x: number; y: number; kind: "car" | "van"; color: string; label?: string }) {
+  const w = kind === "car" ? 18 : 32;
+  const h = kind === "car" ? 9 : 15;
   return (
-    <g>
-      <rect x="34" y="40" width="74" height="120" rx="6" fill={leftColor} {...sw} />
-      <rect x="34" y="40" width="74" height="120" rx="6" fill="url(#ht-ink)" />
-      {Array.from({ length: leftGaps }).map((_, i) => {
-        const y = 52 + i * (100 / (leftGaps - 1));
-        return irregular ? <path key={i} d={`M40 ${y} q12 ${i % 2 ? 6 : -6} 24 0 t24 0 t20 0`} fill="none" stroke={INK} strokeWidth="1.6" /> : <line key={i} x1="40" y1={y} x2="102" y2={y} stroke={INK} strokeWidth="1.6" />;
-      })}
-      <rect x="212" y="40" width="74" height="120" rx="6" fill="#dbeefc" {...sw} />
-      {Array.from({ length: 5 }).map((_, i) => (
-        <line key={i} x1="218" y1={56 + i * 22} x2="280" y2={56 + i * 22} stroke={INK} strokeWidth="1.6" />
-      ))}
-      <Label x={71} y={176}>Shelf A</Label>
-      <Label x={249} y={176}>Shelf B</Label>
+    <g transform={`translate(${x} ${y})`}>
+      {kind === "car" ? (
+        <path d={`M${-w / 2} 0 V${-h + 4} L${-w / 2 + 4} ${-h + 4} L${-w / 4} ${-h - 2} H${w / 4} L${w / 2 - 3} ${-h + 4} H${w / 2} V0Z`} fill={color} {...sw} strokeWidth={1.5} />
+      ) : (
+        <path d={`M${-w / 2} 0 V${-h - 4} H${w / 2 - 8} L${w / 2} ${-h + 4} V0Z`} fill={color} {...sw} strokeWidth={1.5} />
+      )}
+      <circle cx={-w / 2 + 4} cy={1} r={2.6} fill={INK} />
+      <circle cx={w / 2 - 4} cy={1} r={2.6} fill={INK} />
+      {label && (
+        <text x={kind === "car" ? 0 : -3} y={kind === "car" ? -3 : -6} textAnchor="middle" fontSize={kind === "car" ? 5.5 : 7} fontWeight={800} fill="#fff">
+          {label}
+        </text>
+      )}
     </g>
   );
 }
 
+/** A row of parking spaces: a ground line with posts. */
+function Bays({ x, y, n, gap, color = INK }: { x: number; y: number; n: number; gap: number; color?: string }) {
+  return (
+    <g>
+      <rect x={x - 4} y={y + 3} width={n * gap + 8} height={6} rx={2} fill="#cfc4ae" {...sw} strokeWidth={1.5} />
+      {Array.from({ length: n + 1 }).map((_, i) => (
+        <rect key={i} x={x + i * gap - 1.5} y={y - 22} width={3} height={25} rx={1} fill={color} />
+      ))}
+    </g>
+  );
+}
+
+function Moving({ from, to, delay = 0, dur = 2.4, children }: { from: [number, number]; to: [number, number]; delay?: number; dur?: number; children: ReactNode }) {
+  return (
+    <motion.g initial={{ x: from[0], y: from[1], opacity: 0 }} animate={{ x: [from[0], to[0]], y: [from[1], to[1]], opacity: [0, 1, 1, 0] }} transition={{ duration: dur, delay, repeat: Infinity, ease: "linear", times: [0, 0.1, 0.9, 1] }}>
+      {children}
+    </motion.g>
+  );
+}
+
 function SodiumScene({ frame }: { frame: number }) {
+  // 0 · a battery stores electricity for later
   if (frame === 0)
     return (
       <>
-        <Shelves />
-        {[0, 1, 2, 3].map((k) => (
-          <Traveller key={k} from={[205, 70 + k * 24]} to={[112, 62 + k * 26]} color="#4fb3e8" delay={k * 0.45} />
-        ))}
-        <Arrow d="M190 28 H130" color="#2fa560" />
-        <Label x={160} y={22} color="#1b8048">Charging</Label>
+        {/* plug */}
+        <g transform="translate(26 84)">
+          <rect width="30" height="30" rx="5" fill={PAPER} {...sw} />
+          <path d="M9 0 V-10 M21 0 V-10" stroke={INK} strokeWidth="3" strokeLinecap="round" />
+        </g>
+        <path d="M56 99 H104" stroke={INK} strokeWidth="2.5" fill="none" className="energy-flow" strokeDasharray="5 4" />
+        {/* battery filling */}
+        <rect x="106" y="70" width="104" height="58" rx="8" fill={PAPER} {...sw} />
+        <rect x="210" y="88" width="8" height="22" rx="2" fill={INK} />
+        <motion.rect x="112" y="76" height="46" rx="4" fill="#2fa560" initial={{ width: 0 }} animate={{ width: [0, 92, 92] }} transition={{ duration: 3, repeat: Infinity, times: [0, 0.7, 1] }} />
+        <path d="M160 82 l-10 18 h10 l-6 16 l16 -22 h-10 l6 -12z" fill="#ffc83d" {...sw} strokeWidth={1.5} />
+        <path d="M218 99 H252" stroke={INK} strokeWidth="2.5" fill="none" />
+        {/* lamp lit later */}
+        <g transform="translate(272 92)">
+          <circle r="16" fill="#ffc83d" {...sw} />
+          <path d="M-6 16 h12 v8 h-12z" fill={PAPER} {...sw} strokeWidth={1.5} />
+          {[0, 1, 2, 3, 4].map((k) => (
+            <motion.line key={k} x1="0" y1="-22" x2="0" y2="-30" stroke="#f2a20c" strokeWidth="2.5" strokeLinecap="round" transform={`rotate(${-80 + k * 40})`} animate={{ opacity: [0.2, 1, 0.2] }} transition={{ repeat: Infinity, duration: 1.6, delay: k * 0.1 }} />
+          ))}
+        </g>
+        <Label x={41} y={150}>Charge now</Label>
+        <Label x={158} y={150}>Stored</Label>
+        <Label x={272} y={150}>Use later</Label>
       </>
     );
+
+  // 1 · two car parks, cars drive across = electricity
   if (frame === 1)
     return (
       <>
-        <Shelves />
-        {[0, 1, 2, 3, 4].map((k) => (
-          <Traveller key={k} from={[205, 64 + k * 20]} to={[112, 60 + k * 22]} r={5} color="#8f5be0" label="Li" delay={k * 0.35} />
+        <rect x="14" y="44" width="96" height="102" rx="8" fill={PAPER} {...sw} />
+        <rect x="210" y="44" width="96" height="102" rx="8" fill={PAPER} {...sw} />
+        <Bays x={24} y={84} n={4} gap={19} />
+        <Bays x={24} y={128} n={4} gap={19} />
+        <Bays x={220} y={84} n={4} gap={19} />
+        <Bays x={220} y={128} n={4} gap={19} />
+        {[0, 1, 2].map((k) => <Vehicle key={k} kind="car" x={33.5 + k * 19} y={84} color="#4fb3e8" />)}
+        {[0, 1].map((k) => <Vehicle key={k} kind="car" x={33.5 + k * 19} y={128} color="#4fb3e8" />)}
+        <Vehicle kind="car" x={229.5} y={128} color="#4fb3e8" />
+        {/* road */}
+        <rect x="110" y="96" width="100" height="22" fill="#e9e2d2" {...sw} strokeWidth={1.5} />
+        <path d="M114 107 H206" stroke={PAPER} strokeWidth="2" strokeDasharray="6 5" />
+        {[0, 1, 2].map((k) => (
+          <Moving key={k} from={[112, 113]} to={[212, 113]} delay={k * 0.8}>
+            <Vehicle kind="car" x={0} y={0} color="#4fb3e8" />
+          </Moving>
         ))}
-        <g transform="translate(140 14)">
-          <rect width="40" height="18" rx="4" fill="#ffc83d" {...sw} />
-          <Label x={20} y={12.5}>£££</Label>
-        </g>
+        <motion.path d="M162 58 l-10 16 h9 l-5 14 l15 -20 h-9 l5 -10z" fill="#ffc83d" {...sw} strokeWidth={1.5} animate={{ scale: [1, 1.15, 1] }} transition={{ repeat: Infinity, duration: 1.2 }} style={{ transformOrigin: "160px 72px" }} />
+        <Label x={160} y={30}>Traffic = electricity</Label>
+        <Label x={62} y={164}>Charged side</Label>
+        <Label x={258} y={164}>Other side</Label>
+        <Label x={160} y={190} color="#2a7fc0">Each car is an ion</Label>
       </>
     );
+
+  // 2 · lithium: small cars, snug spaces, but mined in few places and pricey
   if (frame === 2)
     return (
       <>
-        <Shelves leftGaps={9} />
-        {[0, 1, 2].map((k) => (
-          <motion.g key={k} initial={{ x: 128, y: 70 + k * 30 }} animate={{ x: [128, 120, 128] }} transition={{ repeat: Infinity, duration: 0.5, delay: k * 0.15 }}>
-            <circle r="9" fill="#ff6b4a" stroke={INK} strokeWidth="1.5" />
-            <text y="3" textAnchor="middle" fontSize="7" fontWeight={800} fill="#fff">Na</text>
-          </motion.g>
-        ))}
-        <path d="M112 60 l6 6 m0 -6 l-6 6 M112 120 l6 6 m0 -6 l-6 6" stroke="#d4472a" strokeWidth="2.5" />
-        <g transform="translate(146 10)">
-          <path d="M0 10 L14 2 L28 10 L14 18Z" fill="#fff" {...sw} />
-          <path d="M0 10 V22 L14 30 V18 M28 10 V22 L14 30" fill="#efe6d2" {...sw} />
+        <rect x="14" y="56" width="150" height="88" rx="8" fill={PAPER} {...sw} />
+        <Bays x={24} y={92} n={6} gap={21.5} />
+        <Bays x={24} y={130} n={6} gap={21.5} />
+        {[0, 1, 2, 3, 4, 5].map((k) => <Vehicle key={k} kind="car" x={34.75 + k * 21.5} y={92} color="#8f5be0" label="Li" />)}
+        {[0, 1, 2, 3].map((k) => <Vehicle key={k} kind="car" x={34.75 + k * 21.5} y={130} color="#8f5be0" label="Li" />)}
+        <Label x={89} y={162}>Small cars, snug spaces</Label>
+        {/* mine */}
+        <g transform="translate(200 120)">
+          <path d="M0 0 L30 -46 L60 0Z" fill="#cfc4ae" {...sw} />
+          <path d="M22 0 a8 10 0 0 1 16 0" fill={INK} />
         </g>
-        <Label x={160} y={196}>Too big for tight graphite gaps</Label>
+        <Label x={230} y={138}>Mined in</Label>
+        <Label x={230} y={150}>few places</Label>
+        {/* price swinging */}
+        <g transform="translate(256 40)">
+          <rect width="52" height="34" rx="4" fill="#ffc83d" {...sw} />
+          <motion.path d="M6 26 L16 14 L24 20 L34 6 L46 18" fill="none" stroke="#d4472a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: [0, 1, 1] }} transition={{ repeat: Infinity, duration: 2.4 }} />
+        </g>
+        <Label x={282} y={88}>Price swings</Label>
       </>
     );
+
+  // 3 · sodium: cheap (salt) but its "cars" are vans that don't fit
+  if (frame === 3)
+    return (
+      <>
+        {/* salt shaker */}
+        <g transform="translate(26 54)">
+          <path d="M6 20 Q6 0 22 0 Q38 0 38 20 V74 H6Z" fill={PAPER} {...sw} />
+          {[0, 1, 2].map((k) => <circle key={k} cx={14 + k * 8} cy={10} r={1.6} fill={INK} />)}
+          <rect x="10" y="40" width="24" height="26" rx="3" fill="url(#ht-ink)" />
+        </g>
+        <Label x={48} y={148}>Table salt</Label>
+        <Label x={48} y={160}>= sodium</Label>
+        <rect x="110" y="70" width="196" height="64" rx="8" fill={PAPER} {...sw} />
+        <Bays x={150} y={118} n={6} gap={21.5} />
+        <motion.g initial={{ x: 0 }} animate={{ x: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 0.6 }}>
+          <Vehicle kind="van" x={124} y={118} color="#ff6b4a" label="Na" />
+        </motion.g>
+        <path d="M144 84 l10 10 m0 -10 l-10 10" stroke="#d4472a" strokeWidth="3" strokeLinecap="round" />
+        <Label x={208} y={60}>Vans don&apos;t fit</Label>
+        <Label x={208} y={152}>Spaces built for small cars</Label>
+      </>
+    );
+
+  // 4 · the fix: roomier spaces (hard carbon); also copes with cold
   return (
     <>
-      <Shelves leftGaps={5} leftColor="#cfc4ae" irregular />
-      {[0, 1, 2, 3].map((k) => (
-        <Traveller key={k} from={[205, 66 + k * 26]} to={[100, 56 + k * 28]} r={8} color="#ff6b4a" label="Na" delay={k * 0.4} dur={2.6} />
-      ))}
-      <g transform="translate(160 20)" stroke={INK} strokeWidth="2" strokeLinecap="round">
-        <path d="M0 -10 V10 M-9 -5 L9 5 M-9 5 L9 -5" />
+      <rect x="14" y="60" width="210" height="80" rx="8" fill={PAPER} {...sw} />
+      <Bays x={28} y={118} n={5} gap={38} color="#5a4a35" />
+      {[0, 1, 2].map((k) => <Vehicle key={k} kind="van" x={47 + k * 38} y={118} color="#ff6b4a" label="Na" />)}
+      <Moving from={[262, 118]} to={[199, 118]} dur={2.8}>
+        <Vehicle kind="van" x={0} y={0} color="#ff6b4a" label="Na" />
+      </Moving>
+      <path d="M228 118 H310" stroke={INK} strokeWidth="2" strokeDasharray="5 4" />
+      <Label x={119} y={156}>Hard carbon: roomier spaces</Label>
+      <g transform="translate(272 58)" stroke="#2a7fc0" strokeWidth="2.5" strokeLinecap="round">
+        <path d="M0 -14 V14 M-12 -7 L12 7 M-12 7 L12 -7" />
       </g>
-      <Label x={186} y={24} anchor="start" color="#2a7fc0">−40°C ok</Label>
-      <Label x={71} y={196}>Hard carbon</Label>
+      <Label x={272} y={90} color="#2a7fc0">Works in</Label>
+      <Label x={272} y={101} color="#2a7fc0">the cold</Label>
+      <Label x={119} y={48} color="#1b8048">Now the vans park</Label>
     </>
   );
 }

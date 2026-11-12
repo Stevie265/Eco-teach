@@ -61,6 +61,8 @@ export interface ProgressState {
   ripple: { custom: Record<string, RippleCustomNode[]>; notes: Record<string, string> };
   capstone?: CapstoneDraft;
   activity: { at: string; text: string; xp?: number }[];
+  /** Breakthrough Breakdown: steps understood, and steps that needed another explanation */
+  breakdowns?: Record<string, { got: number[]; help: number[] }>;
 }
 
 const KEY = "eco-teach:progress:v1";
@@ -170,6 +172,27 @@ function log(s: ProgressState, text: string, xp?: number): ProgressState {
 
 export function addXp(amount: number, reason: string) {
   update((s) => log(touchDay({ ...s, xp: s.xp + amount }), reason, amount));
+}
+
+/** Mark a breakdown step as understood (true) or as needing another way in (false). */
+export function markBreakdownStep(id: string, step: number, understood: boolean) {
+  update((s) => {
+    const all = s.breakdowns ?? {};
+    const prev = all[id] ?? { got: [], help: [] };
+    const next = understood
+      ? { ...prev, got: prev.got.includes(step) ? prev.got : [...prev.got, step] }
+      : { ...prev, help: prev.help.includes(step) ? prev.help : [...prev.help, step] };
+    const gained = understood && !prev.got.includes(step) ? 5 : 0;
+    return touchDay({ ...s, xp: s.xp + gained, breakdowns: { ...all, [id]: next } });
+  });
+}
+
+export function resetBreakdown(id: string) {
+  update((s) => {
+    const all = { ...(s.breakdowns ?? {}) };
+    delete all[id];
+    return { ...s, breakdowns: all };
+  });
 }
 
 export function recordStep(key: string, step: number) {
