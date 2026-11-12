@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { Sym } from "../ui/WorldGlyph";
 
 // Typical, illustrative power ratings (kW) while running.
 const APPLIANCES = [
-  { id: "kettle", label: "Kettle", kw: 3, hours: 0.2, emoji: "🫖" },
-  { id: "fridge", label: "Fridge-freezer (average draw)", kw: 0.08, hours: 24, emoji: "🧊" },
-  { id: "shower", label: "Electric shower", kw: 9, hours: 0.15, emoji: "🚿" },
-  { id: "tv", label: "TV", kw: 0.1, hours: 4, emoji: "📺" },
-  { id: "led", label: "LED bulbs ×10", kw: 0.08, hours: 5, emoji: "💡" },
-  { id: "washer", label: "Washing machine (average cycle)", kw: 0.7, hours: 1, emoji: "🧺" },
-  { id: "ev", label: "EV home charger", kw: 7, hours: 1.5, emoji: "🚗" },
-  { id: "hp", label: "Heat pump (winter, electrical input)", kw: 1.5, hours: 8, emoji: "♨️" },
+  { id: "kettle", label: "Kettle", kw: 3, hours: 0.2, icon: "kettle" as const },
+  { id: "fridge", label: "Fridge-freezer (average draw)", kw: 0.08, hours: 24, icon: "drop" as const },
+  { id: "shower", label: "Electric shower", kw: 9, hours: 0.15, icon: "drop" as const },
+  { id: "tv", label: "TV", kw: 0.1, hours: 4, icon: "plug" as const },
+  { id: "led", label: "LED bulbs ×10", kw: 0.08, hours: 5, icon: "sun" as const },
+  { id: "washer", label: "Washing machine (average cycle)", kw: 0.7, hours: 1, icon: "plug" as const },
+  { id: "ev", label: "EV home charger", kw: 7, hours: 1.5, icon: "car" as const },
+  { id: "hp", label: "Heat pump (winter, electrical input)", kw: 1.5, hours: 8, icon: "heat" as const },
 ];
 
 export function ApplianceCalculator() {
@@ -34,7 +35,7 @@ export function ApplianceCalculator() {
             <div key={a.id} className={`rounded-xl border p-3 transition ${on[a.id] ? "border-forest-600/40 bg-moss-100/40" : "border-sand"}`}>
               <label className="flex cursor-pointer items-center gap-3">
                 <input type="checkbox" className="h-4 w-4 accent-[#1d4d38]" checked={!!on[a.id]} onChange={(e) => setOn({ ...on, [a.id]: e.target.checked })} />
-                <span aria-hidden>{a.emoji}</span>
+                <Sym name={a.icon} className="h-4 w-4 shrink-0 text-ink-soft" />
                 <span className="flex-1 text-sm font-medium">{a.label}</span>
                 <span className="font-mono text-xs text-ink-soft">{a.kw} kW</span>
               </label>

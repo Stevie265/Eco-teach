@@ -91,7 +91,7 @@ export function GridBalancer() {
               disabled={tripped}
               className="rounded-full bg-ember px-4 py-2 text-sm font-semibold text-white disabled:opacity-40"
             >
-              ⚡ Trip a 2 GW power station
+              Trip a 2 GW power station
             </button>
             <button onClick={reset} className="btn btn-secondary py-2 text-sm">
               Reset

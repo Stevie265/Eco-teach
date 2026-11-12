@@ -39,7 +39,7 @@ export function ControlMetaphors() {
   const [active, setActive] = useState("vpp");
   const c = CARDS.find((x) => x.id === active)!;
   return (
-    <div className="rounded-3xl border-2 border-sand bg-white p-5 shadow-[0_5px_0_#e7ddc9]">
+    <div className="rounded-3xl plate bg-white p-5">
       <div className="grid grid-cols-4 gap-2" role="tablist" aria-label="Metaphors">
         {CARDS.map((x) => (
           <button
@@ -96,16 +96,19 @@ function Scene({ id, color }: { id: string; color: string }) {
       <svg viewBox="0 0 320 160" className="h-full w-full" aria-hidden>
         <path d="M110 120 V80 L160 44 L210 80 V120Z" fill="#fff" stroke="#13283a" strokeWidth="2.5" />
         {[
-          ["🚗", 80, 130],
-          ["♨️", 236, 130],
-          ["🔋", 236, 70],
-          ["☀️", 84, 60],
+          ["car", 80, 130],
+          ["heat", 236, 130],
+          ["battery", 236, 70],
+          ["sun", 84, 60],
         ].map(([e, x, y], i) => (
           <g key={i}>
             <motion.line x1="160" y1="92" x2={x as number} y2={(y as number) - 6} stroke={color} strokeWidth="2.5" strokeDasharray="4 5" animate={{ strokeDashoffset: [0, -18] }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} />
-            <text x={x as number} y={y as number} fontSize="22" textAnchor="middle">
-              {e}
-            </text>
+            <g transform={`translate(${(x as number) - 13} ${(y as number) - 22})`}>
+              <rect width="26" height="26" rx="7" fill="#fffdf7" stroke="#1b2a4a" strokeWidth="1.5" />
+              <svg x="3" y="3" width="20" height="20" viewBox="0 0 24 24" overflow="visible">
+                <SymPaths name={e as string} />
+              </svg>
+            </g>
           </g>
         ))}
         <circle cx="160" cy="92" r="14" fill={color} />
@@ -156,4 +159,12 @@ function Scene({ id, color }: { id: string; color: string }) {
       ))}
     </svg>
   );
+}
+
+function SymPaths({ name }: { name: string }) {
+  const p = { fill: "none", stroke: "#1b2a4a", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  if (name === "car") return <><path {...p} d="M3 15v-3l2-5h14l2 5v3Z" /><circle {...p} cx="7.5" cy="17" r="1.8" /><circle {...p} cx="16.5" cy="17" r="1.8" /></>;
+  if (name === "heat") return <path {...p} d="M7 20c-2-3 2-5 0-8s2-5 0-8 M12 20c-2-3 2-5 0-8s2-5 0-8 M17 20c-2-3 2-5 0-8s2-5 0-8" />;
+  if (name === "battery") return <><rect {...p} x="3" y="7" width="16" height="10" rx="2" /><path {...p} d="M21 10v4 M7 10v4M11 10v4" /></>;
+  return <><circle {...p} cx="12" cy="12" r="4" /><path {...p} d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" /></>;
 }

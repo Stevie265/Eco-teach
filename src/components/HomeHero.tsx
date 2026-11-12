@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Flame, Sparkles, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { level, streak, useHydrated, useProgress } from "@/lib/progress";
 import { nextLesson } from "@/lib/curriculum";
 import { getWorld } from "@/content/worlds";
@@ -47,35 +47,37 @@ export function HomeStats() {
   const lv = level(p.xp);
   const done = Object.values(p.lessons).filter((l) => l.completedAt).length;
   const rec = p.profile ? getWorld(p.profile.recommended.worldId) : undefined;
+  const cells = 10;
+  const lit = hydrated ? Math.round((lv.into / lv.span) * cells) : 0;
   return (
-    <div className="card-chunky rounded-3xl bg-white p-4">
-      <div className="grid grid-cols-3 gap-2 text-center">
-        <Stat icon={<Flame className="h-5 w-5" />} value={hydrated ? streak(p) : 0} label="streak" color="#ff6b4a" />
-        <Stat icon={<Zap className="h-5 w-5" />} value={hydrated ? p.xp : 0} label="XP" color="#f2a20c" />
-        <Stat icon={<Sparkles className="h-5 w-5" />} value={hydrated ? done : 0} label="lessons" color="#2fa560" />
+    <div className="plate plate-rivets rounded-2xl">
+      <div className="flex items-center justify-between border-b-[1.5px] border-ink px-6 py-1.5">
+        <span className="readout text-[10px] font-bold">Your meter</span>
+        <span className="readout text-[10px] font-bold text-moss-500">Level {hydrated ? lv.level : 1}</span>
       </div>
-      <div className="mt-3">
-        <div className="mb-1 flex justify-between text-xs font-bold text-ink-soft">
-          <span>Level {hydrated ? lv.level : 1}</span>
-          <span>{hydrated ? lv.span - lv.into : 100} XP to go</span>
+      <dl className="grid grid-cols-3 divide-x-[1.5px] divide-ink/15 px-2 py-3 text-center">
+        <Stat value={hydrated ? streak(p) : 0} label="Day streak" />
+        <Stat value={hydrated ? p.xp : 0} label="XP" />
+        <Stat value={hydrated ? done : 0} label="Lessons" />
+      </dl>
+      <div className="px-4 pb-4">
+        <div className="flex gap-1" role="img" aria-label={`${lv.into} of ${lv.span} XP to the next level`}>
+          {Array.from({ length: cells }).map((_, i) => (
+            <span key={i} className="h-3 flex-1 rounded-[3px] border-[1.5px] border-ink" style={{ background: i < lit ? (i < 6 ? "#2fa560" : i < 9 ? "#ffc83d" : "#ff6b4a") : "#fffdf7" }} />
+          ))}
         </div>
-        <div className="h-3 overflow-hidden rounded-full bg-paper-2">
-          <div className="h-full rounded-full bg-gradient-to-r from-moss-500 to-sun transition-all" style={{ width: `${hydrated ? (lv.into / lv.span) * 100 : 0}%` }} />
-        </div>
+        <div className="readout mt-1.5 text-right text-[10px] text-ink-soft">{hydrated ? lv.span - lv.into : 100} XP to level {hydrated ? lv.level + 1 : 2}</div>
+        {hydrated && rec && <p className="mt-2 rounded-lg border-[1.5px] border-ink bg-sun px-3 py-1.5 text-sm font-semibold">Your path starts in {rec.title}</p>}
       </div>
-      {hydrated && rec && <p className="mt-3 rounded-xl bg-sprout-soft px-3 py-2 text-sm font-semibold">Your path starts in {rec.title}</p>}
     </div>
   );
 }
 
-function Stat({ icon, value, label, color }: { icon: React.ReactNode; value: number; label: string; color: string }) {
+function Stat({ value, label }: { value: number; label: string }) {
   return (
-    <div className="rounded-2xl bg-paper py-2">
-      <div className="flex items-center justify-center gap-1 font-display text-xl sm:text-2xl" style={{ color }}>
-        {icon}
-        {value}
-      </div>
-      <div className="text-[10px] font-bold uppercase tracking-wider text-ink-soft sm:text-[11px]">{label}</div>
+    <div>
+      <dd className="readout text-2xl font-bold text-ink">{String(value).padStart(2, "0")}</dd>
+      <dt className="readout text-[9px] font-bold text-ink-soft sm:text-[10px]">{label}</dt>
     </div>
   );
 }

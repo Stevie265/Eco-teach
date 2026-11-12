@@ -6,7 +6,7 @@ import { useState } from "react";
 export function RoadsMetaphor() {
   const [twoWay, setTwoWay] = useState(false);
   return (
-    <div className="rounded-3xl border-2 border-sand bg-white p-5 shadow-[0_5px_0_#e7ddc9]">
+    <div className="rounded-3xl plate bg-white p-5">
       <svg viewBox="0 0 340 210" className="w-full" role="img" aria-label="The grid as a road network: motorways, junctions, local roads and driveways">
         <rect width="340" height="210" rx="16" fill="#e9f6e2" />
         {/* motorway */}

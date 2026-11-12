@@ -6,7 +6,7 @@ Eco-teach is an interactive learning platform that takes curious, non-technical 
 
 - **Live:** https://eco-teach.vercel.app
 - **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Motion (scroll & parallax) · Vercel
-- **Design:** "Living Landscape": Bricolage Grotesque + Inter, sky/meadow/sunshine palette, chunky tactile buttons, parallax illustrated landscape, lessons in full-screen focus mode
+- **Design language: "Current"** (see `/design`): a continuous wire through the app (journey as a circuit diagram), schematic symbols from electrical single-line diagrams, appliance rating-plate cards, riso-print illustration (spot inks, halftone, misregistration, grain) and meter readouts instead of trophies. Bricolage Grotesque + Inter + JetBrains Mono.
 
 ---
 
@@ -75,6 +75,7 @@ src/
     visuals/                Interactive diagrams + registry.tsx
     visuals/metaphors/      Visual metaphors used alongside explanations
     landscape/              Parallax landscape + illustrated world scenes
+    brand/                  Rating plate, segment meter, riso defs (halftone, grain)
     motion/                 Reveal / Parallax primitives (respect reduced motion)
     ui/                     Nav, glyphs, evidence badges, rich text
   content/                  ← all curriculum content lives here

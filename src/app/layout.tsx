@@ -5,6 +5,7 @@ import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import { Nav, SiteFooter, TabBar } from "@/components/ui/Nav";
 import { MotionProvider } from "@/components/motion/Motion";
+import { RisoDefs } from "@/components/brand/RisoDefs";
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#8fd3fb",
+  themeColor: "#f7f1e3",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">
           Skip to content
         </a>
+        <RisoDefs />
         <MotionProvider>
           <Nav />
           <main id="main" className="flex-1">

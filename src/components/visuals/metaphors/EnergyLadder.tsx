@@ -2,23 +2,24 @@
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import { Sym } from "../../ui/WorldGlyph";
 
 /** Metaphor: an energy ladder. Each rung is denser and more flexible than the last. */
 const RUNGS = [
-  { id: "muscle", label: "Muscle", emoji: "💪", color: "#e0832a", gain: "Your own body, animals", density: null as number | null },
-  { id: "wood", label: "Wood & biomass", emoji: "🔥", color: "#b5762a", gain: "Heat on demand", density: 16 },
-  { id: "wind-water", label: "Wind & water", emoji: "🌬️", color: "#4fb3e8", gain: "Mechanical work without muscle", density: null },
-  { id: "coal", label: "Coal", emoji: "⛏️", color: "#4a5d6b", gain: "Energy you can carry to any factory", density: 24 },
-  { id: "oil-gas", label: "Oil & gas", emoji: "🛢️", color: "#ff6b4a", gain: "Liquid & gas: pumpable, portable", density: 45 },
-  { id: "electricity", label: "Electricity", emoji: "⚡", color: "#ffc22e", gain: "Instant, anywhere there's a wire", density: null },
-  { id: "renewables", label: "Wind, solar & storage", emoji: "☀️", color: "#2fa560", gain: "Low-carbon, and homes can generate", density: null },
+  { id: "muscle", label: "Muscle", icon: "muscle" as const, color: "#e0832a", gain: "Your own body, animals", density: null as number | null },
+  { id: "wood", label: "Wood & biomass", icon: "flame" as const, color: "#b5762a", gain: "Heat on demand", density: 16 },
+  { id: "wind-water", label: "Wind & water", icon: "wind" as const, color: "#4fb3e8", gain: "Mechanical work without muscle", density: null },
+  { id: "coal", label: "Coal", icon: "pick" as const, color: "#4a5d6b", gain: "Energy you can carry to any factory", density: 24 },
+  { id: "oil-gas", label: "Oil & gas", icon: "drop" as const, color: "#ff6b4a", gain: "Liquid & gas: pumpable, portable", density: 45 },
+  { id: "electricity", label: "Electricity", icon: "bolt" as const, color: "#ffc22e", gain: "Instant, anywhere there's a wire", density: null },
+  { id: "renewables", label: "Wind, solar & storage", icon: "sun" as const, color: "#2fa560", gain: "Low-carbon, and homes can generate", density: null },
 ];
 
 export function EnergyLadder() {
   const [rung, setRung] = useState(0);
   const r = RUNGS[rung];
   return (
-    <div className="rounded-3xl border-2 border-sand bg-white p-5 shadow-[0_5px_0_#e7ddc9]">
+    <div className="rounded-3xl plate bg-white p-5">
       <div className="flex gap-4">
         {/* ladder */}
         <div className="relative w-28 shrink-0">
@@ -32,22 +33,20 @@ export function EnergyLadder() {
                 aria-pressed={rung === i}
                 aria-label={x.label}
                 className="relative mx-1 flex h-9 items-center justify-center rounded-lg text-lg transition"
-                style={{ background: i <= rung ? x.color : "#f4eddf", boxShadow: i === rung ? `0 0 0 3px #13283a` : undefined }}
+                style={{ background: i <= rung ? x.color : "#efe6d2", boxShadow: i === rung ? `0 0 0 2.5px #1b2a4a` : undefined }}
               >
-                {x.emoji}
+                <Sym name={x.icon} className="h-5 w-5" color={i <= rung ? "#fff" : "#1b2a4a"} />
               </button>
             ))}
           </div>
-          <motion.div className="absolute -right-6 text-2xl" initial={false} animate={{ bottom: `${(rung / (RUNGS.length - 1)) * 86 + 2}%` }} transition={{ type: "spring", stiffness: 90, damping: 14 }} aria-hidden>
-            🧗
-          </motion.div>
+          <motion.div className="absolute -right-5 h-4 w-4 rounded-full border-2 border-ink bg-sun" initial={false} animate={{ bottom: `${(rung / (RUNGS.length - 1)) * 86 + 4}%` }} transition={{ type: "spring", stiffness: 90, damping: 14 }} aria-hidden />
         </div>
         {/* detail */}
         <div className="min-w-0 flex-1">
           <div className="text-[11px] font-extrabold uppercase tracking-wider text-ink-soft">Rung {rung + 1} of {RUNGS.length}</div>
           <motion.div key={r.id} initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }}>
             <h4 className="font-display text-2xl" style={{ color: r.color === "#ffc22e" ? "#b37f00" : r.color }}>
-              {r.emoji} {r.label}
+              {r.label}
             </h4>
             <p className="mt-1 text-[15px]">
               <strong>Unlocked:</strong> {r.gain}

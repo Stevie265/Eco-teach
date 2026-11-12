@@ -20,7 +20,7 @@ export function WorldLessons({ worldId }: { worldId: string }) {
         const icon =
           status === "complete" ? <Check className="h-5 w-5" /> : status === "available" ? <Play className="h-5 w-5" /> : status === "locked" ? <Lock className="h-4 w-4" /> : <Sprout className="h-4 w-4" />;
         const inner = (
-          <div className={`relative flex gap-3 rounded-2xl border-2 p-3 transition sm:gap-4 sm:p-4 ${status === "available" ? "border-sand bg-white shadow-[0_4px_0_#e7ddc9] hover:-translate-y-0.5" : status === "complete" ? "border-sand bg-white/80 hover:shadow" : "border-dashed border-sand bg-paper/60"}`}>
+          <div className={`relative flex gap-3 rounded-2xl border-2 p-3 transition sm:gap-4 sm:p-4 ${status === "available" ? "border-sand bg-white hover:-translate-y-0.5" : status === "complete" ? "border-sand bg-white/80 hover:shadow" : "border-dashed border-sand bg-paper/60"}`}>
             <span
               className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl sm:h-14 sm:w-14 sm:rounded-2xl"
               style={{

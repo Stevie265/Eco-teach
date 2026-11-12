@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Sym } from "../../ui/WorldGlyph";
 import { motion } from "motion/react";
 
 /** Metaphor: the grid is a seesaw. Supply on one side, demand on the other; frequency is the tilt. */
@@ -24,7 +25,7 @@ export function Seesaw() {
   const tone = Math.abs(diff) === 0 ? "#2fa560" : Math.abs(diff) <= 2 ? "#f2a20c" : "#ff6b4a";
 
   return (
-    <div className="rounded-3xl border-2 border-sand bg-white p-5 shadow-[0_5px_0_#e7ddc9]">
+    <div className="rounded-3xl plate bg-white p-5">
       <svg viewBox="0 0 320 200" className="w-full" role="img" aria-label={status}>
         {/* dial */}
         <g transform="translate(160 62)">
@@ -53,16 +54,16 @@ export function Seesaw() {
       </div>
       <div className="mt-4 grid grid-cols-2 gap-2">
         <button className="btn btn-secondary px-2 py-2 text-sm" onClick={() => setDemand((d) => Math.min(8, d + 1))}>
-          ☕ Half-time kettles
+          <Sym name="kettle" className="h-4 w-4 shrink-0" /> Half-time kettles
         </button>
         <button className="btn btn-secondary px-2 py-2 text-sm" onClick={() => setSupply((s) => Math.max(1, s - 1))}>
-          🍃 Wind drops
+          <Sym name="wind" className="h-4 w-4 shrink-0" /> Wind drops
         </button>
         <button className="btn btn-secondary px-2 py-2 text-sm" onClick={() => setSupply((s) => Math.min(8, s + 1))}>
-          🔋 Battery kicks in
+          <Sym name="battery" className="h-4 w-4 shrink-0" /> Battery kicks in
         </button>
         <button className="btn btn-secondary px-2 py-2 text-sm" onClick={() => setDemand((d) => Math.max(1, d - 1))}>
-          🚗 EVs pause charging
+          <Sym name="car" className="h-4 w-4 shrink-0" /> EVs pause
         </button>
       </div>
       <button className="mt-3 w-full text-sm font-bold text-ink-soft underline" onClick={() => { setSupply(5); setDemand(5); }}>

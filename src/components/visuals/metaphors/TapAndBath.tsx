@@ -18,7 +18,7 @@ export function TapAndBath() {
   const flowW = 2 + (kw / 9) * 16;
 
   return (
-    <div className="rounded-3xl border-2 border-sand bg-white p-5 shadow-[0_5px_0_#e7ddc9]">
+    <div className="rounded-3xl plate bg-white p-5">
       <svg viewBox="0 0 320 220" className="w-full" role="img" aria-label={`Tap running at ${kw} kilowatts for ${hours} hours fills the bath with ${kwh.toFixed(2)} kilowatt-hours`}>
         {/* tap */}
         <path d="M60 30h70a14 14 0 0 1 14 14v20" fill="none" stroke="#9fb3c2" strokeWidth="14" strokeLinecap="round" />

@@ -19,10 +19,11 @@
   --color-moss-100: #dff5e6;
   --color-sprout: #ffd23f; /* sunshine highlight */
   --color-sprout-soft: #fff4c7;
-  --color-paper: #fffaf0;
-  --color-paper-2: #f4eddf;
+  --color-paper: #f7f1e3;
+  --color-paper-2: #efe6d2;
   --color-sand: #e7ddc9;
-  --color-ink: #13283a;
+  --color-ink: #1b2a4a;
+  --color-wire: #1b2a4a;
   --color-ink-soft: #4a5d6b;
   --color-ember: #ff6b4a; /* coral energy */
   --color-ember-soft: #ffe3db;
@@ -99,18 +100,20 @@ body {
   .t-body { font-size: 1.125rem; }
 }
 
-/* Chunky, tactile app buttons */
+/* "Current" print buttons: ink outline + hard offset shadow, like a riso print on card stock */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 0.9rem;
+  border-radius: 0.75rem;
   min-height: 2.875rem; /* 46px touch target */
   padding: 0.6rem 1.1rem;
   font-size: 0.9375rem;
   font-weight: 700;
   letter-spacing: 0.01em;
+  border: 2px solid var(--color-ink);
+  box-shadow: 3px 3px 0 var(--color-ink);
   transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s;
   user-select: none;
 }
@@ -118,42 +121,53 @@ body {
   .btn { padding: 0.75rem 1.4rem; font-size: 1rem; min-height: 3rem; }
 }
 .btn:active:not(:disabled) {
-  transform: translateY(3px);
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--color-ink);
 }
-.btn-primary {
-  background: var(--color-forest-800);
-  color: white;
-  box-shadow: 0 4px 0 var(--color-forest-700);
+.btn-primary { background: var(--color-forest-800); color: #fff; }
+.btn-primary:hover:not(:disabled) { filter: brightness(1.07); }
+.btn-primary:disabled { background: #d9d3c4; color: #8a8576; border-color: #b9b2a2; box-shadow: 3px 3px 0 #b9b2a2; }
+.btn-secondary { background: #fffdf7; color: var(--color-ink); }
+.btn-sun { background: var(--color-sun); color: var(--color-ink); }
+
+/* Rating plate: the nameplate on the back of an appliance */
+.card-chunky,
+.plate {
+  position: relative;
+  background-color: #fffdf7;
+  border: 1.5px solid var(--color-ink);
+  box-shadow: 3px 3px 0 var(--color-ink);
 }
-.btn-primary:active:not(:disabled) {
-  box-shadow: 0 1px 0 var(--color-forest-700);
+.plate-rivets::before,
+.plate-rivets::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-ink);
+  background: radial-gradient(circle at 35% 35%, #fff 0 30%, #d7cfbd 31%);
 }
-.btn-primary:hover:not(:disabled) {
-  filter: brightness(1.06);
+.plate-rivets::before { left: 8px; }
+.plate-rivets::after { right: 8px; }
+.readout {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
-.btn-primary:disabled {
-  background: #cfd8d3;
-  box-shadow: 0 4px 0 #b8c3bd;
-  color: #f4f7f5;
+
+/* Riso print textures */
+.halftone {
+  background-image: radial-gradient(rgba(27, 42, 74, 0.18) 1px, transparent 1.3px);
+  background-size: 5px 5px;
 }
-.btn-secondary {
-  background: white;
-  color: var(--color-ink);
-  border: 2px solid var(--color-sand);
-  box-shadow: 0 4px 0 var(--color-sand);
+.halftone-sun {
+  background-image: radial-gradient(rgba(255, 200, 61, 0.55) 1.2px, transparent 1.5px);
+  background-size: 6px 6px;
 }
-.btn-secondary:active {
-  box-shadow: 0 1px 0 var(--color-sand);
-}
-.btn-sun {
-  background: var(--color-sun);
-  color: var(--color-ink);
-  box-shadow: 0 4px 0 #d99a00;
-}
-.card-chunky {
-  border: 2px solid var(--color-sand);
-  box-shadow: 0 4px 0 var(--color-sand);
-}
+.misprint { filter: drop-shadow(2px 2px 0 rgba(255, 107, 74, 0.55)); }
 
 /* Subtle paper grain for warmth */
 .grain {

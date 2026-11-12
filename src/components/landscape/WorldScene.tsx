@@ -2,7 +2,7 @@
  * Small illustrated scene for each world: a visual metaphor for what it covers.
  * Pure SVG, 200×120 canvas.
  */
-const INK = "#13283a";
+const INK = "#1b2a4a";
 
 export function WorldScene({ id, className = "" }: { id: string; className?: string }) {
   return (

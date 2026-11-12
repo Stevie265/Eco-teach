@@ -47,7 +47,7 @@ export function Nav() {
   const s = hydrated ? streak(p) : 0;
 
   return (
-    <header className="no-print sticky top-0 z-40 border-b-2 border-sand/60 bg-paper/80 backdrop-blur-lg">
+    <header className="no-print sticky top-0 z-40 border-b-[1.5px] border-ink bg-paper/90 backdrop-blur-lg">
       <div className="mx-auto flex h-14 max-w-6xl sm:h-16 items-center justify-between gap-4 px-4 sm:px-6">
         <Link href="/" aria-label="Eco-teach home">
           <Logo />
@@ -66,7 +66,7 @@ export function Nav() {
             );
           })}
         </nav>
-        <Link href="/dashboard" className="flex items-center gap-3 rounded-2xl border-2 border-sand bg-white px-3 py-1.5 text-sm font-extrabold shadow-[0_3px_0_#e7ddc9]" aria-label="Your progress">
+        <Link href="/dashboard" className="flex items-center gap-3 rounded-2xl plate bg-white px-3 py-1.5 text-sm font-extrabold" aria-label="Your progress">
           <span className="flex items-center gap-1 text-ember" title="Daily streak">
             <Flame className="h-4 w-4" aria-hidden />
             {s}
@@ -86,7 +86,7 @@ export function TabBar() {
   const { pathname, focus } = useFocusMode();
   if (focus) return null;
   return (
-    <nav className="no-print fixed inset-x-0 bottom-0 z-40 border-t-2 border-sand bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden" aria-label="App">
+    <nav className="no-print fixed inset-x-0 bottom-0 z-40 border-t-[1.5px] border-ink bg-[#fffdf7]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden" aria-label="App">
       <div className="mx-auto grid max-w-md grid-cols-4">
         {TABS.map((t) => {
           const active = t.href === "/" ? pathname === "/" || pathname.startsWith("/worlds") : pathname.startsWith(t.href);
@@ -129,6 +129,7 @@ export function SiteFooter() {
           <Link href="/capstone" className="block hover:text-white">Capstone challenge</Link>
           <Link href="/sources" className="block hover:text-white">Research &amp; sources</Link>
           <Link href="/about" className="block hover:text-white">About &amp; method</Link>
+          <Link href="/design" className="block hover:text-white">Design language</Link>
         </div>
       </div>
     </footer>

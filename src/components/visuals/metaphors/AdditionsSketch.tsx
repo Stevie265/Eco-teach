@@ -16,7 +16,7 @@ const LAYERS = [
 
 export function AdditionsSketch() {
   return (
-    <div className="rounded-3xl border-2 border-sand bg-white p-5 shadow-[0_5px_0_#e7ddc9]">
+    <div className="rounded-3xl plate bg-white p-5">
       <svg viewBox="0 0 480 220" className="w-full" role="img" aria-label="Schematic: each new energy source stacks on top of the old ones as total use grows">
         {LAYERS.map((l, i) => (
           <motion.path key={l.label} d={l.d} fill={l.color} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.25 + i * 0.35, duration: 0.6 }} />

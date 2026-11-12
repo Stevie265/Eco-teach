@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, type ReactNode } from "react";
+import { Grain } from "../brand/RisoDefs";
 
 /**
  * The signature parallax landscape. A tall section with a sticky viewport:
@@ -26,13 +27,15 @@ export function Landscape({ children }: { children: ReactNode }) {
     <section ref={ref} className="relative h-[175vh]" aria-label="Welcome">
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <motion.div className="absolute inset-0" style={{ background: skyShift }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#5fbdf5]/60 via-transparent to-[#fff6dc]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#5fbdf5]/50 via-transparent to-[#f7f1e3]" />
+        <div className="halftone absolute inset-x-0 top-0 h-1/2 opacity-40 [mask-image:linear-gradient(#000,transparent)]" />
 
         {/* sun */}
         <motion.div style={{ y: sunY }} className="absolute right-[8%] top-[11%] sm:right-[12%] sm:top-[14%]">
           <div className="relative h-20 w-20 sm:h-36 sm:w-36">
-            <div className="absolute inset-[-40%] animate-pulse-soft rounded-full bg-sun/30 blur-2xl" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#ffe27a] to-sun shadow-[0_0_80px_rgba(255,194,46,.6)]" />
+            <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-ember/60" />
+            <div className="absolute inset-0 rounded-full border-2 border-ink bg-sun" />
+            <div className="halftone-sun absolute inset-0 rounded-full [mask-image:linear-gradient(135deg,transparent_35%,#000_90%)]" style={{ backgroundImage: "radial-gradient(rgba(214,120,0,.55) 1.3px, transparent 1.6px)" }} />
           </div>
         </motion.div>
 
@@ -51,14 +54,16 @@ export function Landscape({ children }: { children: ReactNode }) {
 
         {/* far mountains */}
         <motion.svg style={{ y: farY }} viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" className="absolute bottom-[18vh] left-0 h-[42vh] w-full" aria-hidden>
-          <path d="M0 400V250l120-90 110 70 150-150 130 110 90-60 170 140 140-120 160 130 110-80 160 120 100-60v230Z" fill="#a9d3ee" />
+          <path d="M0 400V250l120-90 110 70 150-150 130 110 90-60 170 140 140-120 160 130 110-80 160 120 100-60v230Z" fill="#a9d3ee" stroke="#1b2a4a" strokeWidth="2" strokeLinejoin="round" />
+          <path d="M0 400V250l120-90 110 70 150-150 130 110 90-60 170 140 140-120 160 130 110-80 160 120 100-60v230Z" fill="url(#ht-sky)" mask="url(#shade-mask)" />
           <path d="M380 80 L414 114 L398 108 L382 118 L366 106 L348 112Z M910 150 L940 175 L926 171 L912 179 L898 170 L884 172Z" fill="#fff" opacity=".9" />
-          <path d="M0 400V300l160-70 140 50 180-90 160 90 140-60 180 80 160-70 180 60 140-40v150Z" fill="#8cc4e6" />
+          <path d="M0 400V300l160-70 140 50 180-90 160 90 140-60 180 80 160-70 180 60 140-40v150Z" fill="#8cc4e6" stroke="#1b2a4a" strokeWidth="2" strokeLinejoin="round" />
         </motion.svg>
 
         {/* mid hills with wind turbines */}
         <motion.svg style={{ y: midY }} viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax slice" className="absolute bottom-[4vh] left-0 h-[46vh] w-full" aria-hidden>
-          <path d="M0 420V240c140-70 260-80 400-30s280 40 420-30 300-60 420 0 160 40 200 30v210Z" fill="#9ed98a" />
+          <path d="M0 420V240c140-70 260-80 400-30s280 40 420-30 300-60 420 0 160 40 200 30v210Z" fill="#9ed98a" stroke="#1b2a4a" strokeWidth="2" />
+          <path d="M0 420V240c140-70 260-80 400-30s280 40 420-30 300-60 420 0 160 40 200 30v210Z" fill="url(#ht-meadow)" mask="url(#shade-mask)" />
           {[
             [260, 205],
             [360, 196],
@@ -68,12 +73,13 @@ export function Landscape({ children }: { children: ReactNode }) {
           ].map(([x, y], i) => (
             <Turbine key={i} x={x} y={y} scale={i % 2 ? 0.8 : 1} speed={5 + i} />
           ))}
-          <path d="M0 420V300c180-50 300-40 460 0s320 50 480 0 320-60 500 0v120Z" fill="#7cc66c" />
+          <path d="M0 420V300c180-50 300-40 460 0s320 50 480 0 320-60 500 0v120Z" fill="#7cc66c" stroke="#1b2a4a" strokeWidth="2" />
         </motion.svg>
 
         {/* grid: pylons, solar farm */}
         <motion.svg style={{ y: gridY }} viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" className="absolute -bottom-[6vh] left-0 h-[36vh] w-full" aria-hidden>
-          <path d="M0 300V170c200-40 420-50 720-10s520 30 720-10v150Z" fill="#5fb85a" />
+          <path d="M0 300V170c200-40 420-50 720-10s520 30 720-10v150Z" fill="#5fb85a" stroke="#1b2a4a" strokeWidth="2" />
+          <path d="M0 300V170c200-40 420-50 720-10s520 30 720-10v150Z" fill="url(#ht-meadow)" mask="url(#shade-mask)" />
           {[150, 520, 900, 1280].map((x) => (
             <Pylon key={x} x={x} y={160} />
           ))}
@@ -93,7 +99,8 @@ export function Landscape({ children }: { children: ReactNode }) {
 
         {/* near meadow with homes */}
         <motion.svg style={{ y: nearY }} viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" className="absolute -bottom-[16vh] left-0 h-[34vh] w-full" aria-hidden>
-          <path d="M0 260V110c260-50 520-40 760 0s460 30 680-10v160Z" fill="#43a64f" />
+          <path d="M0 260V110c260-50 520-40 760 0s460 30 680-10v160Z" fill="#43a64f" stroke="#1b2a4a" strokeWidth="2" />
+          <path d="M0 260V110c260-50 520-40 760 0s460 30 680-10v160Z" fill="url(#ht-ink)" mask="url(#shade-mask)" />
           <Tree x={90} y={112} s={1.1} />
           <Tree x={150} y={118} s={0.8} />
           <House x={260} y={100} solar heatPump />
@@ -105,6 +112,8 @@ export function Landscape({ children }: { children: ReactNode }) {
           <Tree x={1360} y={110} s={0.9} />
           <path d="M0 260v-60c300-30 700-30 1440 0v60Z" fill="#3a9846" />
         </motion.svg>
+
+        <Grain className="z-10 mix-blend-multiply" />
 
         {/* scroll cue */}
         <motion.div style={{ opacity: textO }} className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 text-center text-xs font-semibold uppercase tracking-[0.2em] text-white drop-shadow sm:block">
@@ -121,7 +130,7 @@ export function Landscape({ children }: { children: ReactNode }) {
 export function Cloud({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 120 50" className={className} aria-hidden>
-      <path d="M18 44c-10 0-16-6-16-13s6-12 14-12c2-9 10-16 21-16 9 0 16 5 19 12 3-2 6-3 10-3 9 0 16 6 17 14h3c9 0 15 5 15 10s-5 8-12 8Z" fill="#fff" />
+      <path d="M18 44c-10 0-16-6-16-13s6-12 14-12c2-9 10-16 21-16 9 0 16 5 19 12 3-2 6-3 10-3 9 0 16 6 17 14h3c9 0 15 5 15 10s-5 8-12 8Z" fill="#fffdf7" stroke="#1b2a4a" strokeWidth="2" />
     </svg>
   );
 }
@@ -129,14 +138,14 @@ export function Cloud({ className = "" }: { className?: string }) {
 export function Turbine({ x, y, scale = 1, speed = 6 }: { x: number; y: number; scale?: number; speed?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
-      <path d="M-2.5 0 L-1.2 -95 L1.2 -95 L2.5 0Z" fill="#f4f8fb" stroke="#c9d9e4" strokeWidth=".8" />
+      <path d="M-2.5 0 L-1.2 -95 L1.2 -95 L2.5 0Z" fill="#fffdf7" stroke="#1b2a4a" strokeWidth="1.4" />
       <g transform="translate(0 -96)">
         <g className="spin" style={{ ["--spd" as string]: `${speed}s` }}>
           {[0, 120, 240].map((r) => (
-            <path key={r} d="M0 0 C3 -10 3 -30 0 -46 C-3 -30 -3 -10 0 0Z" fill="#fff" stroke="#c9d9e4" strokeWidth=".8" transform={`rotate(${r})`} />
+            <path key={r} d="M0 0 C3 -10 3 -30 0 -46 C-3 -30 -3 -10 0 0Z" fill="#fffdf7" stroke="#1b2a4a" strokeWidth="1.4" transform={`rotate(${r})`} />
           ))}
         </g>
-        <circle r="3.5" fill="#e3edf3" stroke="#a8bccb" />
+        <circle r="3.5" fill="#ffc83d" stroke="#1b2a4a" strokeWidth="1.4" />
       </g>
     </g>
   );

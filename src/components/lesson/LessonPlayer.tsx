@@ -14,6 +14,7 @@ import { Interaction } from "../interactions/Interactions";
 import { Quiz } from "./Quiz";
 import { Reveal } from "../motion/Motion";
 import { WorldScene } from "../landscape/WorldScene";
+import { WorldGlyph } from "../ui/WorldGlyph";
 import { shade } from "@/lib/color";
 
 const STEP_LABEL: Record<Step["type"], string> = {
@@ -83,12 +84,12 @@ export function LessonPlayer({ lesson, world, nextHref }: { lesson: Lesson; worl
           <Link href={`/worlds/${world.id}`} className="-ml-1 rounded-xl p-2 text-ink-soft hover:bg-white" aria-label={`Exit lesson, back to ${world.title}`}>
             <X className="h-6 w-6" />
           </Link>
-          <div className="relative h-3.5 flex-1 sm:h-4 overflow-hidden rounded-full bg-white shadow-inner ring-2 ring-sand" role="progressbar" aria-valuenow={i + 1} aria-valuemin={1} aria-valuemax={lesson.steps.length} aria-label="Lesson progress">
+          <div className="relative h-3.5 flex-1 sm:h-4 overflow-hidden rounded-full bg-white shadow-inner border-[1.5px] border-ink" role="progressbar" aria-valuenow={i + 1} aria-valuemin={1} aria-valuemax={lesson.steps.length} aria-label="Lesson progress">
             <motion.div className="absolute inset-y-0 left-0 rounded-full" style={{ background: world.color }} initial={false} animate={{ width: `${pct}%` }} transition={{ type: "spring", stiffness: 80, damping: 18 }}>
               <div className="mx-2 mt-[3px] h-1 rounded-full bg-white/40" />
             </motion.div>
           </div>
-          <span className="flex items-center gap-1 rounded-xl bg-white px-2.5 py-1 text-sm font-extrabold text-[#e09400] shadow-[0_2px_0_#e7ddc9]">
+          <span className="flex items-center gap-1 rounded-xl bg-white px-2.5 py-1 text-sm font-extrabold text-[#e09400] border-[1.5px] border-ink shadow-[2px_2px_0_#1b2a4a]">
             <Zap className="h-4 w-4" />
             {hydrated ? progress.xp : 0}
           </span>
@@ -107,7 +108,7 @@ export function LessonPlayer({ lesson, world, nextHref }: { lesson: Lesson; worl
           transition={{ duration: 0.3, ease: [0.2, 0.7, 0.2, 1] }}
           className={`mx-auto px-4 pt-2 sm:pt-4 ${wide ? "max-w-6xl" : "max-w-3xl"}`}
         >
-          <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-white px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] shadow-[0_2px_0_#e7ddc9] sm:mb-3 sm:text-xs" style={{ color: shade(world.color, 0.15) }}>
+          <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-white px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] border-[1.5px] border-ink shadow-[2px_2px_0_#1b2a4a] sm:mb-3 sm:text-xs" style={{ color: shade(world.color, 0.15) }}>
             Step {i + 1} · {STEP_LABEL[step.type]}
           </div>
           <h1 className="font-display t-h1 mb-4 text-forest-900 sm:mb-6">{step.title}</h1>
@@ -127,7 +128,7 @@ export function LessonPlayer({ lesson, world, nextHref }: { lesson: Lesson; worl
       </AnimatePresence>
 
       {/* action bar */}
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t-2 border-sand bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t-[1.5px] border-ink bg-[#fffdf7]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-3 py-3 sm:px-4 sm:py-4">
           <button onClick={() => go(i - 1)} disabled={i === 0} className="btn btn-secondary shrink-0 px-3 disabled:invisible sm:px-5" aria-label="Previous step">
             <ArrowLeft className="h-5 w-5 sm:hidden" />
@@ -199,7 +200,7 @@ function StepBody({
     case "hook":
       return (
         <div className="space-y-5">
-          <div className="relative overflow-hidden rounded-3xl bg-white shadow-[0_5px_0_#e7ddc9] ring-2 ring-sand">
+          <div className="relative overflow-hidden rounded-3xl bg-white plate">
             <div className="h-24 sm:hidden" style={{ background: world.tint }}>
               <WorldScene id={world.id} className="mx-auto h-full" />
             </div>
@@ -234,7 +235,7 @@ function StepBody({
             )}
             {step.terms && (
               <Reveal>
-                <div className="rounded-3xl border-2 border-sand bg-white p-4 shadow-[0_4px_0_#e7ddc9] sm:p-5">
+                <div className="rounded-3xl plate sm:p-5">
                   <div className="mb-3 text-[11px] font-extrabold uppercase tracking-widest sm:text-xs" style={{ color: world.color }}>
                     New words
                   </div>
@@ -310,7 +311,7 @@ function StepBody({
             <Reveal>
               <div className="rounded-3xl border-2 border-dashed border-moss-300 bg-white p-4 sm:p-5">
                 <label htmlFor="reflect" className="mb-2 block font-display text-base text-forest-900 sm:text-lg">
-                  💭 {step.prompt}
+                  {step.prompt}
                 </label>
                 <textarea
                   id="reflect"
@@ -331,8 +332,8 @@ function StepBody({
           <ol className="space-y-4">
             {step.points.map((p, n) => (
               <Reveal key={n} delay={n * 0.15}>
-                <li className="flex gap-3 rounded-3xl bg-white p-4 shadow-[0_5px_0_#e7ddc9] ring-2 ring-sand sm:gap-4 sm:p-5">
-                  <span className="font-display flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg text-white sm:h-12 sm:w-12 sm:rounded-2xl sm:text-xl" style={{ background: world.color, boxShadow: `0 4px 0 ${shade(world.color)}` }}>
+                <li className="flex gap-3 rounded-3xl bg-white p-4 plate sm:gap-4 sm:p-5">
+                  <span className="font-display flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg text-white sm:h-12 sm:w-12 sm:rounded-2xl sm:text-xl" style={{ background: world.color, border: "2px solid #1b2a4a" }}>
                     {n + 1}
                   </span>
                   <span className="t-body pt-1.5">{p}</span>
@@ -346,54 +347,87 @@ function StepBody({
   }
 }
 
-/* ---------- Celebration ---------- */
+/* ---------- Completion: a meter reading, not a trophy ---------- */
 function Celebration({ lesson, world, score, gained, nextHref }: { lesson: Lesson; world: World; score: number | null; gained: number; nextHref?: string }) {
-  const pieces = Array.from({ length: 36 }, (_, k) => ({
-    x: (k * 37) % 100,
-    color: ["#ffd23f", "#ff6b4a", "#2fa560", "#4fb3e8", world.color][k % 5],
-    delay: (k % 9) * 0.07,
-    rot: (k * 47) % 360,
-  }));
+  const pct = score ?? 1;
+  const needle = -70 + 140 * Math.min(1, Math.max(0, pct)); // degrees
+  const sparks = Array.from({ length: 12 }, (_, k) => (k / 12) * Math.PI * 2);
   return (
-    <div className="relative min-h-[100svh] overflow-hidden" style={{ background: `linear-gradient(180deg, ${world.tint}, #fffaf0)` }}>
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        {pieces.map((p, k) => (
-          <motion.span
-            key={k}
-            className="absolute top-0 block h-3 w-2 rounded-sm"
-            style={{ left: `${p.x}%`, background: p.color }}
-            initial={{ y: -40, rotate: 0, opacity: 1 }}
-            animate={{ y: "105vh", rotate: p.rot + 360, opacity: [1, 1, 0] }}
-            transition={{ duration: 2.6 + (k % 5) * 0.3, delay: p.delay, ease: "easeIn" }}
-          />
-        ))}
-      </div>
-      <div className="relative mx-auto flex max-w-xl flex-col items-center px-4 pb-10 pt-14 text-center sm:pt-20">
-        <motion.div initial={{ scale: 0, rotate: -20 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 160, damping: 10 }} className="flex h-24 w-24 items-center justify-center rounded-[28px] text-5xl sm:h-32 sm:w-32 sm:rounded-[36px] sm:text-6xl" style={{ background: world.color, boxShadow: `0 8px 0 ${shade(world.color)}` }}>
-          🏆
-        </motion.div>
-        <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="font-display t-h1 mt-6 text-forest-900 sm:mt-8">
-          Lesson complete!
-        </motion.h1>
-        <p className="t-lead mt-1 text-ink-soft">{lesson.title}</p>
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }} className="mt-6 grid w-full grid-cols-2 gap-3 sm:mt-8">
-          <div className="rounded-3xl border-2 border-[#f2c14e] bg-sprout-soft p-4 shadow-[0_4px_0_#f2c14e]">
-            <div className="text-xs font-extrabold uppercase tracking-wider text-[#a87400]">XP earned</div>
-            <div className="font-display flex items-center justify-center gap-1 text-3xl text-[#a87400] sm:text-4xl">
-              <Zap className="h-7 w-7" />+{Math.max(gained, 0)}
+    <div className="relative min-h-[100svh] overflow-hidden bg-paper">
+      <div className="halftone absolute inset-x-0 top-0 h-72 opacity-60 [mask-image:linear-gradient(#000,transparent)]" />
+      <div className="relative mx-auto flex max-w-md flex-col items-center px-4 pb-10 pt-10 text-center sm:pt-16">
+        <div className="readout text-[11px] font-bold text-ink-soft">Lesson complete · reading taken</div>
+
+        {/* the meter */}
+        <div className="plate relative mt-4 w-full rounded-3xl px-4 pb-4 pt-6">
+          <svg viewBox="0 0 240 150" className="mx-auto w-full max-w-[300px]" role="img" aria-label={`First-try score ${Math.round(pct * 100)} percent`}>
+            {sparks.map((t, k) => (
+              <motion.line
+                key={k}
+                x1={120 + Math.cos(t) * 54}
+                y1={110 + Math.sin(t) * 54}
+                x2={120 + Math.cos(t) * 74}
+                y2={110 + Math.sin(t) * 74}
+                stroke={k % 2 ? "#ffc83d" : world.color}
+                strokeWidth="3"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: [0, 1, 1], opacity: [0, 1, 0] }}
+                transition={{ delay: 1.1, duration: 0.8 }}
+              />
+            ))}
+            <path d="M30 110 A90 90 0 0 1 210 110" fill="none" stroke="#efe6d2" strokeWidth="18" />
+            <path d="M30 110 A90 90 0 0 1 75 32" fill="none" stroke="#ff6b4a" strokeWidth="18" opacity=".55" />
+            <path d="M75 32 A90 90 0 0 1 165 32" fill="none" stroke="#ffc83d" strokeWidth="18" opacity=".7" />
+            <path d="M165 32 A90 90 0 0 1 210 110" fill="none" stroke="#2fa560" strokeWidth="18" opacity=".7" />
+            <path d="M30 110 A90 90 0 0 1 210 110" fill="none" stroke="#1b2a4a" strokeWidth="2" />
+            {Array.from({ length: 11 }).map((_, k) => {
+              const ang = Math.PI + (k / 10) * Math.PI;
+              return <line key={k} x1={120 + Math.cos(ang) * 76} y1={110 + Math.sin(ang) * 76} x2={120 + Math.cos(ang) * 84} y2={110 + Math.sin(ang) * 84} stroke="#1b2a4a" strokeWidth={k % 5 ? 1.5 : 3} />;
+            })}
+            <motion.g initial={{ rotate: -70 }} animate={{ rotate: needle }} transition={{ type: "spring", stiffness: 60, damping: 7, delay: 0.3 }} style={{ transformBox: "view-box", transformOrigin: "120px 110px" }}>
+              <path d="M120 110 L117 104 L120 34 L123 104Z" fill="#1b2a4a" />
+            </motion.g>
+            <circle cx="120" cy="110" r="9" fill="#fffdf7" stroke="#1b2a4a" strokeWidth="2.5" />
+            <text x="120" y="142" textAnchor="middle" className="readout" fontSize="11" fontWeight="700" fill="#4a5d6b">FIRST-TRY SCORE</text>
+          </svg>
+          <div className="mt-1 grid grid-cols-2 divide-x-[1.5px] divide-ink/15 border-t-[1.5px] border-ink/15 pt-3">
+            <div>
+              <div className="readout text-[10px] font-bold text-ink-soft">Score</div>
+              <div className="readout text-2xl font-bold text-ink">{score !== null ? `${Math.round(score * 100)}%` : "—"}</div>
+            </div>
+            <div>
+              <div className="readout text-[10px] font-bold text-ink-soft">XP added</div>
+              <div className="readout text-2xl font-bold" style={{ color: "#c98a00" }}>
+                +{Math.max(gained, 0)}
+              </div>
             </div>
           </div>
-          <div className="rounded-3xl border-2 border-moss-300 bg-moss-100 p-4 shadow-[0_4px_0_#9ad9ae]">
-            <div className="text-xs font-extrabold uppercase tracking-wider text-forest-700">First-try score</div>
-            <div className="font-display text-3xl text-forest-700 sm:text-4xl">{score !== null ? `${Math.round(score * 100)}%` : "—"}</div>
-          </div>
-        </motion.div>
+        </div>
+
+        <motion.h1 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="font-display t-h1 mt-6 text-forest-900">
+          Circuit complete
+        </motion.h1>
+        <p className="t-lead mt-1 text-ink-soft">{lesson.title}</p>
+
+        {/* current flows to the next lesson */}
+        <div className="mt-6 flex w-full items-center gap-2" aria-hidden>
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-ink" style={{ background: world.color }}>
+            <WorldGlyph glyph={world.glyph} color="#fff" terminals={false} className="h-6 w-6" />
+          </span>
+          <svg viewBox="0 0 200 10" preserveAspectRatio="none" className="h-3 flex-1">
+            <line x1="0" y1="5" x2="200" y2="5" stroke="#1b2a4a" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+            <motion.line x1="0" y1="5" x2="200" y2="5" stroke="#ffc83d" strokeWidth="5" strokeLinecap="round" vectorEffect="non-scaling-stroke" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ delay: 1.2, duration: 1.2, ease: "easeInOut" }} />
+          </svg>
+          <span className="readout flex h-11 shrink-0 items-center rounded-full border-2 border-dashed border-ink px-3 text-[10px] font-bold text-ink">{nextHref ? "Next" : "Journey"}</span>
+        </div>
+
         {score !== null && score < 0.67 && (
-          <p className="mt-4 rounded-2xl bg-white p-4 text-sm shadow-[0_3px_0_#e7ddc9]">
-            The questions you found tricky are waiting in your <Link href="/review" className="font-bold text-sky-deep underline">review session</Link>, with simpler explanations.
+          <p className="plate mt-5 w-full rounded-2xl p-3 text-left text-sm">
+            The questions you found tricky are in your <Link href="/review" className="font-bold text-sky-deep underline">review session</Link>, with simpler explanations.
           </p>
         )}
-        <div className="mt-8 flex w-full flex-col gap-3">
+        <div className="mt-6 flex w-full flex-col gap-3">
           {nextHref && (
             <Link href={nextHref} className="btn btn-primary w-full">
               Next lesson <ArrowRight className="h-5 w-5" />

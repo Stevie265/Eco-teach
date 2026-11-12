@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Sym } from "../ui/WorldGlyph";
 
 const LAYERS = [
   {
@@ -73,8 +74,11 @@ export function ControlStack() {
             </button>
           ))}
           <div className="flex items-center gap-2 pl-6 pt-2 text-xs text-ink-soft">
-            <span className="flex gap-1" aria-hidden>
-              ☀️🔋🚗♨️
+            <span className="flex gap-1 text-ink" aria-hidden>
+              <Sym name="sun" className="h-4 w-4" />
+              <Sym name="battery" className="h-4 w-4" />
+              <Sym name="car" className="h-4 w-4" />
+              <Sym name="heat" className="h-4 w-4" />
             </span>
             Devices (DERs) sit underneath every layer
           </div>

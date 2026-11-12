@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, BookMarked, Flag, Waves } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { WorldGlyph } from "@/components/ui/WorldGlyph";
 import { Landscape } from "@/components/landscape/Landscape";
 import { JourneyMap } from "@/components/JourneyMap";
 import { HomeCTA, HomeStats } from "@/components/HomeHero";
@@ -53,13 +54,13 @@ export default function Home() {
         </Reveal>
         <div className="grid gap-4 md:grid-cols-3 md:gap-5">
           <Reveal>
-            <Feature href="/ripple" icon={<Waves className="h-7 w-7" />} title="Ripple Explorer" body="Drop a trend into the system and watch it ripple through the industry to the customer. Add your own connections." bg="#12304a" fg="#fff" sub="#9fd0f0" edge="#0b2133" />
+            <Feature href="/ripple" icon={<WorldGlyph glyph="eye" className="h-10 w-10" />} title="Ripple Explorer" body="Drop a trend into the system and watch it ripple through the industry to the customer. Add your own connections." bg="#12304a" fg="#fff" sub="#9fd0f0" />
           </Reveal>
           <Reveal delay={0.08}>
-            <Feature href="/capstone" icon={<Flag className="h-7 w-7" />} title="Capstone challenge" body="Turn what you've learned into a strategic opportunity assessment to share with colleagues." bg="#ffd23f" fg="#13283a" sub="#4a5d6b" edge="#e0ad00" />
+            <Feature href="/capstone" icon={<WorldGlyph glyph="spark" className="h-10 w-10" />} title="Capstone challenge" body="Turn what you've learned into a strategic opportunity assessment to share with colleagues." bg="#ffd23f" fg="#13283a" sub="#4a5d6b" />
           </Reveal>
           <Reveal delay={0.16}>
-            <Feature href="/sources" icon={<BookMarked className="h-7 w-7" />} title="Research & sources" body="Every claim linked, dated and labelled: established fact, forecast, company claim or reasoned scenario." bg="#fff" fg="#13283a" sub="#4a5d6b" edge="#e7ddc9" />
+            <Feature href="/sources" icon={<WorldGlyph glyph="coins" className="h-10 w-10" />} title="Research & sources" body="Every claim linked, dated and labelled: established fact, forecast, company claim or reasoned scenario." bg="#fff" fg="#13283a" sub="#4a5d6b" />
           </Reveal>
         </div>
       </section>
@@ -67,9 +68,9 @@ export default function Home() {
   );
 }
 
-function Feature({ href, icon, title, body, bg, fg, sub, edge }: { href: string; icon: React.ReactNode; title: string; body: string; bg: string; fg: string; sub: string; edge: string }) {
+function Feature({ href, icon, title, body, bg, fg, sub }: { href: string; icon: React.ReactNode; title: string; body: string; bg: string; fg: string; sub: string }) {
   return (
-    <Link href={href} className="group block h-full rounded-3xl p-5 transition hover:-translate-y-1 sm:p-6" style={{ background: bg, color: fg, boxShadow: `0 6px 0 ${edge}`, border: `2px solid ${edge}` }}>
+    <Link href={href} className="group block h-full rounded-3xl p-5 transition hover:-translate-y-1 sm:p-6" style={{ background: bg, color: fg, boxShadow: "4px 4px 0 #1b2a4a", border: "2px solid #1b2a4a" }}>
       <div className="mb-3 sm:mb-4">{icon}</div>
       <h3 className="font-display text-xl sm:text-2xl">{title}</h3>
       <p className="mt-1.5 text-sm sm:mt-2 sm:text-[15px]" style={{ color: sub }}>

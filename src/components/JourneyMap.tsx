@@ -3,29 +3,28 @@
 import Link from "next/link";
 import { motion, useScroll, useSpring } from "motion/react";
 import { useRef } from "react";
-import { Check, Clock, Lock, Star } from "lucide-react";
 import { WORLDS, totalMinutes } from "@/content/worlds";
 import { useHydrated, useProgress } from "@/lib/progress";
 import { worldProgress } from "@/lib/curriculum";
 import { WorldGlyph } from "./ui/WorldGlyph";
 import { WorldScene } from "./landscape/WorldScene";
-import { Parallax, Reveal } from "./motion/Motion";
-import { Cloud } from "./landscape/Landscape";
-import { shade } from "@/lib/color";
+import { Reveal } from "./motion/Motion";
+import { RatingPlate } from "./brand/RatingPlate";
 
-const ROW = 300; // px per world on the path
-const X_DESKTOP = [24, 76];
-const X_MOBILE = [16, 30];
+/**
+ * The journey as a circuit. Worlds are nodes on one continuous wire, routed
+ * orthogonally like a single-line diagram. The wire is inked in as you scroll,
+ * and a pulse of current keeps moving along it.
+ */
+const ROW = 340;
+const X_DESKTOP = [22, 78];
+const X_MOBILE = 13;
 
-function pathFor(xs: number[]) {
-  // smooth S-curve through each node centre; y in px rows, x in % (viewBox 100 wide)
-  let d = `M ${xs[0]} ${ROW / 2}`;
+function wirePath(xs: (i: number) => number) {
+  let d = `M ${xs(0)} 0 V ${ROW / 2}`;
   for (let i = 1; i < WORLDS.length; i++) {
-    const x0 = xs[(i - 1) % 2];
-    const x1 = xs[i % 2];
-    const y0 = (i - 1) * ROW + ROW / 2;
-    const y1 = i * ROW + ROW / 2;
-    d += ` C ${x0} ${y0 + ROW * 0.55}, ${x1} ${y1 - ROW * 0.55}, ${x1} ${y1}`;
+    const midY = (i - 1) * ROW + ROW;
+    d += ` V ${midY} H ${xs(i)} V ${i * ROW + ROW / 2}`;
   }
   return d;
 }
@@ -34,113 +33,86 @@ export function JourneyMap() {
   const p = useProgress();
   const hydrated = useHydrated();
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
-  const drawn = useSpring(scrollYProgress, { stiffness: 80, damping: 24 });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 70%"] });
+  const inked = useSpring(scrollYProgress, { stiffness: 70, damping: 22 });
   const recommended = hydrated ? (p.profile?.recommended.worldId ?? "history") : "history";
   const H = WORLDS.length * ROW;
+  const desk = (i: number) => X_DESKTOP[i % 2];
+  const mob = () => X_MOBILE;
 
   return (
     <div ref={ref} className="relative mx-auto max-w-5xl" style={{ height: H }}>
-      {/* parallax scenery in the margins */}
-      <div className="pointer-events-none absolute inset-0 hidden lg:block" aria-hidden>
-        {[0.15, 0.35, 0.55, 0.78].map((t, i) => (
-          <Parallax key={t} speed={i % 2 ? 0.6 : 0.35} className="absolute inset-x-0 top-0">
-            <div style={{ position: "absolute", top: H * t, left: i % 2 ? "auto" : -120, right: i % 2 ? -140 : "auto" }}>
-              <Cloud className="w-40 opacity-80" />
-            </div>
-          </Parallax>
-        ))}
-      </div>
-
-      {/* the path */}
       {[
-        { xs: X_DESKTOP, cls: "hidden md:block" },
-        { xs: X_MOBILE, cls: "md:hidden" },
+        { xs: desk, cls: "hidden md:block" },
+        { xs: mob, cls: "md:hidden" },
       ].map(({ xs, cls }) => (
         <svg key={cls} className={`absolute inset-0 h-full w-full ${cls}`} viewBox={`0 0 100 ${H}`} preserveAspectRatio="none" aria-hidden>
-          <path d={pathFor(xs)} fill="none" stroke="#e7ddc9" strokeWidth="22" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-          <path d={pathFor(xs)} fill="none" stroke="#fff" strokeWidth="3" strokeDasharray="2 14" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-          <motion.path d={pathFor(xs)} fill="none" stroke="#2fa560" strokeWidth="8" strokeLinecap="round" vectorEffect="non-scaling-stroke" style={{ pathLength: drawn }} />
+          <path d={wirePath(xs)} fill="none" stroke="#1b2a4a" strokeOpacity=".18" strokeWidth="2" strokeDasharray="5 6" vectorEffect="non-scaling-stroke" />
+          <motion.path d={wirePath(xs)} fill="none" stroke="#1b2a4a" strokeWidth="2.5" strokeLinejoin="round" vectorEffect="non-scaling-stroke" style={{ pathLength: inked }} />
+          <path d={wirePath(xs)} fill="none" stroke="#ffc83d" strokeWidth="4" strokeLinecap="round" strokeDasharray="0.5 14" vectorEffect="non-scaling-stroke" className="energy-flow" opacity=".9" />
         </svg>
       ))}
+
+      {/* junction dots at every bend (desktop) */}
+      <div className="pointer-events-none absolute inset-0 hidden md:block" aria-hidden>
+        {WORLDS.slice(1).map((_, k) => {
+          const i = k + 1;
+          const y = (i - 1) * ROW + ROW;
+          return [desk(i - 1), desk(i)].map((x, j) => <span key={`${i}-${j}`} className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-ink" style={{ left: `${x}%`, top: y }} />);
+        })}
+      </div>
 
       {WORLDS.map((w, i) => {
         const wp = worldProgress(w, p);
         const side = i % 2;
-        const r = 50;
-        const circ = 2 * Math.PI * r;
+        const rec = recommended === w.id;
+        const done = hydrated && wp.status === "caught-up";
         return (
           <div key={w.id} className="absolute inset-x-0" style={{ top: i * ROW, height: ROW }}>
-            {/* node */}
-            <div className={`absolute top-1/2 -translate-x-1/2 -translate-y-1/2 ${side ? "left-[30%] md:left-[76%]" : "left-[16%] md:left-[24%]"}`}>
-              <Reveal y={10}>
+            <div className={`absolute left-[13%] top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 ${side ? "md:left-[78%]" : "md:left-[22%]"}`}>
+              <Reveal y={8}>
                 <Link href={`/worlds/${w.id}`} aria-label={`World ${w.number}: ${w.title}`} className="group relative block">
-                  {recommended === w.id && (
+                  {rec && (
                     <motion.span
-                      className="absolute -top-11 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-xl border-2 border-sand bg-white px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-forest-800 shadow-[0_3px_0_#e7ddc9]"
-                      animate={{ y: [0, -4, 0] }}
+                      className="readout absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border-[1.5px] border-ink bg-sun px-2 py-0.5 text-[10px] font-bold text-ink shadow-[2px_2px_0_#1b2a4a]"
+                      animate={{ y: [0, -3, 0] }}
                       transition={{ repeat: Infinity, duration: 1.8 }}
                     >
                       Start here
                     </motion.span>
                   )}
-                  <svg viewBox="0 0 120 120" className="absolute -inset-3 h-[calc(100%+24px)] w-[calc(100%+24px)] -rotate-90" aria-hidden>
-                    <circle cx="60" cy="60" r={r} fill="none" stroke="#fff" strokeWidth="8" />
-                    {hydrated && wp.done > 0 && <circle cx="60" cy="60" r={r} fill="none" stroke="#ffc22e" strokeWidth="8" strokeLinecap="round" strokeDasharray={`${circ * wp.pct} ${circ}`} />}
-                  </svg>
                   <span
-                    className="relative flex h-[76px] w-[76px] items-center justify-center rounded-full transition group-hover:-translate-y-1 group-active:translate-y-1 md:h-[92px] md:w-[92px]"
-                    style={{ background: w.color, boxShadow: `0 7px 0 ${shade(w.color)}` }}
+                    className="relative flex h-[60px] w-[60px] items-center justify-center rounded-full border-2 border-ink transition group-hover:-translate-y-0.5 md:h-[84px] md:w-[84px]"
+                    style={{ background: done ? w.color : "#fffdf7", boxShadow: "3px 3px 0 #1b2a4a" }}
                   >
-                    <WorldGlyph glyph={w.glyph} color="#fff" className="h-10 w-10 md:h-12 md:w-12" />
-                    {wp.status === "soon" && (
-                      <span className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-paper-2 text-ink-soft">
-                        <Lock className="h-3.5 w-3.5" />
-                      </span>
-                    )}
-                    {hydrated && wp.status === "caught-up" && (
-                      <span className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-sun text-ink">
-                        <Star className="h-3.5 w-3.5 fill-current" />
-                      </span>
-                    )}
+                    {rec && <span className="spin absolute inset-[-8px] rounded-full border-2 border-dashed border-ink/50" style={{ ["--spd" as string]: "16s" }} />}
+                    <WorldGlyph glyph={w.glyph} color={done ? "#fff" : w.color} terminals={false} className="h-8 w-8 md:h-11 md:w-11" />
                   </span>
+                  <span className="readout absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold text-ink-soft">W{String(w.number).padStart(2, "0")}</span>
                 </Link>
               </Reveal>
             </div>
 
-            {/* card */}
-            <div className={`absolute top-1/2 w-[60%] -translate-y-1/2 md:w-[44%] ${side ? "right-[2%] md:left-[6%] md:right-auto" : "right-[2%] md:right-[6%]"}`}>
-              <Reveal delay={0.1}>
-                <Link href={`/worlds/${w.id}`} className="card-chunky group block overflow-hidden rounded-3xl bg-white transition hover:-translate-y-1">
-                  <div className="relative h-20 sm:h-24 md:h-28" style={{ background: w.tint }}>
-                    <WorldScene id={w.id} className="absolute inset-0 h-full w-full" />
-                    <span className="absolute left-2 top-2 rounded-md bg-white/90 px-1.5 py-0.5 font-mono text-[10px] font-bold sm:left-3 sm:top-3 sm:text-[11px]" style={{ color: w.color }}>
-                      WORLD {String(w.number).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <div className="p-3 sm:p-4">
-                    <h3 className="font-display text-base leading-tight text-ink sm:text-lg md:text-xl">{w.title}</h3>
-                    <p className="mt-0.5 hidden text-sm text-ink-soft sm:block">{w.tagline}</p>
-                    <div className="mt-2.5 h-2 overflow-hidden rounded-full bg-paper-2 sm:mt-3 sm:h-2.5">
-                      <div className="h-full rounded-full transition-all" style={{ width: `${hydrated ? Math.max(wp.pct * 100, 0) : 0}%`, background: w.color }} />
+            <div className={`absolute right-[1%] top-1/2 w-[70%] -translate-y-1/2 md:w-[44%] ${side ? "md:left-[6%] md:right-auto" : "md:right-[6%]"}`}>
+              <Reveal delay={0.08}>
+                <Link href={`/worlds/${w.id}`} className="group block transition hover:-translate-y-1">
+                  <RatingPlate
+                    code={`WORLD ${String(w.number).padStart(2, "0")}`}
+                    title={w.title}
+                    subtitle={w.tagline}
+                    accent={w.color}
+                    specs={[
+                      { k: "Lessons", v: String(w.lessons.length) },
+                      { k: "Time", v: `${Math.round(totalMinutes(w) / 6) / 10}h` },
+                      { k: wp.status === "soon" ? "Status" : "Live", v: wp.status === "soon" ? "Soon" : String(wp.available) },
+                    ]}
+                    meter={{ done: hydrated ? wp.done : 0, live: wp.available, total: w.lessons.length }}
+                  >
+                    <div className="relative h-16 border-b-[1.5px] border-ink sm:h-20 md:h-24" style={{ background: w.tint }}>
+                      <div className="halftone absolute inset-0" />
+                      <WorldScene id={w.id} className="misprint absolute inset-0 h-full w-full" />
                     </div>
-                    <div className="mt-2 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-[11px] font-semibold text-ink-soft sm:text-xs">
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-3.5 w-3.5" /> {w.lessons.length} lessons · ~{Math.round(totalMinutes(w) / 6) / 10}h
-                      </span>
-                      {wp.status === "soon" ? (
-                        <span>Coming soon</span>
-                      ) : hydrated && wp.status === "caught-up" ? (
-                        <span className="flex items-center gap-1 text-moss-500">
-                          <Check className="h-3.5 w-3.5" /> All live lessons done
-                        </span>
-                      ) : (
-                        <span style={{ color: w.color }}>
-                          {hydrated ? wp.done : 0}/{wp.available} live done
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                  </RatingPlate>
                 </Link>
               </Reveal>
             </div>
