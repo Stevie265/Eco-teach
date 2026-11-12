@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   },
   description:
     "An interactive learning platform for the Eco-Tech industry: energy, climate, technology, business models and the future of the home. Bite-sized, visual and grounded in credible sources.",
+  applicationName: "Eco-teach",
+  appleWebApp: { title: "Eco-teach", capable: true, statusBarStyle: "default" },
   openGraph: {
     title: "Eco-teach",
     description: "Understand the world that's changing our future. Interactive lessons on energy, climate tech and the future home.",

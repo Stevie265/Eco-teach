@@ -21,15 +21,45 @@ const TABS = [
   { href: "/dashboard", label: "Me", icon: User },
 ];
 
+/** The Eco-teach mark: a leaf with circuit-wire veins whose stem ends in a plug. */
+export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 512 512" className={className} aria-hidden>
+      <defs>
+        <pattern id="logo-ht" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <circle cx="7" cy="7" r="2.6" fill="#1b2a4a" opacity=".28" />
+        </pattern>
+        <clipPath id="logo-leaf">
+          <path d="M146 318 C146 168 246 82 392 78 C396 232 306 318 146 318Z" />
+        </clipPath>
+      </defs>
+      <rect x="10" y="10" width="492" height="492" rx="112" fill="#ffc83d" stroke="#1b2a4a" strokeWidth="20" />
+      <g transform="translate(256 262) scale(.86) translate(-256 -262)">
+        <path d="M162 334 C162 184 262 98 408 94 C412 248 322 334 162 334Z" fill="#1b2a4a" />
+        <path d="M146 318 C146 168 246 82 392 78 C396 232 306 318 146 318Z" fill="#2fa560" stroke="#1b2a4a" strokeWidth="18" strokeLinejoin="round" />
+        <g clipPath="url(#logo-leaf)">
+          <path d="M146 318 L392 78 L392 318Z" fill="url(#logo-ht)" />
+        </g>
+        <g fill="none" stroke="#1b2a4a" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M146 318 L352 118" />
+          <path d="M222 244 V176" />
+          <path d="M288 180 H338" />
+        </g>
+        <circle cx="222" cy="170" r="15" fill="#fffdf7" stroke="#1b2a4a" strokeWidth="10" />
+        <circle cx="344" cy="180" r="15" fill="#fffdf7" stroke="#1b2a4a" strokeWidth="10" />
+        <path d="M146 318 V350" stroke="#1b2a4a" strokeWidth="16" strokeLinecap="round" />
+        <rect x="104" y="350" width="84" height="62" rx="12" fill="#fffdf7" stroke="#1b2a4a" strokeWidth="16" />
+        <path d="M128 412 V446 M164 412 V446" stroke="#1b2a4a" strokeWidth="16" strokeLinecap="round" />
+      </g>
+    </svg>
+  );
+}
+
 export function Logo({ className = "", light = false }: { className?: string; light?: boolean }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`}>
-      <svg viewBox="0 0 32 32" className="h-7 w-7 sm:h-8 sm:w-8" aria-hidden>
-        <circle cx="16" cy="16" r="15" fill="#1b8048" />
-        <path d="M9 21c0-7 5-12 14-12 0 8-5 13-12 13" fill="none" stroke="#fff" strokeWidth="2.6" strokeLinecap="round" />
-        <path d="m15.5 12.5-3 5.5h4l-2 5" fill="none" stroke="#ffd23f" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-      <span className={`font-display text-xl sm:text-[22px] ${light ? "text-white" : "text-forest-900"}`}>eco·teach</span>
+      <LogoMark className="h-8 w-8 sm:h-9 sm:w-9" />
+      <span className={`font-display text-xl tracking-tight sm:text-[22px] ${light ? "text-white" : "text-ink"}`}>Eco-teach</span>
     </span>
   );
 }

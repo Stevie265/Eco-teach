@@ -49,8 +49,10 @@ export function HomeStats() {
   const rec = p.profile ? getWorld(p.profile.recommended.worldId) : undefined;
   const cells = 10;
   const lit = hydrated ? Math.round((lv.into / lv.span) * cells) : 0;
+  // Nothing to show a brand-new learner: the meter appears once there's progress
+  if (!hydrated || p.xp === 0) return null;
   return (
-    <div className="plate plate-rivets rounded-2xl">
+    <div className="plate plate-rivets w-full rounded-2xl md:w-80">
       <div className="flex items-center justify-between border-b-[1.5px] border-ink px-6 py-1.5">
         <span className="readout text-[10px] font-bold">Your meter</span>
         <span className="readout text-[10px] font-bold text-moss-500">Level {hydrated ? lv.level : 1}</span>

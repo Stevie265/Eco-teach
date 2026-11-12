@@ -31,8 +31,8 @@ export function Landscape({ children }: { children: ReactNode }) {
         <div className="halftone absolute inset-x-0 top-0 h-1/2 opacity-40 [mask-image:linear-gradient(#000,transparent)]" />
 
         {/* sun */}
-        <motion.div style={{ y: sunY }} className="absolute right-[8%] top-[11%] sm:right-[12%] sm:top-[14%]">
-          <div className="relative h-20 w-20 sm:h-36 sm:w-36">
+        <motion.div style={{ y: sunY }} className="absolute right-[9%] top-[58%] sm:right-[12%] sm:top-[14%]">
+          <div className="relative h-16 w-16 sm:h-36 sm:w-36">
             <div className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-full bg-ember/60" />
             <div className="absolute inset-0 rounded-full border-2 border-ink bg-sun" />
             <div className="halftone-sun absolute inset-0 rounded-full [mask-image:linear-gradient(135deg,transparent_35%,#000_90%)]" style={{ backgroundImage: "radial-gradient(rgba(214,120,0,.55) 1.3px, transparent 1.6px)" }} />
@@ -41,10 +41,10 @@ export function Landscape({ children }: { children: ReactNode }) {
 
         {/* clouds */}
         <motion.div style={{ y: cloudsY, x: cloudsX }} className="absolute inset-x-0 top-[8%]">
-          <Cloud className="absolute left-[6%] top-[4vh] w-40 opacity-90 sm:w-56" />
-          <Cloud className="absolute left-[42%] top-[16vh] w-28 opacity-80 sm:w-40" />
-          <Cloud className="absolute left-[72%] top-[30vh] w-36 opacity-70 sm:w-48" />
-          <Cloud className="absolute left-[90%] top-[6vh] w-32 opacity-80" />
+          <Cloud className="absolute left-[58%] top-[1vh] hidden w-40 opacity-90 sm:block sm:w-56" />
+          <Cloud className="absolute left-[66%] top-[22vh] hidden w-28 opacity-80 sm:block sm:w-40" />
+          <Cloud className="absolute left-[72%] top-[30vh] hidden w-36 opacity-70 sm:block sm:w-48" />
+          <Cloud className="absolute left-[90%] top-[6vh] hidden w-32 opacity-80 sm:block" />
         </motion.div>
 
         {/* text */}

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { motion, useScroll, useSpring } from "motion/react";
-import { useRef } from "react";
-import { WORLDS, totalMinutes } from "@/content/worlds";
+import { useRef, useSyncExternalStore } from "react";
+import { WORLDS } from "@/content/worlds";
 import { useHydrated, useProgress } from "@/lib/progress";
 import { worldProgress } from "@/lib/curriculum";
 import { WorldGlyph } from "./ui/WorldGlyph";
@@ -16,11 +16,12 @@ import { RatingPlate } from "./brand/RatingPlate";
  * orthogonally like a single-line diagram. The wire is inked in as you scroll,
  * and a pulse of current keeps moving along it.
  */
-const ROW = 340;
+const ROW_DESKTOP = 340;
+const ROW_MOBILE = 214;
 const X_DESKTOP = [22, 78];
 const X_MOBILE = 13;
 
-function wirePath(xs: (i: number) => number) {
+function wirePath(xs: (i: number) => number, ROW: number) {
   let d = `M ${xs(0)} 0 V ${ROW / 2}`;
   for (let i = 1; i < WORLDS.length; i++) {
     const midY = (i - 1) * ROW + ROW;
@@ -36,6 +37,8 @@ export function JourneyMap() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 75%", "end 70%"] });
   const inked = useSpring(scrollYProgress, { stiffness: 70, damping: 22 });
   const recommended = hydrated ? (p.profile?.recommended.worldId ?? "history") : "history";
+  const isDesktop = useIsDesktop();
+  const ROW = isDesktop ? ROW_DESKTOP : ROW_MOBILE;
   const H = WORLDS.length * ROW;
   const desk = (i: number) => X_DESKTOP[i % 2];
   const mob = () => X_MOBILE;
@@ -47,9 +50,9 @@ export function JourneyMap() {
         { xs: mob, cls: "md:hidden" },
       ].map(({ xs, cls }) => (
         <svg key={cls} className={`absolute inset-0 h-full w-full ${cls}`} viewBox={`0 0 100 ${H}`} preserveAspectRatio="none" aria-hidden>
-          <path d={wirePath(xs)} fill="none" stroke="#1b2a4a" strokeOpacity=".18" strokeWidth="2" strokeDasharray="5 6" vectorEffect="non-scaling-stroke" />
-          <motion.path d={wirePath(xs)} fill="none" stroke="#1b2a4a" strokeWidth="2.5" strokeLinejoin="round" vectorEffect="non-scaling-stroke" style={{ pathLength: inked }} />
-          <path d={wirePath(xs)} fill="none" stroke="#ffc83d" strokeWidth="4" strokeLinecap="round" strokeDasharray="0.5 14" vectorEffect="non-scaling-stroke" className="energy-flow" opacity=".9" />
+          <path d={wirePath(xs, ROW)} fill="none" stroke="#1b2a4a" strokeOpacity=".18" strokeWidth="2" strokeDasharray="5 6" vectorEffect="non-scaling-stroke" />
+          <motion.path d={wirePath(xs, ROW)} fill="none" stroke="#1b2a4a" strokeWidth="2.5" strokeLinejoin="round" vectorEffect="non-scaling-stroke" style={{ pathLength: inked }} />
+          <path d={wirePath(xs, ROW)} fill="none" stroke="#ffc83d" strokeWidth="4" strokeLinecap="round" strokeDasharray="0.5 14" vectorEffect="non-scaling-stroke" className="energy-flow" opacity=".9" />
         </svg>
       ))}
 
@@ -97,15 +100,11 @@ export function JourneyMap() {
               <Reveal delay={0.08}>
                 <Link href={`/worlds/${w.id}`} className="group block transition hover:-translate-y-1">
                   <RatingPlate
-                    code={`WORLD ${String(w.number).padStart(2, "0")}`}
+                    code={`World ${String(w.number).padStart(2, "0")}`}
+                    note={wp.status === "soon" ? "Coming soon" : `${wp.available} of ${w.lessons.length} live`}
                     title={w.title}
                     subtitle={w.tagline}
                     accent={w.color}
-                    specs={[
-                      { k: "Lessons", v: String(w.lessons.length) },
-                      { k: "Time", v: `${Math.round(totalMinutes(w) / 6) / 10}h` },
-                      { k: wp.status === "soon" ? "Status" : "Live", v: wp.status === "soon" ? "Soon" : String(wp.available) },
-                    ]}
                     meter={{ done: hydrated ? wp.done : 0, live: wp.available, total: w.lessons.length }}
                   >
                     <div className="relative h-16 border-b-[1.5px] border-ink sm:h-20 md:h-24" style={{ background: w.tint }}>
@@ -120,5 +119,19 @@ export function JourneyMap() {
         );
       })}
     </div>
+  );
+}
+
+const mq = "(min-width: 768px)";
+/** Matches the md breakpoint; mobile-first on the server. */
+function useIsDesktop() {
+  return useSyncExternalStore(
+    (cb) => {
+      const m = window.matchMedia(mq);
+      m.addEventListener("change", cb);
+      return () => m.removeEventListener("change", cb);
+    },
+    () => window.matchMedia(mq).matches,
+    () => false,
   );
 }

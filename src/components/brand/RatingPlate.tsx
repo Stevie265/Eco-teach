@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
  */
 export function RatingPlate({
   code,
+  note,
   title,
   subtitle,
   specs,
@@ -16,6 +17,8 @@ export function RatingPlate({
   className = "",
 }: {
   code: string;
+  /** short readout shown top-right of the header, e.g. "6 lessons · 1.2h" */
+  note?: string;
   title: string;
   subtitle?: string;
   specs?: { k: string; v: string }[];
@@ -26,11 +29,11 @@ export function RatingPlate({
 }) {
   return (
     <div className={`plate plate-rivets overflow-hidden rounded-2xl ${className}`}>
-      <div className="flex items-center justify-between border-b-[1.5px] border-ink px-6 py-1.5">
-        <span className="readout text-[10px] font-bold text-ink">eco·teach</span>
+      <div className="flex items-center justify-between gap-2 border-b-[1.5px] border-ink px-6 py-1.5">
         <span className="readout text-[10px] font-bold" style={{ color: accent }}>
           {code}
         </span>
+        {note && <span className="readout truncate text-[10px] font-bold text-ink-soft">{note}</span>}
       </div>
       {children}
       <div className="px-3 pb-3 pt-2.5 sm:px-4 sm:pb-4">
