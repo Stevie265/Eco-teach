@@ -52,12 +52,15 @@ export default function Home() {
         <Reveal>
           <h2 className="font-display t-h2 mb-4 text-forest-900 sm:mb-6">Tools for thinking</h2>
         </Reveal>
-        <div className="grid gap-4 md:grid-cols-3 md:gap-5">
+        <div className="grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4">
+          <Reveal>
+            <Feature href="/breakthroughs" icon={<WorldGlyph glyph="bolt" className="h-10 w-10" />} title="Breakthrough Breakdown" body="The technologies changing energy, each explained in four illustrated steps, then what the latest breakthrough really changed." bg="#ffc83d" fg="#1b2a4a" sub="#3c4a63" />
+          </Reveal>
           <Reveal>
             <Feature href="/ripple" icon={<WorldGlyph glyph="eye" className="h-10 w-10" />} title="Ripple Explorer" body="Drop a trend into the system and watch it ripple through the industry to the customer. Add your own connections." bg="#12304a" fg="#fff" sub="#9fd0f0" />
           </Reveal>
           <Reveal delay={0.08}>
-            <Feature href="/capstone" icon={<WorldGlyph glyph="spark" className="h-10 w-10" />} title="Capstone challenge" body="Turn what you've learned into a strategic opportunity assessment to share with colleagues." bg="#ffd23f" fg="#13283a" sub="#4a5d6b" />
+            <Feature href="/capstone" icon={<WorldGlyph glyph="spark" className="h-10 w-10" />} title="Capstone challenge" body="Turn what you've learned into a strategic opportunity assessment to share with colleagues." bg="#dcf4e4" fg="#13283a" sub="#4a5d6b" />
           </Reveal>
           <Reveal delay={0.16}>
             <Feature href="/sources" icon={<WorldGlyph glyph="coins" className="h-10 w-10" />} title="Research & sources" body="Every claim linked, dated and labelled: established fact, forecast, company claim or reasoned scenario." bg="#fff" fg="#13283a" sub="#4a5d6b" />

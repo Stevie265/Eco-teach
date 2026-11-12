@@ -74,6 +74,12 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[worldId]
               </div>
             </div>
           )}
+          {(world.id === "technology" || world.id === "future-home") && (
+            <Link href="/breakthroughs" className="block rounded-2xl border-[1.5px] border-ink bg-forest-900 p-4 text-white shadow-[3px_3px_0_#1b2a4a]">
+              <div className="font-display text-lg">Breakthrough Breakdown →</div>
+              <p className="text-sm text-[#9fd0f0]">Each technology in four simple illustrated steps.</p>
+            </Link>
+          )}
           {world.id === "startups" && (
             <Link href="/companies" className="block rounded-2xl bg-forest-900 p-4 text-white shadow-[0_5px_0_#0b2133]">
               <div className="font-display text-lg">Company Explorer →</div>

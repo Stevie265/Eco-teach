@@ -24,6 +24,7 @@ Eco-teach is an interactive learning platform that takes curious, non-technical 
 | **Diagnostic** (`/start`) | Seven questions on knowledge, familiarity, goals and role, which recommend a starting lesson and focus worlds. |
 | **Progression** | XP, levels, daily streaks, achievements, mastery per lesson, review sessions (`/review`). |
 | **Dashboard** (`/dashboard`) | Overall and per-world progress, mastered topics, topics to revise, activity and achievements, plus export and reset. |
+| **Breakthrough Breakdown** (`/breakthroughs`) | Seven technologies (sodium-ion, perovskite tandem solar, iron-air, enhanced geothermal, solid-state, vehicle-to-grid, heat pumps) explained in four swipeable illustrated steps each, then the actual breakthrough with sourced, evidence-labelled facts, a Lab → Mainstream maturity track, gains, limits and what it means for homes. Content in `src/content/breakthroughs.ts`, scenes in `src/components/breakthroughs/Scenes.tsx`. |
 | **Ripple Explorer** (`/ripple`) | Follow a trend through environment → industry → customer. "Play the ripple", inspect evidence status, add your own nodes and save notes. |
 | **Company Explorer** (`/companies`) | Incumbents, insurgents, scale-ups and failures; filter and compare up to three business models. |
 | **Capstone** (`/capstone`) | Seven-step strategic opportunity assessment with a shareable view, Markdown copy and print/PDF. |
@@ -83,6 +84,7 @@ src/
     worlds.ts               Ten worlds + lesson outlines
     lessons/                One file per full lesson + index.ts registry
     sources.ts              Source registry (dated, linkable)
+    breakthroughs.ts        Breakthrough Breakdown content (frames, facts, maturity)
     ripples.ts              Ripple Explorer trends
     companies.ts            Company Explorer profiles
     diagnostic.ts           Diagnostic questions + recommendation logic

@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Flame, Map, RotateCcw, User, Waves, Zap } from "lucide-react";
+import { Flame, Map, User, Waves, Zap } from "lucide-react";
 import { streak, useHydrated, useProgress } from "@/lib/progress";
 
 const LINKS = [
   { href: "/", label: "Journey" },
+  { href: "/breakthroughs", label: "Breakthroughs" },
   { href: "/ripple", label: "Ripple Explorer" },
   { href: "/companies", label: "Companies" },
   { href: "/capstone", label: "Capstone" },
@@ -15,8 +16,8 @@ const LINKS = [
 
 const TABS = [
   { href: "/", label: "Journey", icon: Map },
+  { href: "/breakthroughs", label: "Tech", icon: Zap },
   { href: "/ripple", label: "Ripple", icon: Waves },
-  { href: "/review", label: "Review", icon: RotateCcw },
   { href: "/dashboard", label: "Me", icon: User },
 ];
 
@@ -120,6 +121,7 @@ export function SiteFooter() {
           <Link href="/" className="block hover:text-white">Journey map</Link>
           <Link href="/start" className="block hover:text-white">Starting diagnostic</Link>
           <Link href="/review" className="block hover:text-white">Review session</Link>
+          <Link href="/breakthroughs" className="block hover:text-white">Breakthrough Breakdown</Link>
           <Link href="/dashboard" className="block hover:text-white">Dashboard</Link>
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-2 sm:block sm:space-y-2">
