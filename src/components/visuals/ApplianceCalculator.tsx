@@ -109,7 +109,7 @@ export function ApplianceCalculator() {
               </div>
             </div>
             <div className="mt-3 text-xs text-ink-soft">
-              ≈ {Math.round(yearly).toLocaleString()} kWh/year vs Ofgem&apos;s &lsquo;typical&rsquo; 2,700 kWh ({Math.round((yearly / 2700) * 100)}%)
+              ≈ {Math.round(yearly).toLocaleString()} kWh/year vs Ofgem&apos;s &lsquo;typical&rsquo; 2,500 kWh ({Math.round((yearly / 2500) * 100)}%)
             </div>
           </div>
           <p className="rounded-lg bg-paper-2 p-3 text-xs text-ink-soft">

@@ -8,7 +8,7 @@ export const powerVsEnergy: Lesson = {
   minutes: 12,
   level: "foundation",
   reviewed: "2026-11-12",
-  sources: [{ id: "ofgem-tdcv" }, { id: "energyuk-tdcv-2026" }, { id: "ofgem-price-cap" }, { id: "eia-bills-2024" }],
+  sources: [{ id: "ofgem-cap-jul-2026" }, { id: "ofgem-tdcv" }, { id: "energyuk-tdcv-2026" }, { id: "ofgem-price-cap" }, { id: "eia-bills-2024" }],
   steps: [
     {
       type: "hook",
@@ -44,14 +44,14 @@ export const powerVsEnergy: Lesson = {
       type: "example",
       title: "Where kW and kWh show up in real life",
       body: [
-        "**Your bill** charges mainly for **energy** (pence per kWh) plus a daily standing charge. Ofgem's 'typical' British household uses **2,700 kWh** of electricity a year (and 11,500 kWh of gas). These are the Typical Domestic Consumption Values used to work out the price cap. Ofgem has consulted on lowering them to 2,500 kWh and 9,500 kWh.",
+        "**Your bill** charges mainly for **energy** (pence per kWh) plus a daily standing charge. Ofgem's 'typical' British household uses **2,500 kWh** of electricity a year (and 9,500 kWh of gas). These Typical Domestic Consumption Values are used to express the price cap, and were lowered from 2,700 kWh and 11,500 kWh on 1 July 2026 because households are using less energy.",
         "**A home battery** has *two* numbers: power (e.g. 5 kW, how much it can supply at once) and capacity (e.g. 13.5 kWh, how much it can store). A big capacity with low power can run the fridge all evening but can't boil the kettle and run the oven at the same time.",
         "**The grid** worries about **power at peak**: the highest kW demand at any moment, usually on winter weekday evenings. Networks and power stations have to be sized for that peak, even if it only lasts an hour.",
         "**UK vs US:** the average US residential customer used about **865 kWh a month** in 2024 (around 10,400 kWh a year), close to four times the British 'typical' figure. Air conditioning, electric heating and bigger homes explain much of the gap.",
       ],
       facts: [
-        { text: "Ofgem's medium Typical Domestic Consumption Values are 2,700 kWh/year electricity and 11,500 kWh/year gas.", evidence: "established", sources: [{ id: "ofgem-tdcv" }] },
-        { text: "Ofgem has proposed revising the medium values to 2,500 kWh electricity and 9,500 kWh gas.", evidence: "established", sources: [{ id: "energyuk-tdcv-2026" }] },
+        { text: "Since 1 July 2026, Ofgem's medium Typical Domestic Consumption Values are 2,500 kWh/year electricity and 9,500 kWh/year gas.", evidence: "established", sources: [{ id: "ofgem-cap-jul-2026" }] },
+        { text: "The previous (2023) values were 2,700 kWh electricity and 11,500 kWh gas; Ofgem lowered them to reflect falling household consumption.", evidence: "established", sources: [{ id: "energyuk-tdcv-2026" }, { id: "ofgem-tdcv" }] },
         { text: "US residential customers used on average 865 kWh per month in 2024.", evidence: "established", sources: [{ id: "eia-bills-2024" }] },
       ],
     },
@@ -135,7 +135,7 @@ export const powerVsEnergy: Lesson = {
       points: [
         "Power (kW) is a rate, how fast. Energy (kWh) is an amount, how much. Energy = power × time.",
         "Bills charge mostly for energy (kWh). The grid is built for peak power (kW).",
-        "A 'typical' British home uses about 2,700 kWh of electricity a year. A typical US home uses roughly four times that.",
+        "A 'typical' British home uses about 2,500 kWh of electricity a year (Ofgem, 2026). A typical US home uses roughly four times that.",
       ],
       next: "Next: why supply and demand must match every single second, and what happened when they didn't on 9 August 2019.",
     },

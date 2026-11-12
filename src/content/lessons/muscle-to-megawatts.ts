@@ -81,7 +81,7 @@ export const muscleToMegawatts: Lesson = {
         ],
         solution: ["fire", "mills", "steam", "holborn", "ratcliffe"],
         feedback:
-          "Notice the gaps between rungs get shorter. Fire to mills took millennia, steam to the power station about 150 years, and the coal exit a decade or so. Change is speeding up, but each rung still took decades to spread.",
+          "Notice the gaps between rungs get shorter. Fire to mills took millennia; the first practical steam engine (1712) to the first public power station (1882) took about 170 years; and coal power in Britain lasted 142 years, though its final collapse took only about a decade. Change is speeding up, but each rung still took decades to spread.",
       },
     },
     {

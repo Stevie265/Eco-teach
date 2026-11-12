@@ -36,7 +36,7 @@ export const keeping50hz: Lesson = {
         "Electricity is very hard to store at grid scale, so for most of history the grid has had to produce **exactly as much power as is being used, every second**.",
         "The signal that tells operators whether they're winning is **frequency**. In Great Britain, AC electricity alternates **50 times a second (50 Hz)**. In North America it's 60 Hz. Traditional generators have huge spinning turbines locked in step with that rhythm.",
         "If demand exceeds supply, those turbines are slightly 'dragged', so they slow down and **frequency falls**. If supply exceeds demand, they speed up and **frequency rises**. Think of a cyclist going up and down hills: the pedalling (supply) must match the slope (demand) or the speed (frequency) changes.",
-        "The system operator (today **NESO**, the National Energy System Operator) keeps frequency within tight limits. The normal operating range is **49.8–50.2 Hz**. The statutory limits are **49.5–50.5 Hz**. If frequency falls to **48.8 Hz**, an automatic last line of defence called **Low Frequency Demand Disconnection (LFDD)** cuts off blocks of customers to save the rest of the system.",
+        "The system operator (today **NESO**, the National Energy System Operator) keeps frequency within tight limits. The normal operating range is **49.8–50.2 Hz**. The statutory limits are **49.5–50.5 Hz**. If frequency falls to **48.8 Hz**, an automatic last line of defence called **Low Frequency Demand Disconnection (LFDD)** begins cutting off blocks of customers to save the rest of the system. 48.8 Hz is the first of several stages; more demand is shed if frequency keeps falling.",
       ],
       terms: [
         { term: "Frequency (Hz)", definition: "How many times per second alternating current changes direction. It's the grid's heartbeat and its real-time balance gauge." },
@@ -57,7 +57,7 @@ export const keeping50hz: Lesson = {
       title: "What actually happened on 9 August",
       body: [
         "According to the system operator's technical report, the lightning strike caused the near-simultaneous loss of output from **Hornsea One** offshore wind farm and the **Little Barford** gas power station, plus a large amount of small embedded generation that disconnected automatically.",
-        "Backup reserves were deployed, but the combined loss was bigger than the reserve being held. Frequency fell below the 49.5 Hz statutory limit to **48.8 Hz**, and LFDD disconnected around **5% of demand**, about 1.1 million customers, for roughly 15–45 minutes. Frequency was back to normal within about 5 minutes.",
+        "Backup reserves were deployed, but the combined loss was bigger than the reserve being held. Frequency fell below the 49.5 Hz statutory limit to **48.8 Hz**, and the first stage of LFDD disconnected around **5% of demand**, about 1.1 million customers, for roughly 15–45 minutes. Frequency was back to normal within about 5 minutes.",
         "The lesson experts drew: the automatic safety net **worked**, keeping a much bigger blackout from happening. But the event exposed how a system with less inertia and more distributed generation can behave in unexpected ways. It led to tighter rules for small generators and investment in faster-responding services, including batteries.",
       ],
       facts: [

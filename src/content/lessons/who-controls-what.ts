@@ -14,11 +14,11 @@ export const whoControlsWhat: Lesson = {
       type: "hook",
       title: "1.6 million homes, one request",
       body: [
-        "In winter 2022/23, Britain's system operator asked something new of ordinary households: **use less electricity for an hour at peak time, and get paid for it**. Over **1.6 million** households and businesses took part through 31 providers, across 22 events.",
+        "In winter 2022/23, Britain's system operator asked something new of ordinary households: **use less electricity for an hour at peak time, and get paid for it**. Over **1.6 million** households and businesses took part through 31 providers, across 22 events (20 tests and 2 live events).",
         "Behind that simple ask sits a stack of systems with confusing acronyms: **HEMS, DRMS, VPP, DERMS**. People in the industry often use them loosely. By the end of this lesson you'll be able to explain each one, and which one is in control when.",
       ],
       fact: {
-        text: "Over 1.6 million households and businesses participated in the Demand Flexibility Service in winter 2022/23, across 31 providers and 22 events.",
+        text: "Over 1.6 million households and businesses participated in the Demand Flexibility Service in winter 2022/23, across 31 providers and 22 events (20 test events and 2 live events).",
         evidence: "established",
         sources: [{ id: "neso-dfs-review-2023" }],
       },
