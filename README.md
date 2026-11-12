@@ -5,7 +5,8 @@
 Eco-teach is an interactive learning platform that takes curious, non-technical people to genuine fluency in the Eco-Tech industry: energy systems, climate science, technology, business models, start-ups, the future of the home, foresight and opportunity design.
 
 - **Live:** https://eco-teach.vercel.app
-- **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Vercel
+- **Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Motion (scroll & parallax) · Vercel
+- **Design:** "Living Landscape": Bricolage Grotesque + Inter, sky/meadow/sunshine palette, chunky tactile buttons, parallax illustrated landscape, lessons in full-screen focus mode
 
 ---
 
@@ -13,9 +14,10 @@ Eco-teach is an interactive learning platform that takes curious, non-technical 
 
 | Area | What it does |
 | --- | --- |
-| **Learning map** (`/`) | Ten connected learning worlds shown as a constellation, plus cards with progress, lesson counts, time and status. |
+| **Journey** (`/`) | A scroll-driven parallax landscape (sky, mountains, turbines, grid, homes), then a winding path that draws itself as you scroll, with each world as an illustrated place. |
 | **World pages** (`/worlds/[worldId]`) | Lesson path with progressive unlocking, mastery badges and links to connected worlds. |
 | **Lesson player** (`/learn/[worldId]/[lessonId]`) | The 8-step lesson structure: hook → explain → visual → real-world example → interaction → knowledge check → application → recap. Resumes where you left off. |
+| **Visual metaphors** | Tap & bath (kW vs kWh), grid seesaw (frequency), energy ladder, additions sketch, roads (transmission vs distribution), personal trainer / coach / choir / traffic control (HEMS, DRMS, VPP, DERMS). |
 | **Interactive visuals** | Energy timeline, centralised vs distributed grid, appliance kW/kWh calculator, grid frequency balancer, HEMS/DRMS/VPP/DERMS control stack. |
 | **Interactions** | Ordering, sorting into buckets and scenario decisions, all data-driven from lesson content. |
 | **Adaptive checks** | A wrong answer offers a simpler, different explanation. Missed questions go into the review queue. |
@@ -71,6 +73,9 @@ src/
     lesson/                 LessonPlayer, Quiz
     interactions/           Order / Sort / Scenario tasks
     visuals/                Interactive diagrams + registry.tsx
+    visuals/metaphors/      Visual metaphors used alongside explanations
+    landscape/              Parallax landscape + illustrated world scenes
+    motion/                 Reveal / Parallax primitives (respect reduced motion)
     ui/                     Nav, glyphs, evidence badges, rich text
   content/                  ← all curriculum content lives here
     types.ts                Content model (World → Lesson → Step)
@@ -95,7 +100,7 @@ src/
 3. Set `available: true` on its outline in `src/content/worlds.ts`.
 4. Reference sources by id. Add any new source to `src/content/sources.ts` with its URL, publication date and checked date.
 
-**A new interactive visual**: build a client component in `src/components/visuals/`, add it to `registry.tsx`, then reference it by name from a lesson's `visual` step.
+**A new interactive visual or metaphor**: build a client component in `src/components/visuals/`, add it to `registry.tsx`, then reference it by name from a `visual` step, or as `visual: { component }` on an `explain` or `example` step to show it beside the text.
 
 **A new interaction**: `order`, `sort` and `scenario` are data-only. Just describe them in the lesson file.
 

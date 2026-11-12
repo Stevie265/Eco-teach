@@ -39,6 +39,7 @@ export const whoControlsWhat: Lesson = {
         { term: "Flexibility", definition: "The ability to shift when electricity is used or produced, in response to a price or signal." },
         { term: "DSO", definition: "Distribution System Operator: the evolving role of local network companies as they actively manage DERs rather than just maintaining wires." },
       ],
+      visual: { component: "ControlMetaphors", caption: "Everyday metaphors for each system. Tap to switch." },
     },
     {
       type: "visual",

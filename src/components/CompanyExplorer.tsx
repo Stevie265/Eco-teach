@@ -67,7 +67,7 @@ export function CompanyExplorer() {
 
       <div className="grid gap-4 md:grid-cols-2">
         {list.map((c) => (
-          <article key={c.id} className="rounded-3xl border border-sand bg-white p-5">
+          <article key={c.id} className="rounded-3xl card-chunky bg-white p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h3 className="font-display text-2xl">{c.name}</h3>

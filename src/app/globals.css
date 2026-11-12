@@ -6,30 +6,33 @@
   a lime "signal" accent and an ember accent for energy and emphasis.
 */
 @theme {
-  --color-forest-950: #0a1c15;
-  --color-forest-900: #0f271d;
-  --color-forest-800: #153628;
-  --color-forest-700: #1d4d38;
-  --color-forest-600: #286a4c;
-  --color-moss-500: #3d8b5d;
-  --color-moss-400: #5ea779;
-  --color-moss-300: #8fc6a1;
-  --color-moss-100: #dcefe2;
-  --color-sprout: #c6e66a;
-  --color-sprout-soft: #eef7cf;
-  --color-paper: #f6f1e7;
-  --color-paper-2: #efe8da;
-  --color-sand: #e3d8c3;
-  --color-ink: #13201a;
-  --color-ink-soft: #3f4f46;
-  --color-ember: #d9602e;
-  --color-ember-soft: #fbe3d6;
-  --color-sun: #eeb33f;
-  --color-sky: #5aa6c9;
-  --color-sky-soft: #dceef6;
+  /* Living Landscape palette: sky, meadow, sunshine, warm paper.
+     Token names are kept stable so components don't need renaming. */
+  --color-forest-950: #0b2133; /* night ink */
+  --color-forest-900: #12304a; /* deep sky ink: headings, dark panels */
+  --color-forest-800: #1b8048; /* meadow green: primary actions */
+  --color-forest-700: #156a3a;
+  --color-forest-600: #2a9a58;
+  --color-moss-500: #2fa560;
+  --color-moss-400: #5cc283;
+  --color-moss-300: #9ad9ae;
+  --color-moss-100: #dff5e6;
+  --color-sprout: #ffd23f; /* sunshine highlight */
+  --color-sprout-soft: #fff4c7;
+  --color-paper: #fffaf0;
+  --color-paper-2: #f4eddf;
+  --color-sand: #e7ddc9;
+  --color-ink: #13283a;
+  --color-ink-soft: #4a5d6b;
+  --color-ember: #ff6b4a; /* coral energy */
+  --color-ember-soft: #ffe3db;
+  --color-sun: #ffc22e;
+  --color-sky: #4fb3e8;
+  --color-sky-soft: #dcf1fc;
+  --color-sky-deep: #2a7fc0;
 
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-display: "Bricolage Grotesque Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
 
   --radius-xl2: 1.25rem;
@@ -70,26 +73,77 @@ body {
 
 .font-display {
   font-family: var(--font-display);
-  font-variation-settings: "SOFT" 50, "WONK" 0;
-  letter-spacing: -0.015em;
+  font-weight: 700;
+  font-variation-settings: "wdth" 92;
+  letter-spacing: -0.025em;
+}
+
+/* Chunky, tactile app buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1rem;
+  padding: 0.85rem 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s;
+  user-select: none;
+}
+.btn:active:not(:disabled) {
+  transform: translateY(3px);
+}
+.btn-primary {
+  background: var(--color-forest-800);
+  color: white;
+  box-shadow: 0 4px 0 var(--color-forest-700);
+}
+.btn-primary:active:not(:disabled) {
+  box-shadow: 0 1px 0 var(--color-forest-700);
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+.btn-primary:disabled {
+  background: #cfd8d3;
+  box-shadow: 0 4px 0 #b8c3bd;
+  color: #f4f7f5;
+}
+.btn-secondary {
+  background: white;
+  color: var(--color-ink);
+  border: 2px solid var(--color-sand);
+  box-shadow: 0 4px 0 var(--color-sand);
+}
+.btn-secondary:active {
+  box-shadow: 0 1px 0 var(--color-sand);
+}
+.btn-sun {
+  background: var(--color-sun);
+  color: var(--color-ink);
+  box-shadow: 0 4px 0 #d99a00;
+}
+.card-chunky {
+  border: 2px solid var(--color-sand);
+  box-shadow: 0 4px 0 var(--color-sand);
 }
 
 /* Subtle paper grain for warmth */
 .grain {
-  background-image: radial-gradient(rgba(19, 32, 26, 0.035) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(19, 40, 58, 0.03) 1px, transparent 1px);
   background-size: 3px 3px;
 }
 
 .prose-eco p {
   line-height: 1.7;
-  margin-bottom: 0.9rem;
 }
-.prose-eco p:last-child {
-  margin-bottom: 0;
+.prose-eco > * + * {
+  margin-top: 1rem;
 }
 .prose-eco strong {
   font-weight: 650;
-  color: var(--color-forest-800);
+  color: var(--color-forest-900);
 }
 
 :focus-visible {
@@ -97,6 +151,19 @@ body {
   outline-offset: 2px;
   border-radius: 6px;
 }
+
+/* Illustration animations */
+.spin { animation: spin var(--spd, 6s) linear infinite; }
+.spin-slow { animation: spin 9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.energy-flow { animation: flow 2.2s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -60; } }
+.hover-float { animation: float 3s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-5px); } }
+.beam { animation: beam 4s ease-in-out infinite; transform-origin: 80px 40px; }
+@keyframes beam { 50% { opacity: 0.12; } }
+.charge { animation: charge 2.4s ease-in-out infinite; transform-origin: bottom; transform-box: fill-box; }
+@keyframes charge { 0% { transform: scaleY(0.2); } 70%, 100% { transform: scaleY(1); } }
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -120,16 +187,18 @@ input[type="range"].eco-range::-webkit-slider-thumb {
   width: 22px;
   height: 22px;
   border-radius: 999px;
-  background: var(--color-forest-700);
-  border: 3px solid var(--color-sprout);
+  background: var(--color-forest-800);
+  border: 3px solid white;
+  box-shadow: 0 2px 0 var(--color-forest-700);
   cursor: pointer;
 }
 input[type="range"].eco-range::-moz-range-thumb {
   width: 22px;
   height: 22px;
   border-radius: 999px;
-  background: var(--color-forest-700);
-  border: 3px solid var(--color-sprout);
+  background: var(--color-forest-800);
+  border: 3px solid white;
+  box-shadow: 0 2px 0 var(--color-forest-700);
   cursor: pointer;
 }
 

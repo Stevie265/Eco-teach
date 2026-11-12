@@ -67,7 +67,7 @@ export function Diagnostic() {
         <p className="mt-4 text-lg text-ink-soft">
           A few quick questions about what you already know, what you want to learn and the work you do. There are no wrong answers, and &ldquo;not sure&rdquo; is genuinely useful.
         </p>
-        <button onClick={() => setI(0)} className="mt-8 inline-flex items-center gap-2 rounded-full bg-forest-800 px-6 py-3.5 font-semibold text-paper">
+        <button onClick={() => setI(0)} className="mt-8 btn btn-primary">
           Begin <ArrowRight className="h-4 w-4" />
         </button>
         <p className="mt-4 text-xs text-ink-soft">Your answers stay in this browser.</p>
@@ -129,7 +129,7 @@ export function Diagnostic() {
         <button onClick={() => setI(i - 1)} className="text-sm font-semibold text-ink-soft">
           ← Back
         </button>
-        <button onClick={nextQ} disabled={!selected.length} className="inline-flex items-center gap-2 rounded-full bg-forest-800 px-6 py-3 font-semibold text-paper disabled:opacity-30">
+        <button onClick={nextQ} disabled={!selected.length} className="btn btn-primary">
           {i + 1 === DIAGNOSTIC.length ? "See my starting point" : "Next"} <ArrowRight className="h-4 w-4" />
         </button>
       </div>

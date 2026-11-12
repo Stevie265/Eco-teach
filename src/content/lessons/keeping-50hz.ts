@@ -44,6 +44,7 @@ export const keeping50hz: Lesson = {
         { term: "Frequency response / reserve", definition: "Generators, batteries or flexible demand paid to react within seconds or minutes when frequency moves." },
         { term: "NESO", definition: "National Energy System Operator, the publicly owned body that balances Great Britain's electricity system (formerly National Grid ESO)." },
       ],
+      visual: { component: "Seesaw", caption: "Metaphor: the grid as a seesaw. Simplified; real frequency moves by fractions of a hertz." },
     },
     {
       type: "visual",

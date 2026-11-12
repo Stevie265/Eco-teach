@@ -4,6 +4,9 @@ import { WORLDS, getWorld, totalMinutes } from "@/content/worlds";
 import { WorldGlyph } from "@/components/ui/WorldGlyph";
 import { WorldLessons } from "@/components/WorldLessons";
 import Link from "next/link";
+import { WorldScene } from "@/components/landscape/WorldScene";
+import { Parallax } from "@/components/motion/Motion";
+import { shade } from "@/lib/color";
 
 export function generateStaticParams() {
   return WORLDS.map((w) => ({ worldId: w.id }));
@@ -24,24 +27,27 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[worldId]
 
   return (
     <div>
-      <section style={{ background: world.tint }} className="border-b border-sand">
-        <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 md:py-16">
-          <Link href="/" className="text-sm font-medium text-ink-soft hover:text-ink">
-            ← Learning map
-          </Link>
-          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center">
-            <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-3xl bg-white shadow-sm">
-              <WorldGlyph glyph={world.glyph} color={world.color} className="h-14 w-14" />
+      <section className="relative overflow-hidden" style={{ background: `linear-gradient(180deg, ${world.tint} 0%, ${world.tint} 70%, #fffaf0 100%)` }}>
+        <div className="mx-auto grid max-w-5xl items-center gap-6 px-4 pb-10 pt-8 sm:px-6 md:grid-cols-[1.2fr_1fr] md:pb-14 md:pt-12">
+          <div>
+            <Link href="/" className="btn btn-secondary px-3 py-1.5 text-sm">
+              ← Journey
+            </Link>
+            <div className="mt-6 flex items-center gap-3">
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: world.color, boxShadow: `0 5px 0 ${shade(world.color)}` }}>
+                <WorldGlyph glyph={world.glyph} color="#fff" className="h-8 w-8" />
+              </span>
+              <span className="font-mono text-sm font-bold" style={{ color: shade(world.color, 0.1) }}>
+                WORLD {String(world.number).padStart(2, "0")} · {world.lessons.length} lessons · ~{Math.round(totalMinutes(world) / 6) / 10}h
+              </span>
             </div>
-            <div>
-              <div className="font-mono text-sm" style={{ color: world.color }}>
-                World {String(world.number).padStart(2, "0")} · {world.lessons.length} lessons · ~{Math.round(totalMinutes(world) / 6) / 10} hours
-              </div>
-              <h1 className="font-display text-4xl text-forest-900 sm:text-5xl">{world.title}</h1>
-              <p className="mt-1 text-lg text-ink-soft">{world.tagline}</p>
-            </div>
+            <h1 className="font-display mt-4 text-5xl leading-[1] text-forest-900 sm:text-6xl">{world.title}</h1>
+            <p className="mt-2 text-xl font-semibold text-ink-soft">{world.tagline}</p>
+            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink">{world.description}</p>
           </div>
-          <p className="mt-6 max-w-3xl text-[17px] leading-relaxed">{world.description}</p>
+          <Parallax speed={0.25}>
+            <WorldScene id={world.id} className="mx-auto w-full max-w-md drop-shadow-sm" />
+          </Parallax>
         </div>
       </section>
 
@@ -69,19 +75,19 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[worldId]
             </div>
           )}
           {world.id === "startups" && (
-            <Link href="/companies" className="block rounded-2xl bg-forest-900 p-4 text-paper">
+            <Link href="/companies" className="block rounded-2xl bg-forest-900 p-4 text-white shadow-[0_5px_0_#0b2133]">
               <div className="font-display text-lg">Company Explorer →</div>
               <p className="text-sm text-moss-300">Compare incumbents, insurgents and failures.</p>
             </Link>
           )}
           {(world.id === "foresight" || world.id === "pestel") && (
-            <Link href="/ripple" className="block rounded-2xl bg-forest-900 p-4 text-paper">
+            <Link href="/ripple" className="block rounded-2xl bg-forest-900 p-4 text-white shadow-[0_5px_0_#0b2133]">
               <div className="font-display text-lg">Ripple Explorer →</div>
               <p className="text-sm text-moss-300">Practise following causal chains.</p>
             </Link>
           )}
           {world.id === "opportunities" && (
-            <Link href="/capstone" className="block rounded-2xl bg-forest-900 p-4 text-paper">
+            <Link href="/capstone" className="block rounded-2xl bg-forest-900 p-4 text-white shadow-[0_5px_0_#0b2133]">
               <div className="font-display text-lg">Capstone challenge →</div>
               <p className="text-sm text-moss-300">Build a strategic opportunity assessment.</p>
             </Link>
@@ -94,7 +100,7 @@ export default async function WorldPage({ params }: PageProps<"/worlds/[worldId]
 
 function ConnLink({ id, title, glyph, color, tint }: { id: string; title: string; glyph: string; color: string; tint: string }) {
   return (
-    <Link href={`/worlds/${id}`} className="flex items-center gap-3 rounded-xl border border-sand bg-white p-2.5 text-sm font-medium hover:shadow">
+    <Link href={`/worlds/${id}`} className="card-chunky flex items-center gap-3 rounded-2xl bg-white p-2.5 text-sm font-bold transition hover:-translate-y-0.5">
       <span className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: tint }}>
         <WorldGlyph glyph={glyph} color={color} className="h-6 w-6" />
       </span>

@@ -36,6 +36,7 @@ export const muscleToMegawatts: Lesson = {
         { term: "Energy carrier", definition: "A form that moves energy from where it's produced to where it's used. Electricity and hydrogen are carriers, not sources." },
         { term: "Energy transition", definition: "A long shift in the mix of sources a society relies on, e.g. from wood to coal, or from fossil fuels to renewables." },
       ],
+      visual: { component: "EnergyLadder", caption: "Metaphor: climbing the energy ladder. Energy content figures are typical textbook approximations (wood ~16, coal ~24, oil/gas ~45 MJ per kg)." },
     },
     {
       type: "visual",
@@ -52,6 +53,7 @@ export const muscleToMegawatts: Lesson = {
         "Energy historian Vaclav Smil argues that this is why transitions take **decades, not years**. Whole systems are built around each fuel: mines, pipelines, power stations, boilers, cars, skills, jobs and habits. They have to be replaced, not just the fuel.",
         "Britain's coal exit shows both sides. Coal's share of UK electricity fell from about a third to almost nothing within roughly a decade. But that came after more than a century of slow change, and it happened in one country with mature alternatives available.",
       ],
+      visual: { component: "AdditionsSketch" },
       facts: [
         {
           text: "About ten years before Ratcliffe closed, coal generated around a third of Britain's electricity (Energy UK, quoted by PA).",

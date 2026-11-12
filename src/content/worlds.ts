@@ -12,8 +12,8 @@ export const WORLDS: World[] = [
     tagline: "The history of energy and environmental change",
     description:
       "From muscle and firewood to coal, oil, the grid and renewables. The historical context behind today's energy transition, and why transitions take decades.",
-    color: "#b5762a",
-    tint: "#f6e9d4",
+    color: "#e0832a",
+    tint: "#fde9d2",
     glyph: "spiral",
     connects: ["energy-system", "climate"],
     lessons: [
@@ -32,8 +32,8 @@ export const WORLDS: World[] = [
     tagline: "Understanding how energy actually works",
     description:
       "Power versus energy, how electricity is made and moved, why the grid must balance second by second, and who does what in the market.",
-    color: "#2f7d9a",
-    tint: "#dceef5",
+    color: "#2a8fd6",
+    tint: "#dbeefc",
     glyph: "pulse",
     connects: ["technology", "business", "future-home"],
     lessons: [
@@ -52,8 +52,8 @@ export const WORLDS: World[] = [
     tagline: "The science behind the transition",
     description:
       "The greenhouse effect, carbon accounting, net zero and embodied carbon, with a constant eye on what is established science versus projection.",
-    color: "#3f8a5c",
-    tint: "#ddefe3",
+    color: "#2fa560",
+    tint: "#dcf4e4",
     glyph: "leaf",
     connects: ["pestel", "foresight"],
     lessons: [
@@ -72,8 +72,8 @@ export const WORLDS: World[] = [
     tagline: "PESTEL and the forces shaping the industry",
     description:
       "Political, Economic, Social, Technological, Environmental and Legal forces, and the causal chains that connect a policy change to a customer decision.",
-    color: "#8a5aa8",
-    tint: "#ece2f3",
+    color: "#8f5be0",
+    tint: "#ece3fb",
     glyph: "compass",
     connects: ["foresight", "business"],
     lessons: [
@@ -91,8 +91,8 @@ export const WORLDS: World[] = [
     tagline: "The technologies changing the industry",
     description:
       "Solar, wind, nuclear, hydrogen, batteries (LFP, NMC, sodium-ion), heat pumps, EV charging, smart grids and AI: how each works, how mature it is and what it costs.",
-    color: "#d9602e",
-    tint: "#fbe3d6",
+    color: "#ff6b4a",
+    tint: "#ffe3db",
     glyph: "bolt",
     connects: ["future-home", "business", "startups"],
     lessons: [
@@ -111,8 +111,8 @@ export const WORLDS: World[] = [
     tagline: "How the industry makes money",
     description:
       "Value chains, unit economics, CAC and LTV, capex versus opex, payback periods, financing, subscriptions and energy-as-a-service, with real company examples.",
-    color: "#2b6b55",
-    tint: "#d9ebe3",
+    color: "#12a08a",
+    tint: "#d4f2ec",
     glyph: "coins",
     connects: ["startups", "opportunities"],
     lessons: [
@@ -130,8 +130,8 @@ export const WORLDS: World[] = [
     tagline: "Start-ups and the companies challenging the market",
     description:
       "Incumbents versus insurgents, disruptive innovation, venture capital, product-market fit, and why some business models fail. Includes the Company Explorer.",
-    color: "#c2455a",
-    tint: "#f7dfe3",
+    color: "#ec4c76",
+    tint: "#fde0e8",
     glyph: "rocket",
     connects: ["business", "opportunities"],
     lessons: [
@@ -148,8 +148,8 @@ export const WORLDS: World[] = [
     tagline: "The home as a connected energy system",
     description:
       "HEMS, smart tariffs, solar, batteries, EVs and heat pumps working together. The difference between HEMS, DERMS, DRMS and VPPs, customer segments and adoption barriers.",
-    color: "#c58a17",
-    tint: "#f8ecd0",
+    color: "#f2a20c",
+    tint: "#fdf0cf",
     glyph: "home",
     connects: ["opportunities", "technology", "energy-system"],
     lessons: [
@@ -167,8 +167,8 @@ export const WORLDS: World[] = [
     tagline: "Learning to understand and anticipate change",
     description:
       "Horizon scanning, weak signals, futures wheels, scenario planning, adoption curves and systems thinking, practised in the Ripple Explorer.",
-    color: "#4b5fb0",
-    tint: "#e0e4f5",
+    color: "#4a68d8",
+    tint: "#e1e7fb",
     glyph: "eye",
     connects: ["opportunities", "pestel"],
     lessons: [
@@ -186,8 +186,8 @@ export const WORLDS: World[] = [
     tagline: "Customer, product and innovation opportunities",
     description:
       "Customer problems, jobs to be done, value propositions, hypotheses and experiments, turning industry knowledge into credible opportunities. Ends in the Capstone.",
-    color: "#167a73",
-    tint: "#d6efed",
+    color: "#119fb5",
+    tint: "#d3f1f6",
     glyph: "spark",
     connects: [],
     lessons: [

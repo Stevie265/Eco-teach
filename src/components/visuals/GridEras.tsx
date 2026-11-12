@@ -14,7 +14,7 @@ export function GridEras() {
     { x: 330, y: 270 },
   ];
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <div className="mb-4 inline-flex rounded-full bg-paper-2 p-1" role="radiogroup" aria-label="Grid era">
         {(["central", "distributed"] as const).map((m) => (
           <button

@@ -55,7 +55,7 @@ function OrderTask({ spec, onDone }: { spec: Extract<InteractionSpec, { kind: "o
   };
 
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <p className="mb-4 text-sm text-ink-soft">{spec.instructions}</p>
       <ol className="space-y-2">
         {items.map((it, i) => {
@@ -82,7 +82,7 @@ function OrderTask({ spec, onDone }: { spec: Extract<InteractionSpec, { kind: "o
       </ol>
       <div className="mt-4 flex flex-wrap items-center gap-3">
         <button
-          className="rounded-full bg-forest-800 px-5 py-2 text-sm font-semibold text-paper"
+          className="btn btn-primary text-sm"
           onClick={() => {
             setChecked(true);
             if (allRight) onDone();
@@ -128,7 +128,7 @@ function SortTask({ spec, onDone }: { spec: Extract<InteractionSpec, { kind: "so
   };
 
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <p className="mb-4 text-sm text-ink-soft">{spec.instructions}</p>
       {!allPlaced && (
         <div className="mb-5 flex flex-wrap gap-2" aria-label="Items to sort">
@@ -206,7 +206,7 @@ function ScenarioTask({ spec, onDone }: { spec: Extract<InteractionSpec, { kind:
   const picked = spec.choices.find((c) => c.id === choice);
   const tone = { strong: "bg-moss-100 border-moss-500", ok: "bg-[#fdf3dc] border-sun", weak: "bg-ember-soft border-ember" };
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <div className="mb-4 rounded-xl bg-forest-900 p-5 text-paper">
         <div className="mb-1 text-xs uppercase tracking-widest text-moss-300">Situation</div>
         <p className="text-[16px] leading-relaxed">{spec.situation}</p>

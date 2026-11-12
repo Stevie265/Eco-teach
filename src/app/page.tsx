@@ -1,90 +1,81 @@
 import Link from "next/link";
 import { ArrowRight, BookMarked, Flag, Waves } from "lucide-react";
-import { WorldMap } from "@/components/WorldMap";
+import { Landscape } from "@/components/landscape/Landscape";
+import { JourneyMap } from "@/components/JourneyMap";
 import { HomeCTA, HomeStats } from "@/components/HomeHero";
+import { Reveal } from "@/components/motion/Motion";
 
 export default function Home() {
   return (
-    <div>
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-sprout/25 blur-3xl" />
-        <div className="pointer-events-none absolute -left-32 top-40 h-[360px] w-[360px] rounded-full bg-moss-300/30 blur-3xl" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pb-12 pt-12 sm:px-6 md:pt-20 lg:grid-cols-[1.4fr_1fr]">
-          <div>
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-forest-800/15 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-forest-700">
-              <span className="h-1.5 w-1.5 animate-pulse-soft rounded-full bg-moss-500" /> Energy · Climate · Technology · The home
-            </p>
-            <h1 className="font-display text-[44px] leading-[1.02] text-forest-900 sm:text-6xl lg:text-7xl">
-              Understand the world that&apos;s <em className="text-moss-500">changing our future.</em>
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
-              Eco-teach takes you from curious to genuinely fluent in the Eco-Tech industry: the science, the technology, the business models and what it all means for customers. Ten connected worlds, bite-sized interactive lessons, credible sources.
-            </p>
-            <div className="mt-8">
-              <HomeCTA />
-            </div>
+    <div className="-mt-16">
+      <Landscape>
+        <div className="max-w-2xl">
+          <p className="mb-5 inline-flex items-center gap-2 rounded-full bg-white/85 px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-[0.16em] text-sky-deep shadow-sm backdrop-blur">
+            <span className="h-2 w-2 animate-pulse-soft rounded-full bg-moss-500" /> Energy · Climate · Tech · The home
+          </p>
+          <h1 className="font-display text-[46px] leading-[0.98] text-forest-900 sm:text-7xl lg:text-[84px]">
+            Understand the world that&apos;s <span className="relative whitespace-nowrap text-forest-800">changing</span> our future.
+          </h1>
+          <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-forest-900/80 sm:text-xl">
+            Bite-sized, visual lessons that take you from curious to fluent in the Eco-Tech industry: the science, the technology, the business and the customer.
+          </p>
+          <div className="mt-8">
+            <HomeCTA />
           </div>
-          <HomeStats />
         </div>
-      </section>
+      </Landscape>
 
-      {/* Map */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-6" aria-labelledby="map-heading">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h2 id="map-heading" className="font-display text-3xl text-forest-900 sm:text-4xl">
-              The learning map
-            </h2>
-            <p className="mt-1 max-w-2xl text-ink-soft">One connected system of knowledge. Follow the path or explore wherever your curiosity takes you.</p>
-          </div>
-          <Link href="/dashboard" className="text-sm font-semibold text-forest-700 underline underline-offset-4">
-            View my progress
-          </Link>
+      {/* Journey */}
+      <section className="relative bg-gradient-to-b from-[#3a9846] via-[#eaf6e2] via-[8%] to-paper pb-16 pt-24" aria-labelledby="journey-heading">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <Reveal>
+            <div className="mb-10 flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
+              <div>
+                <div className="text-xs font-extrabold uppercase tracking-[0.18em] text-moss-500">Your journey</div>
+                <h2 id="journey-heading" className="font-display mt-1 text-4xl text-forest-900 sm:text-5xl">
+                  Ten worlds, one connected system
+                </h2>
+                <p className="mt-2 max-w-xl text-lg text-ink-soft">Follow the path from how we got here to the opportunities ahead, or jump to wherever your curiosity takes you.</p>
+              </div>
+              <div className="w-full md:w-80">
+                <HomeStats />
+              </div>
+            </div>
+          </Reveal>
+          <JourneyMap />
         </div>
-        <WorldMap />
       </section>
 
       {/* Signature features */}
-      <section className="mx-auto mt-16 max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-4 md:grid-cols-3">
-          <Feature
-            href="/ripple"
-            icon={<Waves className="h-6 w-6" />}
-            title="Ripple Explorer"
-            body="Pick a trend and follow its ripples through the industry to the customer. Add your own connections and notes."
-            tone="bg-forest-900 text-paper"
-            sub="text-moss-300"
-          />
-          <Feature
-            href="/capstone"
-            icon={<Flag className="h-6 w-6" />}
-            title="Capstone challenge"
-            body="Turn what you've learned into a strategic opportunity assessment you can share with colleagues."
-            tone="bg-sprout-soft text-forest-900"
-            sub="text-ink-soft"
-          />
-          <Feature
-            href="/sources"
-            icon={<BookMarked className="h-6 w-6" />}
-            title="Research & sources"
-            body="Every claim is linked to its source, dated, and labelled: established fact, forecast, company claim or reasoned scenario."
-            tone="bg-white text-forest-900 border border-sand"
-            sub="text-ink-soft"
-          />
+      <section className="mx-auto max-w-6xl px-4 pb-8 sm:px-6">
+        <Reveal>
+          <h2 className="font-display mb-6 text-3xl text-forest-900 sm:text-4xl">Tools for thinking</h2>
+        </Reveal>
+        <div className="grid gap-5 md:grid-cols-3">
+          <Reveal>
+            <Feature href="/ripple" icon={<Waves className="h-7 w-7" />} title="Ripple Explorer" body="Drop a trend into the system and watch it ripple through the industry to the customer. Add your own connections." bg="#12304a" fg="#fff" sub="#9fd0f0" edge="#0b2133" />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <Feature href="/capstone" icon={<Flag className="h-7 w-7" />} title="Capstone challenge" body="Turn what you've learned into a strategic opportunity assessment to share with colleagues." bg="#ffd23f" fg="#13283a" sub="#4a5d6b" edge="#e0ad00" />
+          </Reveal>
+          <Reveal delay={0.16}>
+            <Feature href="/sources" icon={<BookMarked className="h-7 w-7" />} title="Research & sources" body="Every claim linked, dated and labelled: established fact, forecast, company claim or reasoned scenario." bg="#fff" fg="#13283a" sub="#4a5d6b" edge="#e7ddc9" />
+          </Reveal>
         </div>
       </section>
     </div>
   );
 }
 
-function Feature({ href, icon, title, body, tone, sub }: { href: string; icon: React.ReactNode; title: string; body: string; tone: string; sub: string }) {
+function Feature({ href, icon, title, body, bg, fg, sub, edge }: { href: string; icon: React.ReactNode; title: string; body: string; bg: string; fg: string; sub: string; edge: string }) {
   return (
-    <Link href={href} className={`group rounded-3xl p-6 transition hover:-translate-y-0.5 hover:shadow-lg ${tone}`}>
+    <Link href={href} className="group block h-full rounded-3xl p-6 transition hover:-translate-y-1" style={{ background: bg, color: fg, boxShadow: `0 6px 0 ${edge}`, border: `2px solid ${edge}` }}>
       <div className="mb-4">{icon}</div>
       <h3 className="font-display text-2xl">{title}</h3>
-      <p className={`mt-2 text-[15px] ${sub}`}>{body}</p>
-      <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold">
+      <p className="mt-2 text-[15px]" style={{ color: sub }}>
+        {body}
+      </p>
+      <span className="mt-5 inline-flex items-center gap-1 text-sm font-extrabold">
         Open <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
       </span>
     </Link>

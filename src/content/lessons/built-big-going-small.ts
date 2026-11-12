@@ -31,6 +31,7 @@ export const builtBigGoingSmall: Lesson = {
         { term: "Distribution network", definition: "The lower-voltage 'local roads' that carry power from transmission substations to homes and businesses, run by Distribution Network Operators (DNOs)." },
         { term: "Distributed energy resource (DER)", definition: "A small generator, storage device or flexible load connected near where energy is used, such as rooftop solar, a home battery or an EV charger." },
       ],
+      visual: { component: "RoadsMetaphor", caption: "Metaphor: the grid as a road network." },
     },
     {
       type: "visual",

@@ -32,6 +32,7 @@ export const powerVsEnergy: Lesson = {
         { term: "kWh (kilowatt-hour)", definition: "A unit of energy, an amount. It's what your bill charges you for: 'how much work was done in total?'" },
         { term: "MW / GW", definition: "Megawatts (1,000 kW) and gigawatts (1,000 MW). Power station and grid-scale units." },
       ],
+      visual: { component: "TapAndBath", caption: "Metaphor: the tap is power, the bath is energy." },
     },
     {
       type: "visual",

@@ -25,7 +25,7 @@ export default function SourcesPage() {
         Eco-teach is grounded in credible, linkable sources: regulators, system operators, government statisticians, intergovernmental bodies, academic research and reputable journalism. Every source shows its publication date and the date we last checked it.
       </p>
 
-      <section className="mt-10 rounded-3xl border border-sand bg-white p-6">
+      <section className="mt-10 rounded-3xl card-chunky bg-white p-6">
         <h2 className="font-display text-2xl">How to read our evidence labels</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {(Object.keys(EVIDENCE_STYLE) as Evidence[]).map((e) => (
@@ -48,7 +48,7 @@ export default function SourcesPage() {
             <h2 className="font-display mb-4 text-2xl">{g === "Global" ? "Global" : `${g} perspective`}</h2>
             <div className="space-y-3">
               {list.map((s) => (
-                <div key={s.id} className="rounded-2xl border border-sand bg-white p-4">
+                <div key={s.id} className="rounded-2xl card-chunky bg-white p-4">
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div>
                       {s.url ? (

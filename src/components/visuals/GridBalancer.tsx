@@ -77,7 +77,7 @@ export function GridBalancer() {
   }
 
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <div className="grid gap-6 lg:grid-cols-[1fr_1.1fr]">
         <div className="space-y-4">
           <Slider label="Demand" value={demand} set={setDemand} min={20} max={45} color="#d9602e" />
@@ -93,7 +93,7 @@ export function GridBalancer() {
             >
               ⚡ Trip a 2 GW power station
             </button>
-            <button onClick={reset} className="rounded-full border border-sand px-4 py-2 text-sm font-semibold">
+            <button onClick={reset} className="btn btn-secondary py-2 text-sm">
               Reset
             </button>
           </div>

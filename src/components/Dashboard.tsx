@@ -60,7 +60,7 @@ export function Dashboard() {
       </div>
 
       {/* streak calendar */}
-      <section className="rounded-3xl border border-sand bg-white p-5">
+      <section className="rounded-3xl card-chunky bg-white p-5">
         <h2 className="font-display text-xl">Last two weeks</h2>
         <div className="mt-4 flex gap-1.5">
           {last14.map((d) => (
@@ -79,7 +79,7 @@ export function Dashboard() {
           {WORLDS.map((w) => {
             const wp = worldProgress(w, p);
             return (
-              <Link key={w.id} href={`/worlds/${w.id}`} className="flex items-center gap-4 rounded-2xl border border-sand bg-white p-3 hover:shadow">
+              <Link key={w.id} href={`/worlds/${w.id}`} className="flex items-center gap-4 rounded-2xl card-chunky bg-white p-3 hover:shadow">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" style={{ background: w.tint }}>
                   <WorldGlyph glyph={w.glyph} color={w.color} className="h-7 w-7" />
                 </span>
@@ -103,7 +103,7 @@ export function Dashboard() {
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* mastery */}
-        <section className="rounded-3xl border border-sand bg-white p-5">
+        <section className="rounded-3xl card-chunky bg-white p-5">
           <h2 className="font-display text-xl">Topics mastered</h2>
           {mastered.length ? (
             <ul className="mt-3 space-y-1.5 text-[15px]">
@@ -129,7 +129,7 @@ export function Dashboard() {
                 ))}
               </ul>
               {missed.length > 0 && (
-                <Link href="/review" className="mt-4 inline-flex items-center gap-2 rounded-full bg-forest-800 px-4 py-2 text-sm font-semibold text-paper">
+                <Link href="/review" className="mt-4 btn btn-primary text-sm">
                   <RotateCcw className="h-4 w-4" /> Review {missed.length} question{missed.length > 1 ? "s" : ""}
                 </Link>
               )}
@@ -140,7 +140,7 @@ export function Dashboard() {
         </section>
 
         {/* activity */}
-        <section className="rounded-3xl border border-sand bg-white p-5">
+        <section className="rounded-3xl card-chunky bg-white p-5">
           <h2 className="font-display text-xl">Recent activity</h2>
           {p.activity.length ? (
             <ul className="mt-3 space-y-2 text-sm">
@@ -188,7 +188,7 @@ export function Dashboard() {
           <strong className="text-ink">Your data:</strong> progress is stored only in this browser. It isn&apos;t sent anywhere, and it won&apos;t follow you to another device (accounts are on the roadmap).
         </p>
         <div className="mt-3 flex flex-wrap gap-3">
-          <button onClick={download} className="rounded-full border border-sand bg-white px-4 py-1.5 font-semibold text-ink">
+          <button onClick={download} className="btn btn-secondary">
             Download my progress
           </button>
           {confirmReset ? (
@@ -196,7 +196,7 @@ export function Dashboard() {
               Yes, erase everything
             </button>
           ) : (
-            <button onClick={() => setConfirmReset(true)} className="rounded-full border border-sand bg-white px-4 py-1.5 font-semibold text-ink">
+            <button onClick={() => setConfirmReset(true)} className="btn btn-secondary">
               Reset progress
             </button>
           )}

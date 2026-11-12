@@ -52,10 +52,10 @@ export function Capstone() {
         </div>
         <div className="flex items-center gap-3 text-sm">
           <span className="text-ink-soft">{filled}/7 sections</span>
-          <button onClick={() => { navigator.clipboard?.writeText(markdown); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="inline-flex items-center gap-1.5 rounded-full border border-sand bg-white px-3 py-1.5 font-semibold">
+          <button onClick={() => { navigator.clipboard?.writeText(markdown); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="inline-flex items-center gap-1.5 btn btn-secondary">
             <Copy className="h-4 w-4" /> {copied ? "Copied" : "Copy as Markdown"}
           </button>
-          <button onClick={() => { persist(); setView("preview"); setTimeout(() => window.print(), 100); }} className="inline-flex items-center gap-1.5 rounded-full border border-sand bg-white px-3 py-1.5 font-semibold">
+          <button onClick={() => { persist(); setView("preview"); setTimeout(() => window.print(), 100); }} className="inline-flex items-center gap-1.5 btn btn-secondary">
             <Printer className="h-4 w-4" /> Print / PDF
           </button>
         </div>
@@ -68,7 +68,7 @@ export function Capstone() {
             <input value={d.title} onChange={(e) => set("title", e.target.value)} onBlur={persist} placeholder="e.g. Battery-as-a-service for renters" className="font-display mt-1 w-full rounded-xl border border-sand bg-white p-3 text-2xl" />
           </label>
           {FIELDS.map((f) => (
-            <label key={f.key} className="block rounded-2xl border border-sand bg-white p-4">
+            <label key={f.key} className="block rounded-2xl card-chunky bg-white p-4">
               <span className="flex items-center gap-3">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-forest-800 font-mono text-sm font-bold text-sprout">{f.step}</span>
                 <span className="font-semibold">{f.label}</span>
@@ -80,7 +80,7 @@ export function Capstone() {
           <p className="text-xs text-ink-soft">Saved in this browser as you go. Don&apos;t include confidential company information if you plan to share this widely.</p>
         </div>
       ) : (
-        <article className="rounded-3xl border border-sand bg-white p-8 sm:p-12">
+        <article className="rounded-3xl card-chunky bg-white p-8 sm:p-12">
           <div className="text-xs font-bold uppercase tracking-widest text-moss-500">Strategic opportunity assessment</div>
           <h2 className="font-display mt-2 text-4xl text-forest-900">{d.title || "Untitled opportunity"}</h2>
           <div className="mt-8 space-y-7">

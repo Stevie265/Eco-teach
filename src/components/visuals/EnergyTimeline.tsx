@@ -63,7 +63,7 @@ export function EnergyTimeline() {
   const [active, setActive] = useState(0);
   const era = ERAS[active];
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <div className="relative mb-6">
         <div className="absolute left-0 right-0 top-5 h-1 rounded-full bg-gradient-to-r from-[#b5762a] via-[#3f4f46] via-50% to-[#3d8b5d] opacity-40" />
         <ol className="relative grid grid-cols-6 gap-1" role="tablist" aria-label="Energy eras">

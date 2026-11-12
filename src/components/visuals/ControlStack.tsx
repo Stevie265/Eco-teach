@@ -49,7 +49,7 @@ export function ControlStack() {
   const [active, setActive] = useState("hems");
   const layer = LAYERS.find((l) => l.id === active)!;
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <div className="grid gap-6 md:grid-cols-[1fr_1.2fr]">
         <div className="space-y-2" role="tablist" aria-label="Control layers" aria-orientation="vertical">
           {LAYERS.map((l, i) => (

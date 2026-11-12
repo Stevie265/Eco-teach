@@ -27,7 +27,7 @@ export function ApplianceCalculator() {
   const maxKwh = Math.max(3, ...rows.map((r) => r.kwh));
 
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
         <div className="space-y-2">
           {APPLIANCES.map((a) => (

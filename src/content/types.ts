@@ -115,11 +115,18 @@ export type InteractionSpec =
       choices: { id: string; label: string; outcome: string; quality: "strong" | "ok" | "weak" }[];
     };
 
+/** An inline visual metaphor or diagram shown alongside text */
+export interface InlineVisual {
+  component: string;
+  props?: Record<string, unknown>;
+  caption?: string;
+}
+
 export type Step =
   | { type: "hook"; title: string; body: string[]; fact?: Fact }
-  | { type: "explain"; title: string; body: string[]; terms?: GlossaryTerm[] }
+  | { type: "explain"; title: string; body: string[]; terms?: GlossaryTerm[]; visual?: InlineVisual }
   | { type: "visual"; title: string; intro?: string; component: string; props?: Record<string, unknown>; caption?: string }
-  | { type: "example"; title: string; body: string[]; facts?: Fact[] }
+  | { type: "example"; title: string; body: string[]; facts?: Fact[]; visual?: InlineVisual }
   | { type: "interact"; title: string; intro?: string; interaction: InteractionSpec }
   | { type: "check"; title: string; questions: QuizQuestion[] }
   | { type: "apply"; title: string; body: string[]; prompt?: string }

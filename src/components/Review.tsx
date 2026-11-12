@@ -33,10 +33,10 @@ export function Review() {
 
   if (set.length === 0) {
     return (
-      <div className="rounded-3xl border border-sand bg-white p-8 text-center">
+      <div className="rounded-3xl card-chunky bg-white p-8 text-center">
         <h2 className="font-display text-2xl">Nothing to review yet</h2>
         <p className="mt-2 text-ink-soft">Complete a lesson and its questions will appear here for spaced review.</p>
-        <Link href="/" className="mt-6 inline-block rounded-full bg-forest-800 px-5 py-2.5 font-semibold text-paper">
+        <Link href="/" className="mt-6 inline-block btn btn-primary">
           Go to the map
         </Link>
       </div>
@@ -46,12 +46,12 @@ export function Review() {
   if (!started) {
     const wrongCount = set.filter(({ question }) => p.questions[question.id]?.last === "wrong").length;
     return (
-      <div className="rounded-3xl border border-sand bg-white p-8">
+      <div className="rounded-3xl card-chunky bg-white p-8">
         <h2 className="font-display text-2xl">{set.length} questions ready</h2>
         <p className="mt-2 text-ink-soft">
           {wrongCount > 0 ? `${wrongCount} you found tricky last time, plus some from lessons you've finished.` : "A quick retrieval workout from lessons you've finished."} Retrieval practice is one of the best-evidenced ways to make learning stick.
         </p>
-        <button onClick={() => setStarted(true)} className="mt-6 rounded-full bg-forest-800 px-6 py-3 font-semibold text-paper">
+        <button onClick={() => setStarted(true)} className="mt-6 btn btn-primary">
           Start review
         </button>
       </div>
@@ -60,14 +60,14 @@ export function Review() {
 
   if (done !== null) {
     return (
-      <div className="rounded-3xl border border-sand bg-white p-8 text-center">
+      <div className="rounded-3xl card-chunky bg-white p-8 text-center">
         <h2 className="font-display text-3xl">Review complete</h2>
         <p className="mt-2 text-ink-soft">{Math.round(done * 100)}% right first time. +15 XP for showing up.</p>
         <div className="mt-6 flex justify-center gap-3">
-          <button onClick={() => { setDone(null); setRound(round + 1); }} className="rounded-full bg-forest-800 px-5 py-2.5 font-semibold text-paper">
+          <button onClick={() => { setDone(null); setRound(round + 1); }} className="btn btn-primary">
             Another round
           </button>
-          <Link href="/dashboard" className="rounded-full border border-sand px-5 py-2.5 font-semibold">
+          <Link href="/dashboard" className="btn btn-secondary">
             Dashboard
           </Link>
         </div>

@@ -46,7 +46,7 @@ export function Quiz({ questions, onComplete }: { questions: QuizQuestion[]; onC
   if (finished) {
     const pct = Math.round((firstTryRight / questions.length) * 100);
     return (
-      <div className="animate-rise rounded-2xl border border-sand bg-white p-6 text-center">
+      <div className="animate-rise rounded-2xl card-chunky bg-white p-6 text-center">
         <div className="font-display text-5xl text-forest-800">{pct}%</div>
         <p className="mt-2 text-ink-soft">
           {firstTryRight} of {questions.length} right first time.{" "}
@@ -57,7 +57,7 @@ export function Quiz({ questions, onComplete }: { questions: QuizQuestion[]; onC
   }
 
   return (
-    <div className="rounded-2xl border border-sand bg-white p-4 sm:p-6">
+    <div className="rounded-2xl card-chunky bg-white p-4 sm:p-6">
       <div className="mb-3 flex items-center justify-between text-xs text-ink-soft">
         <span>
           Question {idx + 1} of {questions.length}
@@ -119,7 +119,7 @@ export function Quiz({ questions, onComplete }: { questions: QuizQuestion[]; onC
             </div>
           )}
           {isRight && (
-            <button onClick={next} className="rounded-full bg-forest-800 px-5 py-2 text-sm font-semibold text-paper">
+            <button onClick={next} className="btn btn-primary text-sm">
               {idx + 1 >= questions.length ? "See result" : "Next question →"}
             </button>
           )}

@@ -210,7 +210,7 @@ export function RippleExplorer() {
 
         {/* detail */}
         {sel ? (
-          <div className="animate-rise rounded-3xl border border-sand bg-white p-5" aria-live="polite">
+          <div className="animate-rise rounded-3xl card-chunky bg-white p-5" aria-live="polite">
             <div className="flex flex-wrap items-center gap-2">
               <span className="font-mono text-sm text-ink-soft">#{sel.n}</span>
               {"evidence" in sel ? <EvidenceBadge evidence={sel.evidence} /> : <span className="rounded-full bg-paper-2 px-2.5 py-0.5 text-[11px] font-semibold uppercase">Your connection</span>}
@@ -270,7 +270,7 @@ export function RippleExplorer() {
               <textarea value={form.detail} onChange={(e) => setForm({ ...form, detail: e.target.value })} rows={2} className="mt-1 w-full rounded-lg border border-sand bg-paper p-2" />
             </label>
           </div>
-          <button onClick={addNode} disabled={!form.title.trim()} className="mt-3 rounded-full bg-forest-800 px-5 py-2 text-sm font-semibold text-paper disabled:opacity-30">
+          <button onClick={addNode} disabled={!form.title.trim()} className="mt-3 btn btn-primary text-sm">
             Add to the ripple
           </button>
         </div>
@@ -301,7 +301,7 @@ export function RippleExplorer() {
               </ul>
             </div>
           )}
-          <label className="block rounded-3xl border border-sand bg-white p-5">
+          <label className="block rounded-3xl card-chunky bg-white p-5">
             <span className="font-semibold">My observations</span>
             <textarea
               value={note}
